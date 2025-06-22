@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Mail, Phone, MapPin, Send, Linkedin, Github } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Linkedin, Github, MessageCircle as WhatsApp } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { toast } from 'react-toastify';
 
 const Contact: React.FC = () => {
   const { t } = useLanguage();
@@ -18,13 +19,34 @@ const Contact: React.FC = () => {
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' });
-  };
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try {
+    const response = await fetch('https://formspree.io/f/mzzgjpzr', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      toast.success('Message sent successfully!',{
+        position: "top-right",
+      });
+      // Reset form
+      setFormData({ name: '', email: '', subject: '', message: ''
+      });
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } else {
+      alert('Failed to send message.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred. Try again later.');
+  }
+};
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -34,25 +56,32 @@ const Contact: React.FC = () => {
   };
 
   const contactInfo = [
-    {
-      icon: Mail,
-      label: t('contact.email'),
-      value: 'abdoulayekardara@gmail.com',
-      href: 'mailto:abdoulayekardara@gmail.com',
-    },
-    {
-      icon: Phone,
-      label: t('contact.phone'),
-      value: '+250 791 375 009',
-      href: 'tel:+250791375009',
-    },
-    {
-      icon: MapPin,
-      label: 'Location',
-      value: 'Kigali, Rwanda',
-      href: '#',
-    },
-  ];
+  {
+    icon: Mail,
+    label: 'Email',
+    value: 'abdoulayekardara@gmail.com',
+    href: 'mailto:abdoulayekardara@gmail.com',
+  },
+  {
+    icon: WhatsApp,
+    label: 'WhatsApp',
+    value: 'Start a chat on WhatsApp',
+    href: 'https://wa.me/250791375009?text=Hello%20Abdoulaye%2C%20I%20got%20your%20contact%20from%20your%20website',
+  },
+  {
+    icon: Phone,
+    label: 'Phone',
+    value: '+250 791 375 009',
+    href: 'tel:+250791375009',
+  },
+  {
+    icon: MapPin,
+    label: 'Location',
+    value: 'Kigali, Rwanda',
+    href: 'https://www.google.com/maps/place/Kigali,+Rwanda/',
+  },
+];
+
 
   const socialLinks = [
     {
