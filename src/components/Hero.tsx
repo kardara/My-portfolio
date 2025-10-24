@@ -9,7 +9,7 @@ const Hero: React.FC = () => {
   const handleDownloadCV = () => {
     // Create a link to download CV - you can replace this with actual CV file
     const link = document.createElement('a');
-    link.href = '/cv-abdoulaye-zakaria-djerou.pdf'; // You'll need to add this file to public folder
+    link.href = '/My_CV.pdf'; // You'll need to add this file to public folder
     link.download = 'CV-Abdoulaye-Zakaria-Djerou.pdf';
     link.click();
   };
