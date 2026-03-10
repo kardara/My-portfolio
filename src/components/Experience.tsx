@@ -24,7 +24,7 @@ const Experience: React.FC = () => {
         "Team Leadership",
         "Technical Strategy",
       ],
-      color: "from-indigo-500 to-blue-600",
+      color: "from-cyan-500 to-blue-600",
     },
     {
       title: "Teaching Assistant - Web Technology & Internet",
@@ -34,7 +34,7 @@ const Experience: React.FC = () => {
       description:
         "Support undergraduate students in learning HTML, CSS, JavaScript, React, Tailwind CSS, and Spring Boot through practical exercises and full-stack projects. Assist in clarifying complex concepts, reviewing code, and introducing Agile workflows.",
       highlights: ["Full-Stack Education", "Code Review", "Mentorship"],
-      color: "from-purple-500 to-indigo-600",
+      color: "from-green-500 to-emerald-600",
     },
     {
       title: "Trainee & Volunteer Coach",
@@ -48,7 +48,7 @@ const Experience: React.FC = () => {
         "Agile Methodology",
         "Developer Coaching",
       ],
-      color: "from-blue-500 to-cyan-600",
+      color: "from-amber-500 to-orange-600",
     },
   ];
 
@@ -102,7 +102,7 @@ const Experience: React.FC = () => {
           className="relative"
         >
           {/* Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-500 via-purple-500 to-blue-600 transform md:-translate-x-1/2"></div>
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-500 via-green-500 to-emerald-600 transform md:-translate-x-1/2"></div>
 
           <div className="space-y-12">
             {experiences.map((exp, index) => (

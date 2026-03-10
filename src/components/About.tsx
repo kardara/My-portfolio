@@ -17,28 +17,28 @@ const About: React.FC = () => {
       title: "Full-Stack Expertise",
       description:
         "Expert in modern JavaScript frameworks, backend technologies, and database design",
-      color: "from-indigo-500 to-blue-600",
+      color: "from-cyan-500 to-blue-600",
     },
     {
       icon: Users,
       title: "Team Leadership",
       description:
         "Lead Software Engineer with mentorship experience and Agile workflow expertise",
-      color: "from-purple-500 to-indigo-600",
+      color: "from-green-500 to-emerald-600",
     },
     {
       icon: Brain,
       title: "Problem Solving",
       description:
         "Strong analytical skills with focus on scalable, reliable, and secure solutions",
-      color: "from-blue-500 to-cyan-600",
+      color: "from-rose-500 to-pink-600",
     },
     {
       icon: Target,
       title: "Community Focus",
       description:
         "Passionate about creating technology that serves and empowers communities",
-      color: "from-indigo-500 to-purple-600",
+      color: "from-amber-500 to-orange-600",
     },
   ];
 
@@ -59,7 +59,7 @@ const About: React.FC = () => {
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
             About Me
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-blue-600 mx-auto mb-6"></div>
+          <div className="w-20 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto mb-4"></div>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Building bridges between ideas and innovation
           </p>

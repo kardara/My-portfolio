@@ -1,8 +1,8 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import {  Clock } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import React from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { Clock } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const Projects: React.FC = () => {
   const { t } = useLanguage();
@@ -13,58 +13,69 @@ const Projects: React.FC = () => {
 
   const projects = [
     {
-      title: 'Kardara Stock Management System',
-      description: 'A comprehensive Java-based stock control system featuring role-based access, automatic updates, and a user-friendly interface.',
-      technologies: ['Java', 'Swing', 'MySQL', 'JDBC'],
-      status: 'completed',
-      image: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800',
-      github: '#',
-      demo: '#',
+      title: "MyTaskMangement BestSeller",
+      description:
+        "A full-stack task management application with intuitive UI and robust backend. Frontend built with modern React/TypeScript components, backend with Java handling complex business logic and database operations.",
+      technologies: ["TypeScript", "React", "Java", "PostgreSQL"],
+      status: "completed",
+      image:
+        "https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/kardara/MyTaskMangement_BestSeller_Frontend",
+      demo: "#",
     },
     {
-      title: 'MediReminder',
-      description: 'A Flutter mobile app that reminds users when to take their medications, improving treatment adherence through a sleek and intuitive interface.',
-      technologies: ['Flutter', 'Dart', 'SQLite', 'Local Notifications'],
-      status: 'completed',
-      image: 'https://images.pexels.com/photos/3683074/pexels-photo-3683074.jpeg?auto=compress&cs=tinysrgb&w=800',
-      github: '#',
-      demo: '#',
+      title: "Student Management System",
+      description:
+        "Comprehensive full-stack solution for managing student records, enrollment, and academic progress. Features role-based access control, data validation, and real-time updates across frontend and backend.",
+      technologies: ["JavaScript", "React", "Java", "PostgreSQL"],
+      status: "completed",
+      image:
+        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/kardara/Student-management-system-frontend",
+      demo: "#",
     },
     {
-      title: 'Employee Attendance Management',
-      description: 'A system to track employee attendance and leave requests with robust security built using Spring Boot and React.',
-      technologies: ['Spring Boot', 'React', 'PostgreSQL', 'JWT'],
-      status: 'completed',
-      image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
-      github: '#',
-      demo: '#',
+      title: "AUCA Online Application Portal",
+      description:
+        "Modern web application for AUCA university's online application system. Built with TypeScript and React, provides seamless user experience for prospective students to apply and track their applications.",
+      technologies: ["TypeScript", "React", "Tailwind CSS", "API Integration"],
+      status: "completed",
+      image:
+        "https://images.pexels.com/photos/3945657/pexels-photo-3945657.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/kardara/auca-online-application-fronend",
+      demo: "#",
     },
     {
-      title: 'Predictive Policing in Rwanda',
-      description: 'This project leverages Big Data and machine learning to predict and visualize crime patterns in Rwanda, enabling smarter and more proactive policing strategies.',
-      technologies: ['Python', 'Machine Learning', 'Data Visualization', 'Big Data'],
-      status: 'completed',
-      image: 'https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg?auto=compress&cs=tinysrgb&w=800',
-      github: '#',
-      demo: '#',
+      title: "AUCA Library Management System (IMS)",
+      description:
+        "Integrated library and inventory management system for AUCA. Manages book inventory, borrowing/returning, student records, and generates reports. Built with Java for robust backend operations.",
+      technologies: ["Java", "Swing", "MySQL", "CRUD Operations"],
+      status: "completed",
+      image: "/lms.png",
+      github: "https://github.com/kardara/auca-lms-testing",
+      demo: "#",
     },
     {
-      title: 'AUCA Library Management System',
-      description: 'A complete LMS using Java Swings where admin can track borrowed books, issue books, and manage students and books. Students can login and request to borrow books.',
-      technologies: ['Java', 'Swing', 'MySQL', 'CRUD Operations'],
-      status: 'completed',
-      image: '/lms.png',
-      github: '#',
-      demo: '#',
+      title: "React VanLife - Travel Showcase",
+      description:
+        "A modern React application showcasing van rental listings with filtering, sorting, and detailed view pages. Demonstrates strong component architecture, state management, and responsive design principles.",
+      technologies: ["React", "JavaScript", "React Router", "CSS"],
+      status: "completed",
+      image:
+        "https://images.pexels.com/photos/3408356/pexels-photo-3408356.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/kardara/react-scrimba-vanlife",
+      demo: "#",
     },
     {
-      title: 'MotoExpress',
-      description: 'A full-stack platform for express motor delivery service — integrates real-time tracking, service scheduling, and customer feedback.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Socket.io', 'Maps API'],
-      status: 'development',
-      image: 'https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=800',
-      github: '#',
-      demo: '#',
+      title: "StudyBuddy - Collaborative Learning",
+      description:
+        "Full-stack collaborative learning platform built with .NET and modern web technologies. Enables students to collaborate, share resources, and track learning progress with real-time updates.",
+      technologies: ["TypeScript", "React", ".NET", "SQL Server"],
+      status: "completed",
+      image:
+        "https://images.pexels.com/photos/6238128/pexels-photo-6238128.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/kardara/Studybuddy-Frontend-G1-.Net",
+      demo: "#",
     },
   ];
 
@@ -79,10 +90,12 @@ const Projects: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            {t('projects.title')}
+            {t("projects.title")}
           </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto mb-4"></div>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            A showcase of my technical skills and creative problem-solving through real-world applications
+            A showcase of my technical skills and creative problem-solving
+            through real-world applications
           </p>
         </motion.div>
 
@@ -103,13 +116,13 @@ const Projects: React.FC = () => {
                   className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
                 />
                 <div className="absolute top-4 right-4">
-                  {project.status === 'development' ? (
-                    <span className="px-3 py-1 bg-yellow-500 text-white text-xs font-medium rounded-full flex items-center gap-1">
+                  {project.status === "development" ? (
+                    <span className="px-3 py-1 bg-amber-500 text-white text-xs font-medium rounded-full flex items-center gap-1">
                       <Clock size={12} />
-                      {t('projects.inDevelopment')}
+                      {t("projects.inDevelopment")}
                     </span>
                   ) : (
-                    <span className="px-3 py-1 bg-green-500 text-white text-xs font-medium rounded-full">
+                    <span className="px-3 py-1 bg-emerald-500 text-white text-xs font-medium rounded-full">
                       Completed
                     </span>
                   )}
@@ -125,14 +138,24 @@ const Projects: React.FC = () => {
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                  {project.technologies.map((tech, techIndex) => {
+                    // Alternate between different developer colors
+                    const colors = [
+                      "bg-cyan-100 dark:bg-cyan-900 text-cyan-800 dark:text-cyan-200",
+                      "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200",
+                      "bg-rose-100 dark:bg-rose-900 text-rose-800 dark:text-rose-200",
+                      "bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200",
+                    ];
+                    const colorClass = colors[techIndex % colors.length];
+                    return (
+                      <span
+                        key={techIndex}
+                        className={`px-3 py-1 ${colorClass} text-xs font-medium rounded-full`}
+                      >
+                        {tech}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
             </motion.div>
