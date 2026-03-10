@@ -68,7 +68,7 @@ const Contact: React.FC = () => {
       icon: Mail,
       label: "Email",
       value: "azdjerou@gmail.com",
-      href: "mailto:abdoulayekardara@gmail.com",
+      href: "mailto:azdjerou@gmail.com",
     },
     {
       icon: WhatsApp,
@@ -106,7 +106,7 @@ const Contact: React.FC = () => {
     {
       icon: Mail,
       label: "Email",
-      href: "mailto:abdoulayekardara@gmail.com",
+      href: "mailto:azdjerou@gmail.com",
       color: "hover:text-red-600",
     },
   ];
