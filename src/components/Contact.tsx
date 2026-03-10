@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { Mail, Phone, MapPin, Send, Linkedin, Github, MessageCircle as WhatsApp } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Linkedin,
+  Github,
+  MessageCircle as WhatsApp,
+} from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
+import { toast } from "react-toastify";
 
 const Contact: React.FC = () => {
   const { t } = useLanguage();
@@ -13,42 +21,42 @@ const Contact: React.FC = () => {
   });
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  try {
-    const response = await fetch('https://formspree.io/f/mzzgjpzr', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("https://formspree.io/f/mzzgjpzr", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (response.ok) {
-      toast.success('Message sent successfully!',{
-        position: "top-right",
-      });
-      // Reset form
-      setFormData({ name: '', email: '', subject: '', message: ''
-      });
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } else {
-      alert('Failed to send message.');
+      if (response.ok) {
+        toast.success("Message sent successfully!", {
+          position: "top-right",
+        });
+        // Reset form
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        alert("Failed to send message.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Try again later.");
     }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('An error occurred. Try again later.');
-  }
-};
+  };
 
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -56,51 +64,50 @@ const handleSubmit = async (e: React.FormEvent) => {
   };
 
   const contactInfo = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'abdoulayekardara@gmail.com',
-    href: 'mailto:abdoulayekardara@gmail.com',
-  },
-  {
-    icon: WhatsApp,
-    label: 'WhatsApp',
-    value: 'Start a chat on WhatsApp',
-    href: 'https://wa.me/250791375009?text=Hello%20Abdoulaye%2C%20I%20got%20your%20contact%20from%20your%20website',
-  },
-  {
-    icon: Phone,
-    label: 'Phone',
-    value: '+250 791 375 009',
-    href: 'tel:+250791375009',
-  },
-  {
-    icon: MapPin,
-    label: 'Location',
-    value: 'Kigali, Rwanda',
-    href: 'https://www.google.com/maps/place/Kigali,+Rwanda/',
-  },
-];
-
+    {
+      icon: Mail,
+      label: "Email",
+      value: "azdjerou@gmail.com",
+      href: "mailto:abdoulayekardara@gmail.com",
+    },
+    {
+      icon: WhatsApp,
+      label: "WhatsApp",
+      value: "Start a chat on WhatsApp",
+      href: "https://wa.me/250791375009?text=Hello%20Abdoulaye%2C%20I%20got%20your%20contact%20from%20your%20website",
+    },
+    {
+      icon: Phone,
+      label: "Phone",
+      value: "+250 791 375 009",
+      href: "tel:+250791375009",
+    },
+    {
+      icon: MapPin,
+      label: "Location",
+      value: "Kigali, Rwanda",
+      href: "https://www.google.com/maps/place/Kigali,+Rwanda/",
+    },
+  ];
 
   const socialLinks = [
     {
       icon: Linkedin,
-      label: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/abdoulaye-zakaria-djerou-022613327',
-      color: 'hover:text-blue-600',
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/abdoulaye-zakaria-djerou-022613327",
+      color: "hover:text-blue-600",
     },
     {
       icon: Github,
-      label: 'GitHub',
-      href: 'https://github.com/kardara',
-      color: 'hover:text-gray-900 dark:hover:text-white',
+      label: "GitHub",
+      href: "https://github.com/kardara",
+      color: "hover:text-gray-900 dark:hover:text-white",
     },
     {
       icon: Mail,
-      label: 'Email',
-      href: 'mailto:abdoulayekardara@gmail.com',
-      color: 'hover:text-red-600',
+      label: "Email",
+      href: "mailto:abdoulayekardara@gmail.com",
+      color: "hover:text-red-600",
     },
   ];
 
@@ -115,13 +122,13 @@ const handleSubmit = async (e: React.FormEvent) => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            {t('contact.title')}
+            {t("contact.title")}
           </h2>
           <p className="text-xl text-blue-600 dark:text-blue-400 font-medium mb-4">
-            {t('contact.subtitle')}
+            {t("contact.subtitle")}
           </p>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            {t('contact.description')}
+            {t("contact.description")}
           </p>
         </motion.div>
 
