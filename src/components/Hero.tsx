@@ -1,21 +1,24 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ChevronDown, Download, Mail, Linkedin, Github } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import React from "react";
+import { motion } from "framer-motion";
+import { ChevronDown, Download, Mail, Linkedin, Github } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const Hero: React.FC = () => {
   const { t, language } = useLanguage();
 
   const handleDownloadCV = () => {
     // Create a link to download CV - you can replace this with actual CV file
-    const link = document.createElement('a');
-    link.href = '/My_CV.pdf'; // You'll need to add this file to public folder
-    link.download = 'CV-Abdoulaye-Zakaria-Djerou.pdf';
+    const link = document.createElement("a");
+    link.href = "/Zakaria_CV.pdf"; // You'll need to add this file to public folder
+    link.download = "CV-Abdoulaye-Zakaria-Djerou.pdf";
     link.click();
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section
+      id="home"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+    >
       {/* Background Animation */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900">
         <div className="absolute inset-0">
@@ -49,7 +52,7 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className={`space-y-6 ${language === 'ar' ? 'text-right' : 'text-left'}`}
+            className={`space-y-6 ${language === "ar" ? "text-right" : "text-left"}`}
           >
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -57,7 +60,7 @@ const Hero: React.FC = () => {
               transition={{ delay: 0.2 }}
               className="text-lg text-blue-600 dark:text-blue-400 font-medium"
             >
-              {t('hero.greeting')}
+              {t("hero.greeting")}
             </motion.p>
 
             <motion.h1
@@ -67,7 +70,7 @@ const Hero: React.FC = () => {
               className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight"
             >
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
-                {t('hero.name')}
+                {t("hero.name")}
               </span>
             </motion.h1>
 
@@ -76,17 +79,14 @@ const Hero: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
               className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-medium"
-            >
-            </motion.h2>
+            ></motion.h2>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
               className="space-y-3 text-gray-600 dark:text-gray-400"
-            >
-
-            </motion.div>
+            ></motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -94,7 +94,7 @@ const Hero: React.FC = () => {
               transition={{ delay: 0.6 }}
               className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed"
             >
-              {t('hero.description')}
+              {t("hero.description")}
             </motion.p>
 
             <motion.div
@@ -107,9 +107,13 @@ const Hero: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300"
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() =>
+                  document
+                    .getElementById("contact")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
               >
-                {t('hero.cta')}
+                {t("hero.cta")}
               </motion.button>
 
               <motion.button
@@ -119,7 +123,7 @@ const Hero: React.FC = () => {
                 className="px-8 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg font-medium hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all duration-300 flex items-center gap-2"
               >
                 <Download size={20} />
-                {t('hero.downloadCV')}
+                {t("hero.downloadCV")}
               </motion.button>
             </motion.div>
 
@@ -132,7 +136,7 @@ const Hero: React.FC = () => {
             >
               <motion.a
                 whileHover={{ scale: 1.1, y: -2 }}
-                href="mailto:abdoulayekardara@gmail.com"
+                href="mailto:azdjerou@gmail.com"
                 className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <Mail size={20} />
@@ -183,7 +187,7 @@ const Hero: React.FC = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              
+
               {/* Floating Elements */}
               <motion.div
                 animate={{ rotate: 360 }}
@@ -192,7 +196,7 @@ const Hero: React.FC = () => {
               >
                 💻
               </motion.div>
-              
+
               <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
