@@ -8,8 +8,8 @@ const Skills: React.FC = () => {
   const { t } = useLanguage();
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0,
-    rootMargin: "220px 0px -80px 0px",
+    threshold: 0.05,
+    rootMargin: "120px 0px -60px 0px",
   });
 
   const skillLogoSlug: Record<string, string> = {
@@ -197,11 +197,7 @@ const Skills: React.FC = () => {
                   <div className="absolute right-0 top-0 h-full w-8 sm:w-16 bg-gradient-to-l from-[var(--dev-panel)] to-transparent z-10" />
                   <div
                     className={`skills-marquee-track ${isEven ? "skills-marquee-left" : "skills-marquee-right"}`}
-                    style={
-                      inView
-                        ? { animationDuration: `${28 + categoryIndex * 3}s` }
-                        : { animationPlayState: "paused" }
-                    }
+                    style={{ animationDuration: `${28 + categoryIndex * 3}s` }}
                   >
                     {rowItems.map((skill, skillIndex) => {
                       const logoSlug = skillLogoSlug[skill];

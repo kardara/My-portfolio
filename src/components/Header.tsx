@@ -131,17 +131,23 @@ const Header: React.FC = () => {
           : "bg-[var(--dev-bg)]/40 md:bg-transparent border-b md:border-b-0 border-[var(--dev-border)]/30 md:border-0"
       }`}
     >
-      <nav className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
-        <div className="flex items-center justify-between">
+      <nav className="container mx-auto px-3 sm:px-6 py-2.5 sm:py-4">
+        <div className="flex items-center justify-between gap-2 min-w-0">
           <motion.div
             whileHover={{ scale: 1.05 }}
             onClick={() => handleNavClick("#home")}
-            className="terminal-title text-sm md:text-base font-semibold dev-muted cursor-pointer hover:opacity-80 transition-opacity"
+            className="terminal-title text-[11px] sm:text-sm md:text-base font-semibold dev-muted cursor-pointer hover:opacity-80 transition-opacity whitespace-nowrap min-w-0"
           >
-            <span style={{ color: "var(--color-accent)" }}>azd</span>
-            <span className="dev-muted">@portfolio:</span>
-            <span style={{ color: "var(--color-primary)" }}>~</span>
-            <span style={{ color: "var(--color-secondary)" }}>$</span>
+            <span className="max-[430px]:hidden">
+              <span style={{ color: "var(--color-accent)" }}>azd</span>
+              <span className="dev-muted">@portfolio:</span>
+              <span style={{ color: "var(--color-primary)" }}>~</span>
+              <span style={{ color: "var(--color-secondary)" }}>$</span>
+            </span>
+            <span className="hidden max-[430px]:inline">
+              <span style={{ color: "var(--color-accent)" }}>azd</span>
+              <span style={{ color: "var(--color-secondary)" }}>$</span>
+            </span>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -176,7 +182,7 @@ const Header: React.FC = () => {
           </div>
 
           {/* Theme Toggle, Language Selector */}
-          <div className="flex items-center space-x-2 sm:space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
             <div className="hidden md:flex items-center gap-2">
               <motion.button
                 whileHover={{ y: -1 }}
@@ -201,7 +207,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* Language Selector */}
-            <div className="relative group">
+            <div className="relative group hidden sm:block">
               <button className="flex items-center space-x-1 dev-text transition-colors group-hover:text-[var(--color-primary)]">
                 <Globe size={20} />
                 <span className="hidden sm:inline text-sm font-medium">
@@ -281,6 +287,32 @@ const Header: React.FC = () => {
               );
             })}
             <div className="pt-3 grid grid-cols-1 gap-2">
+              <div className="grid grid-cols-3 gap-2">
+                {languages.map((lang) => (
+                  <motion.button
+                    key={lang.code}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setLanguage(lang.code as "en" | "fr" | "ar")}
+                    className="py-2 rounded-lg terminal-title text-sm font-semibold border transition-all duration-200"
+                    style={
+                      language === lang.code
+                        ? {
+                            backgroundColor: "var(--color-primary)",
+                            color: "#0d1117",
+                            borderColor: "var(--color-primary)",
+                          }
+                        : {
+                            backgroundColor: "var(--dev-panel)",
+                            color: "var(--dev-text)",
+                            borderColor: "var(--dev-border)",
+                          }
+                    }
+                  >
+                    {lang.label}
+                  </motion.button>
+                ))}
+              </div>
+
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={() => {

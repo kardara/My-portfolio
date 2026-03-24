@@ -453,15 +453,24 @@
       gap: 0.6rem;
       padding-inline: 1rem;
     }
+
+    .skills-marquee-row {
+      overflow-x: clip;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     body::before,
     body::after,
     #root::before,
-    .type-cursor,
-    .skills-marquee-track {
+    .type-cursor {
       animation: none !important;
+    }
+
+    .skills-marquee-track {
+      animation-duration: 80s !important;
+      animation-timing-function: linear !important;
+      animation-iteration-count: infinite !important;
     }
 
     a,
