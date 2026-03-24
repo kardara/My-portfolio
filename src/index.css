@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 :root {
+  --mouse-x: 50vw;
+  --mouse-y: 50vh;
+  --mouse-active: 0;
+
   /* Professional Developer Palette: 3 Colors */
   --color-primary: #58a6ff; /* Cyan - Main accent */
   --color-secondary: #3fb950; /* Green - Success & highlights */
@@ -186,6 +190,28 @@
     animation: devPulse 6s ease-in-out infinite;
   }
 
+  #root::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(
+        260px circle at var(--mouse-x) var(--mouse-y),
+        rgba(88, 166, 255, 0.16),
+        rgba(88, 166, 255, 0.08) 28%,
+        transparent 68%
+      ),
+      radial-gradient(
+        380px circle at var(--mouse-x) var(--mouse-y),
+        rgba(63, 185, 80, 0.1),
+        transparent 72%
+      );
+    opacity: calc(var(--mouse-active) * 1);
+    transition: opacity 0.45s ease;
+  }
+
   #root {
     position: relative;
     z-index: 1;
@@ -243,6 +269,10 @@
     backdrop-filter: blur(8px);
     position: relative;
     overflow: hidden;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      border-color 0.25s ease;
   }
 
   .shell-panel::before {
@@ -372,7 +402,43 @@
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
   }
 
+  @media (hover: hover) and (pointer: fine) {
+    a,
+    button,
+    [role="button"],
+    input,
+    textarea {
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        background-color 0.2s ease;
+    }
+
+    a:hover,
+    button:hover,
+    [role="button"]:hover {
+      transform: translateY(-1px);
+    }
+
+    .shell-panel:hover {
+      border-color: color-mix(
+        in srgb,
+        var(--color-primary) 35%,
+        var(--dev-border)
+      );
+      box-shadow:
+        0 18px 34px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(88, 166, 255, 0.12);
+    }
+  }
+
   @media (max-width: 768px) {
+    #root::before {
+      opacity: 0.6;
+    }
+
     body::before {
       animation-duration: 24s;
     }
@@ -392,9 +458,17 @@
   @media (prefers-reduced-motion: reduce) {
     body::before,
     body::after,
+    #root::before,
     .type-cursor,
     .skills-marquee-track {
       animation: none !important;
+    }
+
+    a,
+    button,
+    [role="button"],
+    .shell-panel {
+      transition: none !important;
     }
   }
 }
