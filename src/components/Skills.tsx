@@ -84,24 +84,13 @@ const Skills: React.FC = () => {
       title: "Web & UI Development",
       icon: Zap,
       accentColor: "#f97316",
-      skills: [
-        "HTML5",
-        "CSS3",
-        "Tailwind CSS",
-        "Responsive Design",
-      ],
+      skills: ["HTML5", "CSS3", "Tailwind CSS", "Responsive Design"],
     },
     {
       title: "Databases & Cloud",
       icon: Database,
       accentColor: "#0284c7",
-      skills: [
-        "PostgreSQL",
-        "MongoDB",
-        "Firebase",
-        "Supabase",
-        "SQL Server",
-      ],
+      skills: ["PostgreSQL", "MongoDB", "Firebase", "Supabase", "SQL Server"],
     },
     {
       title: t("skills.tools"),
@@ -147,7 +136,9 @@ const Skills: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12 sm:mb-16 md:mb-20"
         >
-          <p className="terminal-title text-xs dev-muted mb-3">skills --stack</p>
+          <p className="terminal-title text-xs dev-muted mb-3">
+            skills --stack
+          </p>
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold dev-heading mb-4">
             {t("skills.title")}
           </h2>
@@ -215,13 +206,17 @@ const Skills: React.FC = () => {
                         <motion.div
                           key={`${category.title}-${skillIndex}-${skill}`}
                           className="group flex items-center gap-2 sm:gap-3 min-w-[160px] sm:min-w-[200px] px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-[var(--dev-panel)]/70 transition-all duration-300"
-                          style={{ boxShadow: "0 10px 22px rgba(0, 0, 0, 0.10)" }}
+                          style={{
+                            boxShadow: "0 10px 22px rgba(0, 0, 0, 0.10)",
+                          }}
                           whileHover={{ y: -4, scale: 1.03 }}
                           transition={{ duration: 0.22, ease: "easeOut" }}
                         >
                           <div
                             className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl flex items-center justify-center overflow-hidden"
-                            style={{ backgroundColor: `${category.accentColor}18` }}
+                            style={{
+                              backgroundColor: `${category.accentColor}18`,
+                            }}
                           >
                             <span className="text-xs font-bold terminal-title dev-muted">
                               {getInitials(skill)}
@@ -262,14 +257,19 @@ const Skills: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="shell-panel rounded-2xl overflow-hidden"
           >
-            <div 
+            <div
               className="px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-3 border-b border-[var(--dev-border)]"
-              style={{background: 'linear-gradient(90deg, rgba(168, 85, 247, 0.1), rgba(255,255,255,0))'}}
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(168, 85, 247, 0.1), rgba(255,255,255,0))",
+              }}
             >
               <motion.div
                 whileHover={{ rotate: 10 }}
                 className="p-2 rounded-lg"
-                style={{background: 'linear-gradient(135deg, #a855f7, #a855f740)'}}
+                style={{
+                  background: "linear-gradient(135deg, #a855f7, #a855f740)",
+                }}
               >
                 <Flame className="text-[#a855f7]" size={24} />
               </motion.div>
@@ -287,9 +287,16 @@ const Skills: React.FC = () => {
                   whileHover={{ scale: 1.02, x: 4 }}
                   className="flex items-center gap-3 p-3 rounded-xl border border-[var(--dev-border)] hover:border-[#a855f7] transition-all duration-300 group cursor-default"
                 >
-                  <span className="text-lg group-hover:scale-125 transition-transform duration-300">{skill.icon}</span>
-                  <span className="text-sm sm:text-base font-semibold dev-text flex-1">{skill.name}</span>
-                  <CheckCircle size={16} className="text-[#a855f7] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span className="text-lg group-hover:scale-125 transition-transform duration-300">
+                    {skill.icon}
+                  </span>
+                  <span className="text-sm sm:text-base font-semibold dev-text flex-1">
+                    {skill.name}
+                  </span>
+                  <CheckCircle
+                    size={16}
+                    className="text-[#a855f7] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
                 </motion.div>
               ))}
             </div>
@@ -302,14 +309,19 @@ const Skills: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.7 }}
             className="shell-panel rounded-2xl overflow-hidden"
           >
-            <div 
+            <div
               className="px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-3 border-b border-[var(--dev-border)]"
-              style={{background: 'linear-gradient(90deg, rgba(34, 197, 94, 0.1), rgba(255,255,255,0))'}}
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(34, 197, 94, 0.1), rgba(255,255,255,0))",
+              }}
             >
               <motion.div
                 whileHover={{ rotate: 10 }}
                 className="p-2 rounded-lg"
-                style={{background: 'linear-gradient(135deg, #22c55e, #22c55e40)'}}
+                style={{
+                  background: "linear-gradient(135deg, #22c55e, #22c55e40)",
+                }}
               >
                 <Award className="text-[#22c55e]" size={24} />
               </motion.div>
