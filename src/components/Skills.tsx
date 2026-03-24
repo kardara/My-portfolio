@@ -1,70 +1,120 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Award, Code2, Database, Zap } from "lucide-react";
+import { Award, Code2, Database, Zap, CheckCircle, Flame } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const Skills: React.FC = () => {
+  const { t } = useLanguage();
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
+  const skillLogoSlug: Record<string, string> = {
+    JavaScript: "javascript",
+    TypeScript: "typescript",
+    React: "react",
+    "Next.js": "nextdotjs",
+    "Node.js": "nodedotjs",
+    Express: "express",
+    NestJS: "nestjs",
+    Java: "openjdk",
+    "C#": "csharp",
+    ".NET": "dotnet",
+    Blazor: "blazor",
+    Razor: "dotnet",
+    Python: "python",
+    "Spring Boot": "springboot",
+    Hibernate: "hibernate",
+    Maven: "apachemaven",
+    HTML5: "html5",
+    CSS3: "css3",
+    "Tailwind CSS": "tailwindcss",
+    "Responsive Design": "css3",
+    PostgreSQL: "postgresql",
+    MongoDB: "mongodb",
+    Firebase: "firebase",
+    Supabase: "supabase",
+    "SQL Server": "microsoftsqlserver",
+    "Git/GitHub": "github",
+    Docker: "docker",
+    Postman: "postman",
+    "VS Code": "visualstudiocode",
+    IntelliJ: "intellijidea",
+    Netlify: "netlify",
+    Vercel: "vercel",
+    Render: "render",
+  };
+
+  const getInitials = (value: string) => {
+    const cleaned = value.replace(/[^a-zA-Z0-9 ]/g, "").trim();
+    if (!cleaned) return "SK";
+    const parts = cleaned.split(/\s+/);
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+  };
+
   const skillCategories = [
     {
-      title: "Languages & Frameworks",
+      title: t("skills.languages"),
       icon: Code2,
-      color: "from-green-500 to-emerald-600",
+      accentColor: "#10b981",
       skills: [
-        { name: "JavaScript" },
-        { name: "TypeScript" },
-        { name: "React" },
-        { name: "Next.js" },
-        { name: "Node.js" },
-        { name: "Express" },
-        { name: "Java" },
-        { name: "C#" },
-        { name: "Python" },
-        { name: "Spring Boot" },
-        { name: "Hibernate" },
-        { name: "Maven" },
+        "JavaScript",
+        "TypeScript",
+        "React",
+        "Next.js",
+        "Node.js",
+        "Express",
+        "NestJS",
+        "Java",
+        "C#",
+        ".NET",
+        "Blazor",
+        "Razor",
+        "Python",
+        "Spring Boot",
+        "Hibernate",
+        "Maven",
       ],
     },
     {
       title: "Web & UI Development",
       icon: Zap,
-      color: "from-rose-500 to-pink-600",
+      accentColor: "#f97316",
       skills: [
-        { name: "HTML5" },
-        { name: "CSS3" },
-        { name: "Tailwind CSS" },
-        { name: "Responsive Design" },
+        "HTML5",
+        "CSS3",
+        "Tailwind CSS",
+        "Responsive Design",
       ],
     },
     {
       title: "Databases & Cloud",
       icon: Database,
-      color: "from-cyan-500 to-blue-600",
+      accentColor: "#0284c7",
       skills: [
-        { name: "PostgreSQL" },
-        { name: "MongoDB" },
-        { name: "Firebase" },
-        { name: "Supabase" },
-        { name: "SQL Server" },
+        "PostgreSQL",
+        "MongoDB",
+        "Firebase",
+        "Supabase",
+        "SQL Server",
       ],
     },
     {
-      title: "Tools & Platforms",
+      title: t("skills.tools"),
       icon: Award,
-      color: "from-amber-500 to-orange-600",
+      accentColor: "#f59e0b",
       skills: [
-        { name: "Git/GitHub" },
-        { name: "Docker" },
-        { name: "Postman" },
-        { name: "VS Code" },
-        { name: "IntelliJ" },
-        { name: "Netlify" },
-        { name: "Vercel" },
-        { name: "Render" },
+        "Git/GitHub",
+        "Docker",
+        "Postman",
+        "VS Code",
+        "IntelliJ",
+        "Netlify",
+        "Vercel",
+        "Render",
       ],
     },
   ];
@@ -78,40 +128,41 @@ const Skills: React.FC = () => {
   ];
 
   const softSkills = [
-    "Leadership & Mentorship",
-    "Team Coordination",
-    "Problem Solving",
-    "Agile Methodology",
-    "Code Review",
-    "Technical Communication",
-    "Cross-cultural Collaboration",
+    { name: "Leadership & Mentorship", icon: "👥" },
+    { name: "Team Coordination", icon: "🤝" },
+    { name: "Problem Solving", icon: "🧩" },
+    { name: "Agile Methodology", icon: "⚡" },
+    { name: "Code Review", icon: "👀" },
+    { name: "Technical Communication", icon: "💬" },
+    { name: "Cross-cultural Collaboration", icon: "🌍" },
   ];
 
   return (
-    <section id="skills" className="py-24 bg-white dark:bg-gray-900">
-      <div className="container mx-auto px-6">
-        {/* Header */}
+    <section id="skills" className="py-16 sm:py-20 md:py-24">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-16 md:mb-20"
         >
-          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
-            Technical Expertise
+          <p className="terminal-title text-xs dev-muted mb-3">skills --stack</p>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold dev-heading mb-4">
+            {t("skills.title")}
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-green-500 to-emerald-600 mx-auto mb-6"></div>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            30+ technologies mastered across web, mobile, and backend
-            development
+          <div className="h-1 bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-secondary)]/60 mx-auto mb-6 w-20 rounded-full"></div>
+          <p className="text-base sm:text-lg md:text-xl dev-muted max-w-2xl mx-auto">
+            {t("skills.subtitle")}
           </p>
         </motion.div>
 
-        {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        {/* Animated Skill Rows */}
+        <div className="space-y-4 sm:space-y-6 mb-12 sm:mb-16">
           {skillCategories.map((category, categoryIndex) => {
             const IconComponent = category.icon;
+            const rowItems = [...category.skills, ...category.skills];
+            const isEven = categoryIndex % 2 === 0;
             return (
               <motion.div
                 key={categoryIndex}
@@ -119,44 +170,84 @@ const Skills: React.FC = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: categoryIndex * 0.15 }}
-                className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
+                className="shell-panel rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl"
               >
-                {/* Category Header */}
-                <div className="flex items-center gap-4 mb-8 pb-6 border-b-2 border-gray-200 dark:border-gray-600">
+                <div
+                  className="px-4 sm:px-6 pt-4 sm:pt-5 pb-2 flex items-center gap-2 sm:gap-3"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0))",
+                  }}
+                >
                   <motion.div
-                    whileHover={{ rotate: 10, scale: 1.1 }}
-                    className={`p-4 rounded-2xl bg-gradient-to-r ${category.color} shadow-lg`}
+                    whileHover={{ rotate: 10, scale: 1.15 }}
+                    className="p-2 rounded-lg"
+                    style={{
+                      background: `linear-gradient(135deg, ${category.accentColor}, ${category.accentColor}40)`,
+                    }}
                   >
-                    <IconComponent className="text-white" size={32} />
+                    <IconComponent
+                      className="text-white"
+                      size={24}
+                      style={{ color: category.accentColor }}
+                    />
                   </motion.div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  <div className="flex-1">
+                    <h3 className="text-lg sm:text-xl font-bold dev-heading">
                       {category.title}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                      {category.skills.length} technologies
-                    </p>
                   </div>
                 </div>
 
-                {/* Skills List */}
-                <div className="grid grid-cols-2 gap-3">
-                  {category.skills.map((skill, skillIndex) => (
-                    <motion.div
-                      key={skillIndex}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={inView ? { opacity: 1, scale: 1 } : {}}
-                      transition={{
-                        duration: 0.4,
-                        delay: categoryIndex * 0.15 + skillIndex * 0.03,
-                      }}
-                      whileHover={{ scale: 1.05, y: -4 }}
-                      className={`group relative px-4 py-3 rounded-xl font-semibold text-white text-sm text-center cursor-default bg-gradient-to-r ${category.color} shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden`}
-                    >
-                      <div className="relative z-10">{skill.name}</div>
-                      <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                    </motion.div>
-                  ))}
+                <div className="skills-marquee-row relative overflow-hidden py-4 sm:py-5">
+                  <div className="absolute left-0 top-0 h-full w-8 sm:w-16 bg-gradient-to-r from-[var(--dev-panel)] to-transparent z-10" />
+                  <div className="absolute right-0 top-0 h-full w-8 sm:w-16 bg-gradient-to-l from-[var(--dev-panel)] to-transparent z-10" />
+                  <div
+                    className={`skills-marquee-track ${isEven ? "skills-marquee-left" : "skills-marquee-right"}`}
+                    style={
+                      inView
+                        ? { animationDuration: `${28 + categoryIndex * 3}s` }
+                        : { animationPlayState: "paused" }
+                    }
+                  >
+                    {rowItems.map((skill, skillIndex) => {
+                      const logoSlug = skillLogoSlug[skill];
+                      return (
+                        <motion.div
+                          key={`${category.title}-${skillIndex}-${skill}`}
+                          className="group flex items-center gap-2 sm:gap-3 min-w-[160px] sm:min-w-[200px] px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-[var(--dev-panel)]/70 transition-all duration-300"
+                          style={{ boxShadow: "0 10px 22px rgba(0, 0, 0, 0.10)" }}
+                          whileHover={{ y: -4, scale: 1.03 }}
+                          transition={{ duration: 0.22, ease: "easeOut" }}
+                        >
+                          <div
+                            className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl flex items-center justify-center overflow-hidden"
+                            style={{ backgroundColor: `${category.accentColor}18` }}
+                          >
+                            <span className="text-xs font-bold terminal-title dev-muted">
+                              {getInitials(skill)}
+                            </span>
+                            {logoSlug && (
+                              <motion.img
+                                src={`https://cdn.simpleicons.org/${logoSlug}`}
+                                alt={`${skill} logo`}
+                                loading="lazy"
+                                className="absolute inset-1.5 sm:inset-2 w-7 h-7 sm:w-8 sm:h-8 object-contain"
+                                whileHover={{ rotate: 8, scale: 1.08 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                onError={(event) => {
+                                  event.currentTarget.style.display = "none";
+                                }}
+                              />
+                            )}
+                          </div>
+                          <span className="text-sm sm:text-base font-semibold dev-text whitespace-nowrap group-hover:text-[var(--dev-heading)] transition-colors duration-300">
+                            {skill}
+                          </span>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
                 </div>
               </motion.div>
             );
@@ -164,69 +255,88 @@ const Skills: React.FC = () => {
         </div>
 
         {/* Soft Skills & Certifications Section */}
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8">
           {/* Soft Skills */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-lg border border-violet-100 dark:border-violet-800/30"
+            className="shell-panel rounded-2xl overflow-hidden"
           >
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-3">
+            <div 
+              className="px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-3 border-b border-[var(--dev-border)]"
+              style={{background: 'linear-gradient(90deg, rgba(168, 85, 247, 0.1), rgba(255,255,255,0))'}}
+            >
               <motion.div
                 whileHover={{ rotate: 10 }}
-                className="p-3 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-600"
+                className="p-2 rounded-lg"
+                style={{background: 'linear-gradient(135deg, #a855f7, #a855f740)'}}
               >
-                <Award className="text-white" size={28} />
+                <Flame className="text-[#a855f7]" size={24} />
               </motion.div>
-              Soft Skills
-            </h3>
-            <div className="flex flex-wrap gap-2">
+              <h3 className="text-lg sm:text-xl font-bold dev-heading">
+                {t("skills.softSkills")}
+              </h3>
+            </div>
+            <div className="p-4 sm:p-6 grid grid-cols-1 gap-3">
               {softSkills.map((skill, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
                   animate={inView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 0.7 + index * 0.03 }}
-                  whileHover={{ scale: 1.08, y: -2 }}
-                  className="px-4 py-2 bg-gradient-to-r from-violet-500 to-fuchsia-600 text-white rounded-full text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-300 cursor-default"
+                  transition={{ duration: 0.4, delay: 0.7 + index * 0.05 }}
+                  whileHover={{ scale: 1.02, x: 4 }}
+                  className="flex items-center gap-3 p-3 rounded-xl border border-[var(--dev-border)] hover:border-[#a855f7] transition-all duration-300 group cursor-default"
                 >
-                  {skill}
+                  <span className="text-lg group-hover:scale-125 transition-transform duration-300">{skill.icon}</span>
+                  <span className="text-sm sm:text-base font-semibold dev-text flex-1">{skill.name}</span>
+                  <CheckCircle size={16} className="text-[#a855f7] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </motion.div>
               ))}
             </div>
           </motion.div>
 
-          {/* Certifications */}
+          {/* Certifications - Professional Badge Style */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-lg border border-emerald-100 dark:border-emerald-800/30"
+            className="shell-panel rounded-2xl overflow-hidden"
           >
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-3">
+            <div 
+              className="px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-3 border-b border-[var(--dev-border)]"
+              style={{background: 'linear-gradient(90deg, rgba(34, 197, 94, 0.1), rgba(255,255,255,0))'}}
+            >
               <motion.div
                 whileHover={{ rotate: 10 }}
-                className="p-3 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600"
+                className="p-2 rounded-lg"
+                style={{background: 'linear-gradient(135deg, #22c55e, #22c55e40)'}}
               >
-                <Award className="text-white" size={28} />
+                <Award className="text-[#22c55e]" size={24} />
               </motion.div>
-              Certifications
-            </h3>
-            <div className="space-y-3">
+              <h3 className="text-lg sm:text-xl font-bold dev-heading">
+                {t("skills.certifications")}
+              </h3>
+            </div>
+            <div className="p-4 sm:p-6 space-y-3">
               {certifications.map((cert, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: -20 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.8 + index * 0.05 }}
-                  whileHover={{ x: 8 }}
-                  className="flex items-center gap-3 p-4 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/10 dark:to-green-900/10 rounded-xl border border-emerald-200 dark:border-emerald-700 hover:shadow-md transition-all duration-300 group"
+                  transition={{ duration: 0.5, delay: 0.8 + index * 0.08 }}
+                  whileHover={{ x: 8, scale: 1.02 }}
+                  className="group relative flex items-start gap-3 p-3 sm:p-4 bg-gradient-to-r from-[#22c55e]/10 to-transparent rounded-xl border border-[var(--dev-border)] hover:border-[#22c55e] transition-all duration-300 cursor-default"
                 >
-                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 group-hover:scale-150 transition-transform duration-300"></div>
-                  <span className="text-gray-900 dark:text-white font-medium">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="flex items-center justify-center h-5 w-5 rounded-full bg-[#22c55e]/30 group-hover:bg-[#22c55e]/50 transition-colors duration-300">
+                      <CheckCircle size={14} className="text-[#22c55e]" />
+                    </div>
+                  </div>
+                  <span className="dev-text font-medium text-sm sm:text-base group-hover:text-white transition-colors duration-300">
                     {cert}
                   </span>
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-5 bg-[#22c55e] pointer-events-none transition-opacity duration-300"></div>
                 </motion.div>
               ))}
             </div>

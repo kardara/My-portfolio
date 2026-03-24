@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
-type Language = 'en' | 'fr' | 'ar';
+type Language = "en" | "fr" | "ar";
 
 interface LanguageContextType {
   language: Language;
@@ -11,172 +11,418 @@ interface LanguageContextType {
 const translations = {
   en: {
     // Navigation
-    'nav.home': 'Home',
-    'nav.about': 'About',
-    'nav.projects': 'Projects',
-    'nav.skills': 'Skills',
-    'nav.contact': 'Contact',
-    
+    "nav.home": "Home",
+    "nav.about": "About",
+    "experience.title": "Experience",
+    "experience.subtitle":
+      "Crafting solutions that matter, one project at a time",
+    "nav.projects": "Projects",
+    "nav.skills": "Skills",
+    "nav.contact": "Contact",
+
     // Hero Section
-    'hero.greeting': 'Hi, I\'m',
-    'hero.name': 'Abdoulaye Zakaria Djerou',
-    'hero.title': 'Software Engineering Student | Full-Stack & Mobile Developer | Future Cybersecurity Expert',
-    'hero.description': 'As a passionate software engineering student at Adventist University of Central Africa (AUCA), I\'m at the beginning of my journey to become an IT professional. With a deep interest in web development and design, I thrive on combining technical skills with creativity to build innovative and user-friendly digital solutions.',
-    'hero.location': '🌍 Chadian 🇹🇩 living in Rwanda 🇷🇼',
-    'hero.education': '🎓 Studying at AUCA and currently part of the gym, the most intense software development training program in Rwanda',
-    'hero.passion': '💡 Building real-world tech solutions',
-    'hero.focus': '🔗 Passionate about tech for development and security',
-    'hero.cta': 'Let\'s Connect',
-    'hero.downloadCV': 'Download CV',
-    
+    "hero.greeting": "Hi, I'm",
+    "hero.name": "Abdoulaye Zakaria Djerou",
+    "hero.title":
+      "Software Engineering Student | Full-Stack & Mobile Developer | Future Cybersecurity Expert",
+    "hero.description":
+      "As a passionate software engineering student at Adventist University of Central Africa (AUCA), I'm at the beginning of my journey to become an IT professional. With a deep interest in web development and design, I thrive on combining technical skills with creativity to build innovative and user-friendly digital solutions.",
+    "hero.location": "Chadian 🇹🇩 living in Rwanda 🇷🇼",
+    "hero.education":
+      "Studying at AUCA and currently part of the gym, the most intense software development training program in Rwanda",
+    "hero.passion": "Building real-world tech solutions",
+    "hero.focus": "Passionate about tech for development and security",
+    "hero.cta": "Let's Connect",
+    "hero.downloadCV": "Download CV",
+    "hero.openRoles": "Open to Software Engineering Roles",
+    "hero.summaryLabel": "profile --summary",
+    "hero.projectsStat": "Projects",
+    "hero.activeRolesStat": "Active Roles",
+    "hero.certificationsStat": "Certifications",
+    "hero.scrollNext": "scroll --next",
+    "hero.systemStatus": "system-status",
+    "hero.roleEngineer": "role: engineer",
+    "hero.statusAvailable": "status: available",
+    "hero.locationLabel": "location: Kigali",
+    "hero.focusLabel": "focus: full-stack",
+
     // About Section
-    'about.title': 'About Me',
-    'about.subtitle': 'Passionate Developer & Future Tech Leader',
-    'about.description': 'I am a dedicated software engineering student with a passion for creating innovative solutions that make a real impact. My journey combines technical excellence with creative problem-solving, always focusing on building technology that serves communities and solves real-world problems.',
-    'about.point1': '💻 Passionate about software development, cybersecurity, and networks',
-    'about.point2': 'Currently learning advanced mobile development,full stack software development focused in JavaScript and TypeScript',
-    'about.point3': 'I build software that solves real community problems',
-    'about.point4': 'Community leader, team collaborator, and lifelong learner',
-    
+    "about.title": "About Me",
+    "about.subtitle": "Passionate Developer & Future Tech Leader",
+    "about.description":
+      "I am a dedicated software engineering student with a passion for creating innovative solutions that make a real impact. My journey combines technical excellence with creative problem-solving, always focusing on building technology that serves communities and solves real-world problems.",
+    "about.point1":
+      "Passionate about software development, cybersecurity, and networks",
+    "about.point2":
+      "Currently learning advanced mobile development,full stack software development focused in JavaScript and TypeScript",
+    "about.point3": "I build software that solves real community problems",
+    "about.point4": "Community leader, team collaborator, and lifelong learner",
+    "about.primaryStack": "Primary Tech Stack",
+    "about.currentPositions": "Current Positions",
+    "about.keyAchievements": "Key Achievements",
+    "about.achievement1Title": "6+ Projects Delivered",
+    "about.achievement1Desc": "Full-stack applications in production",
+    "about.achievement2Title": "Multiple Leadership Roles",
+    "about.achievement2Desc": "Community organizations & tech teams",
+    "about.achievement3Title": "3+ Certifications",
+    "about.achievement3Desc": "Networking, design, and technical skills",
+
     // Skills Section
-    'skills.title': 'Technical Skills',
-    'skills.languages': 'Languages & Frameworks',
-    'skills.tools': 'Tools & Platforms',
-    'skills.certifications': 'Certifications & Training',
-    
+    "skills.title": "Technical Skills",
+    "skills.languages": "Languages & Frameworks",
+    "skills.tools": "Tools & Platforms",
+    "skills.certifications": "Certifications & Training",
+    "skills.subtitle":
+      "30+ technologies mastered across web, mobile, and backend development",
+    "skills.softSkills": "Soft Skills",
+    "skills.technologies": "technologies",
+
     // Projects Section
-    'projects.title': 'Featured Projects',
-    'projects.viewProject': 'View Project',
-    'projects.inDevelopment': 'In Development',
-    
+    "projects.title": "Featured Projects",
+    "projects.viewProject": "View Project",
+    "projects.inDevelopment": "In Development",
+    "projects.subtitle":
+      "A showcase of my technical skills and creative problem-solving through real-world applications",
+    "projects.completed": "Completed",
+    "projects.source": "Source",
+    "projects.live": "Live",
+
     // Contact Section
-    'contact.title': 'Get In Touch',
-    'contact.subtitle': 'Let\'s build something amazing together',
-    'contact.description': 'I\'m always open to discussing new opportunities, innovative projects, or just having a chat about technology and its potential to change the world.',
-    'contact.email': 'Email',
-    'contact.phone': 'Phone',
-    'contact.linkedin': 'LinkedIn',
-    
+    "contact.title": "Get In Touch",
+    "contact.subtitle": "Let's build something amazing together",
+    "contact.description":
+      "I'm always open to discussing new opportunities, innovative projects, or just having a chat about technology and its potential to change the world.",
+    "contact.email": "Email",
+    "contact.whatsapp": "WhatsApp",
+    "contact.location": "Location",
+    "contact.phone": "Phone",
+    "contact.linkedin": "LinkedIn",
+    "contact.infoTitle": "Contact Information",
+    "contact.follow": "Follow Me",
+    "contact.sendMessage": "Send a Message",
+    "contact.name": "Name",
+    "contact.subject": "Subject",
+    "contact.message": "Message",
+    "contact.placeholderName": "Your Name",
+    "contact.placeholderEmail": "your.email@example.com",
+    "contact.placeholderSubject": "What's this about?",
+    "contact.placeholderMessage":
+      "Tell me about your project or just say hello!",
+    "contact.send": "Send Message",
+    "contact.whatsappValue": "Start a chat on WhatsApp",
+    "contact.locationValue": "Kigali, Rwanda",
+    "contact.success": "Message sent successfully!",
+    "contact.error": "Failed to send message.",
+    "contact.errorLater": "An error occurred. Try again later.",
+    "contact.connectTitle": "Let's Connect Professionally",
+    "contact.actionsDescription":
+      "Use the Quick Contact button in the header to send a direct message, or schedule a meeting instantly on Google Calendar.",
+    "contact.scheduleGoogle": "Schedule Meeting on Google Calendar",
+    "contact.sendEmailDirect": "Send Email Directly",
+    "contact.availabilityTag": "availability --status",
+    "contact.weekdaysHours": "Weekdays: 09:00 - 18:00 (CAT)",
+    "contact.fastestResponse": "Fastest response: WhatsApp or Email",
+
+    // Header
+    "header.quickContact": "Quick Contact",
+    "header.schedule": "Schedule",
+    "header.scheduleMeeting": "Schedule Meeting",
+    "header.quickFormTag": "contact --quick-form",
+    "header.modalDescription":
+      "Send your message instantly or schedule a calendar meeting.",
+
     // Footer
-    'footer.quote': '"Creativity + Code + Community = Change."',
-    'footer.subquote': 'Let\'s build solutions that empower and transform lives.',
-    'footer.rights': 'All rights reserved.',
+    "footer.quote": '"Creativity + Code + Community = Change."',
+    "footer.subquote":
+      "Let's build solutions that empower and transform lives.",
+    "footer.rights": "All rights reserved.",
+    "footer.backToTop": "Back to Top ↑",
+    "footer.profileSummary":
+      "Full-stack engineer focused on reliable, community-impact products.",
+    "footer.quickLinksTag": "navigate --quick-links",
+    "footer.directContactTag": "contact --direct",
+    "footer.scheduleMeeting": "Schedule Meeting",
   },
   fr: {
     // Navigation
-    'nav.home': 'Accueil',
-    'nav.about': 'À propos',
-    'nav.projects': 'Projets',
-    'nav.skills': 'Compétences',
-    'nav.contact': 'Contact',
-    
+    "nav.home": "Accueil",
+    "nav.about": "À propos",
+    "experience.title": "Expérience",
+    "experience.subtitle": "Créer des solutions utiles, projet après projet",
+    "nav.projects": "Projets",
+    "nav.skills": "Compétences",
+    "nav.contact": "Contact",
+
     // Hero Section
-    'hero.greeting': 'Salut, je suis',
-    'hero.name': 'Abdoulaye Zakaria Djerou',
-    'hero.title': 'Étudiant en Génie Logiciel | Développeur Full-Stack & Mobile | Futur Expert en Cybersécurité',
-    'hero.description': 'En tant qu\'étudiant passionné en génie logiciel à l\'Université Adventiste d\'Afrique Centrale (AUCA), je suis au début de mon parcours pour devenir un professionnel de l\'informatique. Avec un intérêt profond pour le développement web et le design, je prospère en combinant les compétences techniques avec la créativité pour construire des solutions numériques innovantes et conviviales.',
-    'hero.location': '🌍 Tchadien 🇹🇩 vivant au Rwanda 🇷🇼',
-    'hero.education': '🎓 Étudiant à AUCA et actuellement membre du gym, le programme de formation en développement logiciel le plus intense du Rwanda',
-    'hero.passion': '💡 Construire des solutions technologiques du monde réel',
-    'hero.focus': '🔗 Passionné par la technologie pour le développement et la sécurité',
-    'hero.cta': 'Connectons-nous',
-    'hero.downloadCV': 'Télécharger CV',
-    
+    "hero.greeting": "Salut, je suis",
+    "hero.name": "Abdoulaye Zakaria Djerou",
+    "hero.title":
+      "Étudiant en Génie Logiciel | Développeur Full-Stack & Mobile | Futur Expert en Cybersécurité",
+    "hero.description":
+      "En tant qu'étudiant passionné en génie logiciel à l'Université Adventiste d'Afrique Centrale (AUCA), je suis au début de mon parcours pour devenir un professionnel de l'informatique. Avec un intérêt profond pour le développement web et le design, je prospère en combinant les compétences techniques avec la créativité pour construire des solutions numériques innovantes et conviviales.",
+    "hero.location": "Tchadien 🇹🇩 vivant au Rwanda 🇷🇼",
+    "hero.education":
+      "Étudiant à AUCA et actuellement membre du gym, le programme de formation en développement logiciel le plus intense du Rwanda",
+    "hero.passion": "Construire des solutions technologiques du monde réel",
+    "hero.focus":
+      "Passionné par la technologie pour le développement et la sécurité",
+    "hero.cta": "Connectons-nous",
+    "hero.downloadCV": "Télécharger CV",
+    "hero.openRoles": "Ouvert aux opportunités en génie logiciel",
+    "hero.summaryLabel": "profil --résumé",
+    "hero.projectsStat": "Projets",
+    "hero.activeRolesStat": "Rôles actifs",
+    "hero.certificationsStat": "Certifications",
+    "hero.scrollNext": "défiler --suite",
+    "hero.systemStatus": "état-système",
+    "hero.roleEngineer": "rôle : ingénieur",
+    "hero.statusAvailable": "statut : disponible",
+    "hero.locationLabel": "localisation : Kigali",
+    "hero.focusLabel": "focus : full-stack",
+
     // About Section
-    'about.title': 'À Propos de Moi',
-    'about.subtitle': 'Développeur Passionné & Futur Leader Tech',
-    'about.description': 'Je suis un étudiant en génie logiciel dévoué avec une passion pour créer des solutions innovantes qui ont un impact réel. Mon parcours combine l\'excellence technique avec la résolution créative de problèmes, en me concentrant toujours sur la construction de technologies qui servent les communautés et résolvent les problèmes du monde réel.',
-    'about.point1': '💻 Passionné par le développement logiciel, la cybersécurité et les réseaux',
-    'about.point2': 'Actuellement en apprentissage du développement mobile avancé, de l\'administration Linux et de Spring Boot',
-    'about.point3': 'Je construis des logiciels qui résolvent de vrais problèmes communautaires',
-    'about.point4': 'Leader communautaire, collaborateur d\'équipe et apprenant à vie',
-    
+    "about.title": "À Propos de Moi",
+    "about.subtitle": "Développeur Passionné & Futur Leader Tech",
+    "about.description":
+      "Je suis un étudiant en génie logiciel dévoué avec une passion pour créer des solutions innovantes qui ont un impact réel. Mon parcours combine l'excellence technique avec la résolution créative de problèmes, en me concentrant toujours sur la construction de technologies qui servent les communautés et résolvent les problèmes du monde réel.",
+    "about.point1":
+      "Passionné par le développement logiciel, la cybersécurité et les réseaux",
+    "about.point2":
+      "Actuellement en apprentissage du développement mobile avancé, de l'administration Linux et de Spring Boot",
+    "about.point3":
+      "Je construis des logiciels qui résolvent de vrais problèmes communautaires",
+    "about.point4":
+      "Leader communautaire, collaborateur d'équipe et apprenant à vie",
+    "about.primaryStack": "Stack technique principal",
+    "about.currentPositions": "Postes actuels",
+    "about.keyAchievements": "Réalisations clés",
+    "about.achievement1Title": "6+ projets livrés",
+    "about.achievement1Desc": "Applications full-stack en production",
+    "about.achievement2Title": "Plusieurs rôles de leadership",
+    "about.achievement2Desc": "Organisations communautaires et équipes tech",
+    "about.achievement3Title": "3+ certifications",
+    "about.achievement3Desc": "Réseaux, design et compétences techniques",
+
     // Skills Section
-    'skills.title': 'Compétences Techniques',
-    'skills.languages': 'Langages & Frameworks',
-    'skills.tools': 'Outils & Plateformes',
-    'skills.certifications': 'Certifications & Formation',
-    
+    "skills.title": "Compétences Techniques",
+    "skills.languages": "Langages & Frameworks",
+    "skills.tools": "Outils & Plateformes",
+    "skills.certifications": "Certifications & Formation",
+    "skills.subtitle":
+      "30+ technologies maîtrisées en développement web, mobile et backend",
+    "skills.softSkills": "Compétences humaines",
+    "skills.technologies": "technologies",
+
     // Projects Section
-    'projects.title': 'Projets Phares',
-    'projects.viewProject': 'Voir le Projet',
-    'projects.inDevelopment': 'En Développement',
-    
+    "projects.title": "Projets Phares",
+    "projects.viewProject": "Voir le Projet",
+    "projects.inDevelopment": "En Développement",
+    "projects.subtitle":
+      "Une vitrine de mes compétences techniques et de ma résolution créative de problèmes à travers des applications réelles",
+    "projects.completed": "Terminé",
+    "projects.source": "Source",
+    "projects.live": "Démo",
+
     // Contact Section
-    'contact.title': 'Entrons en Contact',
-    'contact.subtitle': 'Construisons quelque chose d\'incroyable ensemble',
-    'contact.description': 'Je suis toujours ouvert à discuter de nouvelles opportunités, de projets innovants, ou simplement à avoir une conversation sur la technologie et son potentiel à changer le monde.',
-    'contact.email': 'Email',
-    'contact.phone': 'Téléphone',
-    'contact.linkedin': 'LinkedIn',
-    
+    "contact.title": "Entrons en Contact",
+    "contact.subtitle": "Construisons quelque chose d'incroyable ensemble",
+    "contact.description":
+      "Je suis toujours ouvert à discuter de nouvelles opportunités, de projets innovants, ou simplement à avoir une conversation sur la technologie et son potentiel à changer le monde.",
+    "contact.email": "Email",
+    "contact.whatsapp": "WhatsApp",
+    "contact.location": "Localisation",
+    "contact.phone": "Téléphone",
+    "contact.linkedin": "LinkedIn",
+    "contact.infoTitle": "Informations de contact",
+    "contact.follow": "Suivez-moi",
+    "contact.sendMessage": "Envoyer un message",
+    "contact.name": "Nom",
+    "contact.subject": "Sujet",
+    "contact.message": "Message",
+    "contact.placeholderName": "Votre nom",
+    "contact.placeholderEmail": "votre.email@exemple.com",
+    "contact.placeholderSubject": "Quel est le sujet ?",
+    "contact.placeholderMessage":
+      "Parlez-moi de votre projet ou dites simplement bonjour !",
+    "contact.send": "Envoyer le message",
+    "contact.whatsappValue": "Démarrer une discussion sur WhatsApp",
+    "contact.locationValue": "Kigali, Rwanda",
+    "contact.success": "Message envoyé avec succès !",
+    "contact.error": "Échec de l'envoi du message.",
+    "contact.errorLater": "Une erreur est survenue. Réessayez plus tard.",
+    "contact.connectTitle": "Connectons-nous professionnellement",
+    "contact.actionsDescription":
+      "Utilisez le bouton Contact rapide dans l'en-tête pour envoyer un message direct, ou planifiez instantanément une réunion sur Google Calendar.",
+    "contact.scheduleGoogle": "Planifier une réunion sur Google Calendar",
+    "contact.sendEmailDirect": "Envoyer un email directement",
+    "contact.availabilityTag": "disponibilité --statut",
+    "contact.weekdaysHours": "Jours ouvrés : 09:00 - 18:00 (CAT)",
+    "contact.fastestResponse": "Réponse la plus rapide : WhatsApp ou Email",
+
+    // Header
+    "header.quickContact": "Contact rapide",
+    "header.schedule": "Planifier",
+    "header.scheduleMeeting": "Planifier une réunion",
+    "header.quickFormTag": "contact --formulaire-rapide",
+    "header.modalDescription":
+      "Envoyez votre message instantanément ou planifiez une réunion via le calendrier.",
+
     // Footer
-    'footer.quote': '"Créativité + Code + Communauté = Changement."',
-    'footer.subquote': 'Construisons des solutions qui autonomisent et transforment les vies.',
-    'footer.rights': 'Tous droits réservés.',
+    "footer.quote": '"Créativité + Code + Communauté = Changement."',
+    "footer.subquote":
+      "Construisons des solutions qui autonomisent et transforment les vies.",
+    "footer.rights": "Tous droits réservés.",
+    "footer.backToTop": "Retour en haut ↑",
+    "footer.profileSummary":
+      "Ingénieur full-stack axé sur des produits fiables à impact communautaire.",
+    "footer.quickLinksTag": "navigation --liens-rapides",
+    "footer.directContactTag": "contact --direct",
+    "footer.scheduleMeeting": "Planifier une réunion",
   },
   ar: {
     // Navigation
-    'nav.home': 'الرئيسية',
-    'nav.about': 'نبذة عني',
-    'nav.projects': 'المشاريع',
-    'nav.skills': 'المهارات',
-    'nav.contact': 'التواصل',
-    
+    "nav.home": "الرئيسية",
+    "nav.about": "نبذة عني",
+    "experience.title": "الخبرة",
+    "experience.subtitle": "نبني حلولاً مهمة، مشروعاً بعد مشروع",
+    "nav.projects": "المشاريع",
+    "nav.skills": "المهارات",
+    "nav.contact": "التواصل",
+
     // Hero Section
-    'hero.greeting': 'مرحباً، أنا',
-    'hero.name': 'عبد الله زكريا جيرو',
-    'hero.title': 'طالب هندسة البرمجيات | مطور Full-Stack و Mobile | خبير أمن سيبراني مستقبلي',
-    'hero.description': 'كطالب شغوف في هندسة البرمجيات في جامعة الأدفنتست في وسط أفريقيا (AUCA)، أنا في بداية رحلتي لأصبح محترف في تكنولوجيا المعلومات. مع اهتمام عميق بتطوير الويب والتصميم، أزدهر في دمج المهارات التقنية مع الإبداع لبناء حلول رقمية مبتكرة وسهلة الاستخدام.',
-    'hero.location': '🌍 تشادي 🇹🇩 يعيش في رواندا 🇷🇼',
-    'hero.education': '🎓 أدرس في AUCA وحالياً جزء من الجيم، برنامج التدريب الأكثر كثافة في تطوير البرمجيات في رواندا',
-    'hero.passion': '💡 بناء حلول تقنية من العالم الحقيقي',
-    'hero.focus': '🔗 شغوف بالتكنولوجيا للتنمية والأمان',
-    'hero.cta': 'لنتواصل',
-    'hero.downloadCV': 'تحميل السيرة الذاتية',
-    
+    "hero.greeting": "مرحباً، أنا",
+    "hero.name": "عبد الله زكريا جيرو",
+    "hero.title":
+      "طالب هندسة البرمجيات | مطور Full-Stack و Mobile | خبير أمن سيبراني مستقبلي",
+    "hero.description":
+      "كطالب شغوف في هندسة البرمجيات في جامعة الأدفنتست في وسط أفريقيا (AUCA)، أنا في بداية رحلتي لأصبح محترف في تكنولوجيا المعلومات. مع اهتمام عميق بتطوير الويب والتصميم، أزدهر في دمج المهارات التقنية مع الإبداع لبناء حلول رقمية مبتكرة وسهلة الاستخدام.",
+    "hero.location": "تشادي 🇹🇩 يعيش في رواندا 🇷🇼",
+    "hero.education":
+      "أدرس في AUCA وحالياً جزء من الجيم، برنامج التدريب الأكثر كثافة في تطوير البرمجيات في رواندا",
+    "hero.passion": " بناء حلول تقنية من العالم الحقيقي",
+    "hero.focus": " شغوف بالتكنولوجيا للتنمية والأمان",
+    "hero.cta": "لنتواصل",
+    "hero.downloadCV": "تحميل السيرة الذاتية",
+    "hero.openRoles": "متاح لفرص هندسة البرمجيات",
+    "hero.summaryLabel": "الملف --ملخص",
+    "hero.projectsStat": "المشاريع",
+    "hero.activeRolesStat": "الأدوار الحالية",
+    "hero.certificationsStat": "الشهادات",
+    "hero.scrollNext": "انتقل --التالي",
+    "hero.systemStatus": "حالة-النظام",
+    "hero.roleEngineer": "الدور: مهندس",
+    "hero.statusAvailable": "الحالة: متاح",
+    "hero.locationLabel": "الموقع: كيغالي",
+    "hero.focusLabel": "التركيز: Full-Stack",
+
     // About Section
-    'about.title': 'نبذة عني',
-    'about.subtitle': 'مطور شغوف وقائد تقني مستقبلي',
-    'about.description': 'أنا طالب هندسة برمجيات مخلص مع شغف لإنشاء حلول مبتكرة تحدث تأثيراً حقيقياً. رحلتي تجمع بين التميز التقني وحل المشاكل الإبداعي، مع التركيز دائماً على بناء تكنولوجيا تخدم المجتمعات وتحل مشاكل العالم الحقيقي.',
-    'about.point1': '💻 شغوف بتطوير البرمجيات والأمن السيبراني والشبكات',
-    'about.point2': 'أتعلم حالياً تطوير الهاتف المحمول المتقدم وإدارة Linux و Spring Boot',
-    'about.point3': 'أبني برمجيات تحل مشاكل المجتمع الحقيقية',
-    'about.point4': 'قائد مجتمعي ومتعاون في الفريق ومتعلم مدى الحياة',
-    
+    "about.title": "نبذة عني",
+    "about.subtitle": "مطور شغوف وقائد تقني مستقبلي",
+    "about.description":
+      "أنا طالب هندسة برمجيات مخلص مع شغف لإنشاء حلول مبتكرة تحدث تأثيراً حقيقياً. رحلتي تجمع بين التميز التقني وحل المشاكل الإبداعي، مع التركيز دائماً على بناء تكنولوجيا تخدم المجتمعات وتحل مشاكل العالم الحقيقي.",
+    "about.point1": "شغوف بتطوير البرمجيات والأمن السيبراني والشبكات",
+    "about.point2":
+      "أتعلم حالياً تطوير الهاتف المحمول المتقدم وإدارة Linux و Spring Boot",
+    "about.point3": "أبني برمجيات تحل مشاكل المجتمع الحقيقية",
+    "about.point4": "قائد مجتمعي ومتعاون في الفريق ومتعلم مدى الحياة",
+    "about.primaryStack": "الحزمة التقنية الأساسية",
+    "about.currentPositions": "المناصب الحالية",
+    "about.keyAchievements": "الإنجازات الرئيسية",
+    "about.achievement1Title": "6+ مشاريع منجزة",
+    "about.achievement1Desc": "تطبيقات Full-Stack في الإنتاج",
+    "about.achievement2Title": "أدوار قيادية متعددة",
+    "about.achievement2Desc": "منظمات مجتمعية وفرق تقنية",
+    "about.achievement3Title": "3+ شهادات",
+    "about.achievement3Desc": "الشبكات والتصميم والمهارات التقنية",
+
     // Skills Section
-    'skills.title': 'المهارات التقنية',
-    'skills.languages': 'اللغات والأطر',
-    'skills.tools': 'الأدوات والمنصات',
-    'skills.certifications': 'الشهادات والتدريب',
-    
+    "skills.title": "المهارات التقنية",
+    "skills.languages": "اللغات والأطر",
+    "skills.tools": "الأدوات والمنصات",
+    "skills.certifications": "الشهادات والتدريب",
+    "skills.subtitle": "أكثر من 30 تقنية في تطوير الويب والموبايل والخلفية",
+    "skills.softSkills": "المهارات الشخصية",
+    "skills.technologies": "تقنية",
+
     // Projects Section
-    'projects.title': 'المشاريع المميزة',
-    'projects.viewProject': 'عرض المشروع',
-    'projects.inDevelopment': 'قيد التطوير',
-    
+    "projects.title": "المشاريع المميزة",
+    "projects.viewProject": "عرض المشروع",
+    "projects.inDevelopment": "قيد التطوير",
+    "projects.subtitle":
+      "عرض لمهاراتي التقنية وحل المشكلات الإبداعي من خلال تطبيقات واقعية",
+    "projects.completed": "مكتمل",
+    "projects.source": "المصدر",
+    "projects.live": "العرض",
+
     // Contact Section
-    'contact.title': 'تواصل معي',
-    'contact.subtitle': 'لنبني شيئاً مذهلاً معاً',
-    'contact.description': 'أنا منفتح دائماً لمناقشة الفرص الجديدة والمشاريع المبتكرة، أو مجرد الدردشة حول التكنولوجيا وإمكانياتها لتغيير العالم.',
-    'contact.email': 'البريد الإلكتروني',
-    'contact.phone': 'الهاتف',
-    'contact.linkedin': 'لينكد إن',
-    
+    "contact.title": "تواصل معي",
+    "contact.subtitle": "لنبني شيئاً مذهلاً معاً",
+    "contact.description":
+      "أنا منفتح دائماً لمناقشة الفرص الجديدة والمشاريع المبتكرة، أو مجرد الدردشة حول التكنولوجيا وإمكانياتها لتغيير العالم.",
+    "contact.email": "البريد الإلكتروني",
+    "contact.whatsapp": "واتساب",
+    "contact.location": "الموقع",
+    "contact.phone": "الهاتف",
+    "contact.linkedin": "لينكد إن",
+    "contact.infoTitle": "معلومات التواصل",
+    "contact.follow": "تابعني",
+    "contact.sendMessage": "أرسل رسالة",
+    "contact.name": "الاسم",
+    "contact.subject": "الموضوع",
+    "contact.message": "الرسالة",
+    "contact.placeholderName": "اسمك",
+    "contact.placeholderEmail": "your.email@example.com",
+    "contact.placeholderSubject": "عن ماذا هذه الرسالة؟",
+    "contact.placeholderMessage": "حدثني عن مشروعك أو فقط قل مرحباً!",
+    "contact.send": "إرسال الرسالة",
+    "contact.whatsappValue": "ابدأ محادثة على واتساب",
+    "contact.locationValue": "كيغالي، رواندا",
+    "contact.success": "تم إرسال الرسالة بنجاح!",
+    "contact.error": "فشل إرسال الرسالة.",
+    "contact.errorLater": "حدث خطأ. حاول مرة أخرى لاحقاً.",
+    "contact.connectTitle": "لنتواصل بشكل مهني",
+    "contact.actionsDescription":
+      "استخدم زر التواصل السريع في الترويسة لإرسال رسالة مباشرة، أو قم بجدولة اجتماع فوراً عبر Google Calendar.",
+    "contact.scheduleGoogle": "جدولة اجتماع على Google Calendar",
+    "contact.sendEmailDirect": "إرسال بريد إلكتروني مباشرة",
+    "contact.availabilityTag": "التوفر --الحالة",
+    "contact.weekdaysHours": "أيام الأسبوع: 09:00 - 18:00 (CAT)",
+    "contact.fastestResponse": "أسرع استجابة: واتساب أو البريد الإلكتروني",
+
+    // Header
+    "header.quickContact": "تواصل سريع",
+    "header.schedule": "جدولة",
+    "header.scheduleMeeting": "جدولة اجتماع",
+    "header.quickFormTag": "التواصل --نموذج-سريع",
+    "header.modalDescription":
+      "أرسل رسالتك فوراً أو قم بجدولة اجتماع عبر التقويم.",
+
     // Footer
-    'footer.quote': '"الإبداع + الكود + المجتمع = التغيير."',
-    'footer.subquote': 'لنبني حلولاً تمكن وتحول الحياة.',
-    'footer.rights': 'جميع الحقوق محفوظة.',
+    "footer.quote": '"الإبداع + الكود + المجتمع = التغيير."',
+    "footer.subquote": "لنبني حلولاً تمكن وتحول الحياة.",
+    "footer.rights": "جميع الحقوق محفوظة.",
+    "footer.backToTop": "العودة للأعلى ↑",
+    "footer.profileSummary":
+      "مهندس Full-stack يركز على منتجات موثوقة ذات أثر مجتمعي.",
+    "footer.quickLinksTag": "التنقل --روابط-سريعة",
+    "footer.directContactTag": "التواصل --مباشر",
+    "footer.scheduleMeeting": "جدولة اجتماع",
   },
 };
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(
+  undefined,
+);
 
-export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('en');
+export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [language, setLanguage] = useState<Language>("en");
 
   const t = (key: string): string => {
-    return translations[language][key as keyof typeof translations['en']] || key;
+    return (
+      translations[language][key as keyof (typeof translations)["en"]] || key
+    );
   };
 
   return (
@@ -189,7 +435,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
+    throw new Error("useLanguage must be used within a LanguageProvider");
   }
   return context;
 };

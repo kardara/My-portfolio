@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
   Mail,
   Phone,
   MapPin,
-  Send,
+  CalendarPlus,
+  Clock3,
+  MessageSquare,
   Linkedin,
   Github,
   MessageCircle as WhatsApp,
 } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
-import { toast } from "react-toastify";
 
 const Contact: React.FC = () => {
   const { t } = useLanguage();
@@ -20,72 +21,32 @@ const Contact: React.FC = () => {
     threshold: 0.1,
   });
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("https://formspree.io/f/mzzgjpzr", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        toast.success("Message sent successfully!", {
-          position: "top-right",
-        });
-        // Reset form
-        setFormData({ name: "", email: "", subject: "", message: "" });
-        setFormData({ name: "", email: "", subject: "", message: "" });
-      } else {
-        alert("Failed to send message.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred. Try again later.");
-    }
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const googleCalendarLink =
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Portfolio%20Meeting%20with%20Abdoulaye%20Zakaria&details=Hi%20Abdoulaye%2C%20I%20would%20like%20to%20schedule%20a%20meeting%20from%20your%20portfolio.&location=Google%20Meet&add=azdjerou@gmail.com";
 
   const contactInfo = [
     {
       icon: Mail,
-      label: "Email",
+      label: t("contact.email"),
       value: "azdjerou@gmail.com",
       href: "mailto:azdjerou@gmail.com",
     },
     {
       icon: WhatsApp,
-      label: "WhatsApp",
-      value: "Start a chat on WhatsApp",
+      label: t("contact.whatsapp"),
+      value: t("contact.whatsappValue"),
       href: "https://wa.me/250791375009?text=Hello%20Abdoulaye%2C%20I%20got%20your%20contact%20from%20your%20website",
     },
     {
       icon: Phone,
-      label: "Phone",
+      label: t("contact.phone"),
       value: "+250 791 375 009",
       href: "tel:+250791375009",
     },
     {
       icon: MapPin,
-      label: "Location",
-      value: "Kigali, Rwanda",
+      label: t("contact.location"),
+      value: t("contact.locationValue"),
       href: "https://www.google.com/maps/place/Kigali,+Rwanda/",
     },
   ];
@@ -95,7 +56,7 @@ const Contact: React.FC = () => {
       icon: Linkedin,
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/abdoulaye-zakaria-djerou-022613327",
-      color: "hover:text-blue-600",
+      color: "hover:text-[var(--color-primary)]",
     },
     {
       icon: Github,
@@ -112,40 +73,46 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-white dark:bg-gray-900">
-      <div className="container mx-auto px-6">
+    <section id="contact" className="py-16 sm:py-20">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <p className="terminal-title text-xs dev-muted mb-3">
+            contact --open-channel
+          </p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold dev-heading mb-4">
             {t("contact.title")}
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-cyan-500 to-blue-600 mx-auto mb-4"></div>
-          <p className="text-xl text-cyan-600 dark:text-cyan-400 font-medium mb-4">
+          <div className="h-1 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/60 mx-auto mb-4 w-20 rounded-full"></div>
+          <p
+            className="text-base sm:text-lg md:text-xl font-medium mb-4"
+            style={{ color: "var(--color-primary)" }}
+          >
             {t("contact.subtitle")}
           </p>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg dev-muted max-w-2xl mx-auto">
             {t("contact.description")}
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
           {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-8"
+            className="space-y-6 sm:space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                Contact Information
+              <h3 className="text-xl sm:text-2xl font-bold dev-heading mb-5 sm:mb-6">
+                {t("contact.infoTitle")}
               </h3>
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {contactInfo.map((info, index) => (
                   <motion.a
                     key={index}
@@ -154,16 +121,22 @@ const Contact: React.FC = () => {
                     animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                     whileHover={{ x: 10 }}
-                    className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300"
+                    className="shell-panel flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg transition-all duration-300"
                   >
-                    <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
+                    <div
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center"
+                      style={{
+                        background:
+                          "linear-gradient(to right, var(--color-primary), #0284c7)",
+                      }}
+                    >
                       <info.icon className="text-white" size={20} />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                      <p className="text-sm dev-muted font-medium">
                         {info.label}
                       </p>
-                      <p className="text-gray-900 dark:text-white font-semibold">
+                      <p className="dev-text font-semibold text-sm sm:text-base break-words">
                         {info.value}
                       </p>
                     </div>
@@ -174,8 +147,8 @@ const Contact: React.FC = () => {
 
             {/* Social Links */}
             <div>
-              <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Follow Me
+              <h4 className="text-base sm:text-lg font-semibold dev-heading mb-4">
+                {t("contact.follow")}
               </h4>
               <div className="flex gap-4">
                 {socialLinks.map((social, index) => (
@@ -188,7 +161,7 @@ const Contact: React.FC = () => {
                     animate={inView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
                     whileHover={{ scale: 1.1, y: -2 }}
-                    className={`w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-400 ${social.color} transition-all duration-300`}
+                    className={`w-12 h-12 bg-[var(--dev-panel)] border border-[var(--dev-border)] rounded-lg flex items-center justify-center dev-muted ${social.color} transition-all duration-300`}
                   >
                     <social.icon size={20} />
                   </motion.a>
@@ -197,85 +170,72 @@ const Contact: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Contact Actions */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="bg-gray-50 dark:bg-gray-800 rounded-xl p-8"
+            className="shell-panel rounded-xl p-5 sm:p-8 space-y-5"
           >
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              Send a Message
+            <h3 className="text-xl sm:text-2xl font-bold dev-heading">
+              {t("contact.connectTitle")}
             </h3>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-gray-900 dark:text-white transition-all duration-300"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-gray-900 dark:text-white transition-all duration-300"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-gray-900 dark:text-white transition-all duration-300"
-                  placeholder="What's this about?"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-gray-900 dark:text-white transition-all duration-300 resize-none"
-                  placeholder="Tell me about your project or just say hello!"
-                />
-              </div>
+            <p className="dev-muted text-sm sm:text-base">
+              {t("contact.actionsDescription")}
+            </p>
+
+            <div className="grid gap-3">
               <motion.button
-                type="submit"
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+                onClick={() =>
+                  window.dispatchEvent(new Event("open-contact-modal"))
+                }
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg bg-[var(--dev-panel)] border border-[var(--dev-border)] dev-text font-semibold"
               >
-                <Send size={20} />
-                Send Message
+                <MessageSquare size={18} />
+                {t("header.quickContact")}
               </motion.button>
-            </form>
+              <motion.a
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                href={googleCalendarLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg bg-[var(--color-secondary)] text-[#0b1220] font-semibold"
+              >
+                <CalendarPlus size={18} />
+                {t("contact.scheduleGoogle")}
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                href="mailto:azdjerou@gmail.com?subject=Portfolio%20Inquiry"
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg bg-[var(--color-accent)] text-white font-semibold"
+              >
+                <Mail size={18} />
+                {t("contact.sendEmailDirect")}
+              </motion.a>
+            </div>
+
+            <div className="rounded-xl border border-[var(--dev-border)] p-4 bg-[var(--dev-panel)]/70">
+              <p className="terminal-title text-xs dev-muted mb-3">
+                {t("contact.availabilityTag")}
+              </p>
+              <div className="space-y-2 text-sm sm:text-base">
+                <p className="dev-text flex items-center gap-2">
+                  <Clock3 size={16} className="text-[var(--color-primary)]" />
+                  {t("contact.weekdaysHours")}
+                </p>
+                <p className="dev-text flex items-center gap-2">
+                  <WhatsApp
+                    size={16}
+                    className="text-[var(--color-secondary)]"
+                  />
+                  {t("contact.fastestResponse")}
+                </p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>

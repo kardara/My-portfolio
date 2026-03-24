@@ -1,3 +1,400 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* Professional Developer Palette: 3 Colors */
+  --color-primary: #58a6ff; /* Cyan - Main accent */
+  --color-secondary: #3fb950; /* Green - Success & highlights */
+  --color-accent: #e95420; /* Orange - CTA & attention */
+
+  /* Background & Surfaces */
+  --dev-bg: #f6f8fa;
+  --dev-panel: rgba(255, 255, 255, 0.9);
+  --dev-border: #d0d7de;
+  --dev-text: #1f2328;
+  --dev-muted: #57606a;
+  --dev-heading: #0b1220;
+  --dev-grid-soft: rgba(88, 166, 255, 0.06);
+  --dev-grid-strong: rgba(63, 185, 80, 0.08);
+  --dev-grid-scan: rgba(63, 185, 80, 0.03);
+
+  /* Legacy tokens for consistency */
+  --dev-blue: var(--color-primary);
+  --dev-green: var(--color-secondary);
+  --dev-orange: var(--color-accent);
+}
+
+.dark {
+  /* Professional Developer Palette: maintained for dark mode */
+  --color-primary: #58a6ff;
+  --color-secondary: #3fb950;
+  --color-accent: #e95420;
+
+  --dev-bg: #0d1117;
+  --dev-panel: rgba(22, 27, 34, 0.85);
+  --dev-border: #30363d;
+  --dev-text: #c9d1d9;
+  --dev-muted: #8b949e;
+  --dev-heading: #ffffff;
+  --dev-grid-soft: rgba(88, 166, 255, 0.1);
+  --dev-grid-strong: rgba(63, 185, 80, 0.14);
+  --dev-grid-scan: rgba(63, 185, 80, 0.06);
+}
+
+@layer base {
+  @keyframes devSweep {
+    0% {
+      transform: translate3d(-35vw, -8vh, 0) rotate(8deg);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.2;
+    }
+    80% {
+      opacity: 0.2;
+    }
+    100% {
+      transform: translate3d(65vw, 8vh, 0) rotate(8deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes devPulse {
+    0%,
+    100% {
+      opacity: 0.26;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  html {
+    /* Global UI scaling to mimic ~75-80% browser zoom across all sections */
+    font-size: 75%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+  }
+
+  @media (max-width: 1024px) {
+    html {
+      font-size: 81.25%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    html {
+      /* Keep mobile comfortably readable */
+      font-size: 90%;
+    }
+  }
+
+  body {
+    position: relative;
+    isolation: isolate;
+    overflow-x: hidden;
+    font-family: "IBM Plex Sans", sans-serif;
+    color: var(--dev-text);
+    background: 
+			/* Subtle scanlines for dev-console feel */
+      repeating-linear-gradient(
+        0deg,
+        var(--dev-grid-scan) 0px,
+        var(--dev-grid-scan) 1px,
+        transparent 1px,
+        transparent 3px
+      ),
+      /* Vertical grid lines */
+        repeating-linear-gradient(
+          90deg,
+          transparent 0px,
+          transparent 27px,
+          var(--dev-grid-soft) 27px,
+          var(--dev-grid-soft) 28px
+        ),
+      /* Horizontal grid lines */
+        repeating-linear-gradient(
+          0deg,
+          transparent 0px,
+          transparent 27px,
+          var(--dev-grid-soft) 27px,
+          var(--dev-grid-soft) 28px
+        ),
+      /* Green directional wash for dev ambiance */
+        linear-gradient(115deg, var(--dev-grid-strong) 0%, transparent 36%),
+      /* Primary color glow zones */
+        radial-gradient(
+          circle at 85% 10%,
+          rgba(88, 166, 255, 0.16),
+          transparent 42%
+        ),
+      /* Accent glow */
+        radial-gradient(
+          circle at 10% 90%,
+          rgba(233, 84, 32, 0.06),
+          transparent 35%
+        ),
+      /* Secondary glow */
+        radial-gradient(
+          ellipse at 50% 50%,
+          rgba(63, 185, 80, 0.08),
+          transparent 62%
+        ),
+      var(--dev-bg);
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -20% -10%;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(
+      95deg,
+      transparent 20%,
+      rgba(63, 185, 80, 0.08) 46%,
+      rgba(63, 185, 80, 0.14) 50%,
+      rgba(88, 166, 255, 0.08) 54%,
+      transparent 80%
+    );
+    filter: blur(14px);
+    animation: devSweep 16s linear infinite;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+      circle at 1px 1px,
+      rgba(63, 185, 80, 0.18) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.55) 18%,
+      rgba(0, 0, 0, 0.8) 82%,
+      transparent 100%
+    );
+    animation: devPulse 6s ease-in-out infinite;
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Ensure sections scroll into view with header offset */
+  section {
+    scroll-margin-top: 100px;
+  }
+}
+
+@layer components {
+  .app-surface {
+    background:
+			/* Brighter app-level developer grid */
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 35px,
+        var(--dev-grid-soft) 35px,
+        var(--dev-grid-soft) 36px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        var(--dev-grid-scan) 0px,
+        var(--dev-grid-scan) 1px,
+        transparent 1px,
+        transparent 4px
+      ),
+      linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--dev-bg) 96%, #000 4%) 0%,
+        color-mix(in srgb, var(--dev-bg) 88%, #000 12%) 70%
+      ),
+      var(--dev-bg);
+  }
+
+  .shell-panel {
+    /* Professional dev-style panel with subtle code aesthetic */
+    border: 1px solid var(--dev-border);
+    background: 
+			/* Inner code pattern */
+      repeating-linear-gradient(
+        0deg,
+        rgba(88, 166, 255, 0.015) 0px,
+        rgba(88, 166, 255, 0.015) 1px,
+        transparent 1px,
+        transparent 2px
+      ),
+      var(--dev-panel);
+    border-radius: 16px;
+    box-shadow:
+      0 15px 30px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(88, 166, 255, 0.1);
+    backdrop-filter: blur(8px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shell-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(88, 166, 255, 0.2),
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  .dev-heading {
+    color: var(--dev-heading);
+  }
+
+  .dev-text {
+    color: var(--dev-text);
+  }
+
+  .dev-muted {
+    color: var(--dev-muted);
+  }
+
+  .terminal-title {
+    font-family: "JetBrains Mono", monospace;
+    letter-spacing: 0.02em;
+  }
+
+  .terminal-dots::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff5f56;
+    box-shadow:
+      16px 0 0 #ffbd2e,
+      32px 0 0 #27c93f;
+    margin-right: 42px;
+    vertical-align: middle;
+  }
+
+  /* Professional gradient accent lines */
+  .accent-line {
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
+  }
+
+  .accent-line-primary {
+    background: linear-gradient(90deg, var(--color-primary), transparent);
+  }
+
+  .accent-line-secondary {
+    background: linear-gradient(90deg, var(--color-secondary), transparent);
+  }
+
+  @keyframes cursorBlink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .type-cursor {
+    display: inline-block;
+    margin-left: 0.2rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    animation: cursorBlink 0.95s steps(1, end) infinite;
+  }
+
+  @keyframes skillsMarqueeLeft {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes skillsMarqueeRight {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
+
+  .skills-marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 0.75rem;
+    padding-inline: 1.5rem;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+  }
+
+  .skills-marquee-left {
+    animation-name: skillsMarqueeLeft;
+  }
+
+  .skills-marquee-right {
+    animation-name: skillsMarqueeRight;
+  }
+
+  .skills-marquee-row:hover .skills-marquee-track {
+    animation-play-state: paused;
+  }
+
+  .skills-marquee-row:hover .skills-marquee-track > div {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+  }
+
+  @media (max-width: 768px) {
+    body::before {
+      animation-duration: 24s;
+    }
+
+    body::after {
+      animation-duration: 10s;
+      opacity: 0.7;
+    }
+
+    .skills-marquee-track {
+      animation-duration: 48s !important;
+      gap: 0.6rem;
+      padding-inline: 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before,
+    body::after,
+    .type-cursor,
+    .skills-marquee-track {
+      animation: none !important;
+    }
+  }
+}

@@ -12,7 +12,41 @@ import {
 import { useLanguage } from "../contexts/LanguageContext";
 
 const Hero: React.FC = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
+
+  const greetingPrefix = language === "en" ? "Hi, I'm" : t("hero.greeting");
+  const fullName = t("hero.name");
+  const fullHeadline = `${greetingPrefix} ${fullName}`;
+  const [typedHeadline, setTypedHeadline] = React.useState("");
+
+  React.useEffect(() => {
+    setTypedHeadline("");
+    let index = 0;
+    const typingSpeed = 78;
+
+    const timer = window.setInterval(() => {
+      index += 1;
+      setTypedHeadline(fullHeadline.slice(0, index));
+
+      if (index >= fullHeadline.length) {
+        window.clearInterval(timer);
+      }
+    }, typingSpeed);
+
+    return () => {
+      window.clearInterval(timer);
+    };
+  }, [fullHeadline]);
+
+  const greetingWithSpace = `${greetingPrefix} `;
+  const typedGreeting = typedHeadline.slice(
+    0,
+    Math.min(typedHeadline.length, greetingWithSpace.length),
+  );
+  const typedName =
+    typedHeadline.length > greetingWithSpace.length
+      ? typedHeadline.slice(greetingWithSpace.length)
+      : "";
 
   const handleDownloadCV = () => {
     const link = document.createElement("a");
@@ -24,13 +58,12 @@ const Hero: React.FC = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-gray-900"
+      className="min-h-[calc(100vh-72px)] flex items-start justify-center relative overflow-hidden pt-8 sm:pt-10 md:pt-12"
     >
-      {/* Unique Background with Gradient Mesh */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-950">
-        {/* Animated gradient orbs */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(139,148,158,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(139,148,158,0.18)_1px,transparent_1px)] [background-size:32px_32px]" />
         <motion.div
-          className="absolute top-20 -right-20 w-96 h-96 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-20 blur-3xl"
+          className="absolute top-12 -right-24 w-96 h-96 bg-gradient-to-br from-[#58a6ff] to-transparent rounded-full opacity-20 blur-3xl"
           animate={{
             x: [0, 50, 0],
             y: [0, 30, 0],
@@ -42,7 +75,7 @@ const Hero: React.FC = () => {
           }}
         ></motion.div>
         <motion.div
-          className="absolute bottom-10 -left-32 w-80 h-80 bg-gradient-to-tr from-cyan-300 to-blue-300 rounded-full opacity-15 blur-3xl"
+          className="absolute bottom-0 -left-20 w-72 h-72 bg-gradient-to-tr from-[#e95420] to-transparent rounded-full opacity-20 blur-3xl"
           animate={{
             x: [0, -50, 0],
             y: [0, -30, 0],
@@ -56,38 +89,39 @@ const Hero: React.FC = () => {
         ></motion.div>
       </div>
 
-      <div className="container mx-auto px-6 py-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-          {/* Left Content */}
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-10 items-start max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, x: -80 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
-            className={`space-y-8 ${language === "ar" ? "text-right" : "text-left"}`}
+            className={`space-y-6 sm:space-y-8 ${language === "ar" ? "text-right" : "text-left"}`}
           >
-            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-full"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--dev-border)] bg-[var(--dev-panel)] terminal-title"
             >
-              <Zap size={16} className="text-indigo-600 dark:text-indigo-400" />
-              <span className="text-sm font-semibold text-indigo-700 dark:text-indigo-300">
-                Full-Stack Developer & Technical Leader
+              <Zap size={16} className="text-[var(--color-secondary)]" />
+              <span className="text-sm font-semibold dev-text">
+                {t("hero.openRoles")}
               </span>
             </motion.div>
 
             {/* Name */}
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-              className="text-5xl md:text-7xl font-bold leading-tight text-gray-900 dark:text-white"
+              transition={{ delay: 0.25, duration: 0.6 }}
+              className="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight dev-heading"
             >
-              Abdoulaye <br />
-              <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-                Zakaria Djerou
+              <span>{typedGreeting}</span>
+              <span className="bg-gradient-to-r from-[#58a6ff] via-[#79c0ff] to-[#3fb950] bg-clip-text text-transparent">
+                {typedName}
+              </span>
+              <span className="type-cursor" aria-hidden="true">
+                |
               </span>
             </motion.h1>
 
@@ -96,13 +130,13 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.7 }}
-              className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 font-semibold flex items-center gap-2"
+              className="terminal-title text-base sm:text-lg md:text-xl dev-muted font-semibold flex items-center gap-2"
             >
               <Code2
-                size={28}
-                className="text-indigo-600 dark:text-indigo-400"
+                size={20}
+                className="text-[var(--color-primary)] sm:w-6 sm:h-6"
               />
-              Architecting Digital Solutions
+              {t("hero.title")}
             </motion.p>
 
             {/* Description */}
@@ -110,44 +144,43 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.7 }}
-              className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl"
+              className="text-base sm:text-lg dev-text leading-relaxed max-w-xl"
             >
-              Aspiring Full-Stack Developer & Teaching Assistant with strong
-              expertise in building scalable web applications. Lead Software
-              Engineer at ChadNova, passionate about mentoring teams, solving
-              complex problems, and creating technology that makes an impact.
+              {t("hero.description")}
             </motion.p>
 
-            {/* Key Stats */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.7 }}
-              className="grid grid-cols-3 gap-6 py-6 border-y border-gray-200 dark:border-gray-700"
+              className="shell-panel px-4 sm:px-6 py-4 sm:py-5"
             >
-              <div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-                  6+
+              <p className="terminal-title text-sm dev-muted mb-4 terminal-dots">
+                {t("hero.summaryLabel")}
+              </p>
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                <div>
+                  <div className="text-xl sm:text-2xl font-bold text-[var(--color-primary)]">
+                    10+
+                  </div>
+                  <p className="text-sm dev-muted">{t("hero.projectsStat")}</p>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Projects Built
-                </p>
-              </div>
-              <div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-                  30+
+                <div>
+                  <div className="text-xl sm:text-2xl font-bold text-[var(--color-secondary)]">
+                    3
+                  </div>
+                  <p className="text-sm dev-muted">
+                    {t("hero.activeRolesStat")}
+                  </p>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Skills Mastered
-                </p>
-              </div>
-              <div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-                  3
+                <div>
+                  <div className="text-xl sm:text-2xl font-bold text-[var(--color-accent)]">
+                    5+
+                  </div>
+                  <p className="text-sm dev-muted">
+                    {t("hero.certificationsStat")}
+                  </p>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Certifications
-                </p>
               </div>
             </motion.div>
 
@@ -156,29 +189,29 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.7 }}
-              className="flex flex-wrap gap-4"
+              className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4"
             >
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:shadow-cyan-500/50 transition-all duration-300"
                 onClick={() =>
                   document
                     .getElementById("contact")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-[var(--color-accent)] text-white rounded-xl font-semibold shadow-lg hover:opacity-90 transition-all duration-300"
               >
-                Get in Touch
+                {t("hero.cta")}
               </motion.button>
 
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleDownloadCV}
-                className="px-8 py-4 border-2 border-cyan-600 text-cyan-600 dark:text-cyan-400 rounded-xl font-semibold hover:bg-cyan-600 hover:text-white dark:hover:bg-cyan-600 transition-all duration-300 flex items-center gap-2"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 border-2 border-[var(--color-primary)] text-[var(--color-primary)] rounded-xl font-semibold hover:bg-[var(--color-primary)] hover:text-[#0d1117] transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <Download size={20} />
-                Download CV
+                {t("hero.downloadCV")}
               </motion.button>
             </motion.div>
 
@@ -187,16 +220,16 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.7 }}
-              className="flex gap-4 pt-4"
+              className="flex gap-3 sm:gap-4 pt-2 sm:pt-4"
             >
               <motion.a
                 whileHover={{ scale: 1.15, y: -4 }}
                 whileTap={{ scale: 0.9 }}
                 href="mailto:azdjerou@gmail.com"
                 title="Email"
-                className="p-4 bg-gray-100 dark:bg-gray-800 rounded-xl text-gray-600 dark:text-gray-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-100 dark:hover:bg-cyan-900/20 transition-all duration-300"
+                className="p-3 sm:p-4 bg-[var(--dev-panel)] border border-[var(--dev-border)] rounded-xl dev-muted hover:text-[#58a6ff] transition-all duration-300"
               >
-                <Mail size={24} />
+                <Mail size={20} className="sm:w-6 sm:h-6" />
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.15, y: -4 }}
@@ -205,9 +238,9 @@ const Hero: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="LinkedIn"
-                className="p-4 bg-gray-100 dark:bg-gray-800 rounded-xl text-gray-600 dark:text-gray-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-100 dark:hover:bg-cyan-900/20 transition-all duration-300"
+                className="p-3 sm:p-4 bg-[var(--dev-panel)] border border-[var(--dev-border)] rounded-xl dev-muted hover:text-[#58a6ff] transition-all duration-300"
               >
-                <Linkedin size={24} />
+                <Linkedin size={20} className="sm:w-6 sm:h-6" />
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.15, y: -4 }}
@@ -216,37 +249,28 @@ const Hero: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="GitHub"
-                className="p-4 bg-gray-100 dark:bg-gray-800 rounded-xl text-gray-600 dark:text-gray-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-100 dark:hover:bg-cyan-900/20 transition-all duration-300"
+                className="p-3 sm:p-4 bg-[var(--dev-panel)] border border-[var(--dev-border)] rounded-xl dev-muted hover:text-[#58a6ff] transition-all duration-300"
               >
-                <Github size={24} />
+                <Github size={20} className="sm:w-6 sm:h-6" />
               </motion.a>
             </motion.div>
           </motion.div>
 
-          {/* Right Content - Profile Image with Modern Design */}
           <motion.div
             initial={{ opacity: 0, x: 80 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-            className="flex justify-center lg:justify-end"
+            className="flex justify-center mt-4 sm:mt-6 lg:mt-8"
           >
             <motion.div
-              animate={{
-                y: [0, -30, 0],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="relative"
+              animate={{ y: [0, -14, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="shell-panel p-4 sm:p-6 w-full max-w-sm sm:max-w-md"
             >
-              {/* Decorative Background Shapes */}
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 to-blue-600/20 rounded-3xl transform rotate-6"></div>
-              <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/20 to-indigo-600/20 rounded-3xl transform -rotate-6"></div>
-
-              {/* Profile Image */}
-              <div className="relative w-80 h-80 rounded-3xl overflow-hidden shadow-2xl border-8 border-white dark:border-gray-800">
+              <p className="terminal-title text-xs dev-muted mb-4 terminal-dots">
+                {t("hero.systemStatus")}
+              </p>
+              <div className="relative w-full h-64 sm:h-72 md:h-80 rounded-2xl overflow-hidden border border-[var(--dev-border)]">
                 <img
                   src="/pic2.jpg"
                   alt="Abdoulaye Zakaria Djerou"
@@ -254,56 +278,44 @@ const Hero: React.FC = () => {
                 />
               </div>
 
-              {/* Floating Tech Icons */}
-              <motion.div
-                animate={{ rotate: 360, y: [0, -20, 0] }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute -top-8 -right-8 w-20 h-20 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-xl border-4 border-white dark:border-gray-800"
-              >
-                💻
-              </motion.div>
-
-              <motion.div
-                animate={{ rotate: -360, y: [0, 20, 0] }}
-                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-tr from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-xl border-4 border-white dark:border-gray-800"
-              >
-                🚀
-              </motion.div>
-
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute top-1/2 -right-12 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center text-white font-bold shadow-lg border-4 border-white dark:border-gray-800"
-              >
-                ⚡
-              </motion.div>
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 terminal-title text-[11px] sm:text-xs">
+                <div className="rounded-lg border border-[var(--dev-border)] bg-gray-100 dark:bg-[#0d1117] px-3 py-2 text-[var(--color-primary)]">
+                  {t("hero.roleEngineer")}
+                </div>
+                <div className="rounded-lg border border-[var(--dev-border)] bg-gray-100 dark:bg-[#0d1117] px-3 py-2 text-[var(--color-secondary)]">
+                  {t("hero.statusAvailable")}
+                </div>
+                <div className="rounded-lg border border-[var(--dev-border)] bg-gray-100 dark:bg-[#0d1117] px-3 py-2 text-[var(--color-accent)]">
+                  {t("hero.locationLabel")}
+                </div>
+                <div className="rounded-lg border border-[var(--dev-border)] bg-gray-100 dark:bg-[#0d1117] px-3 py-2 dev-text">
+                  {t("hero.focusLabel")}
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2 }}
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+          className="hidden md:block absolute bottom-10 left-1/2 transform -translate-x-1/2"
         >
           <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 2.5, repeat: Infinity }}
-            className="flex flex-col items-center text-gray-400 dark:text-gray-600 cursor-pointer"
+            className="flex flex-col items-center dev-muted cursor-pointer"
             onClick={() =>
               document
                 .getElementById("about")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
           >
-            <span className="text-sm mb-2 font-medium">Discover More</span>
-            <ChevronDown
-              size={28}
-              className="text-indigo-600 dark:text-indigo-400"
-            />
+            <span className="terminal-title text-xs mb-2">
+              {t("hero.scrollNext")}
+            </span>
+            <ChevronDown size={26} className="text-[var(--color-primary)]" />
           </motion.div>
         </motion.div>
       </div>
