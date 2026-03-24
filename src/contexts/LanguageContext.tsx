@@ -208,9 +208,10 @@ const translations = {
     "projects.aucaapp": "AUCA Online Application Portal",
     "projects.aucaappDesc":
       "A modern AUCA admissions web portal with TypeScript and React, enabling user-friendly online application experiences for prospective students.",
-    "projects.studentmgmt": "Student Management System",
+    "projects.studentmgmt":
+      "AUCA IMS Frontend (University Information Management System)",
     "projects.studentmgmtDesc":
-      "A full-stack academic management solution handling student data, enrollment, and records with frontend-backend coordination across dedicated repositories.",
+      "Built a modern, scalable frontend for a university information management platform supporting student registration, course and prerequisite workflows, term management, workload tracking, bans and waivers, announcements, and role-based administration. Designed for real institutional workflows with strong focus on maintainability, reusable components, and secure access control.",
 
     // Footer
     "footer.quote": '"Creativity + Code + Community = Change."',
@@ -427,9 +428,10 @@ const translations = {
     "projects.aucaapp": "Portail de Candidature en Ligne AUCA",
     "projects.aucaappDesc":
       "Un portail d'admission AUCA moderne avec TypeScript et React, permettant des expériences de candidature en ligne conviviales pour les étudiants potentiels.",
-    "projects.studentmgmt": "Système de Gestion des Étudiants",
+    "projects.studentmgmt":
+      "AUCA IMS Frontend (University Information Management System)",
     "projects.studentmgmtDesc":
-      "Une solution complète de gestion académique gérant les données des étudiants, les inscriptions et les dossiers avec coordination frontend-backend dans des référentiels dédiés.",
+      "Built a modern, scalable frontend for a university information management platform supporting student registration, course and prerequisite workflows, term management, workload tracking, bans and waivers, announcements, and role-based administration. Designed for real institutional workflows with strong focus on maintainability, reusable components, and secure access control.",
 
     // Footer
     "footer.quote": '"Créativité + Code + Communauté = Changement."',
@@ -556,9 +558,10 @@ const translations = {
     "projects.aucaapp": "بوابة التقديم عبر الإنترنت AUCA",
     "projects.aucaappDesc":
       "بوابة التحضيرية الحديثة AUCA مع TypeScript و React، مما يتيح تجارب تقديم صديقة للمستخدم للطلاب المحتملين.",
-    "projects.studentmgmt": "نظام إدارة الطلاب",
+    "projects.studentmgmt":
+      "AUCA IMS Frontend (University Information Management System)",
     "projects.studentmgmtDesc":
-      "حل إدارة أكاديمي شامل يتعامل مع بيانات الطلاب والالتحاق والسجلات مع تنسيق الواجهة الأمامية والخلفية عبر المستودعات المخصصة.",
+      "Built a modern, scalable frontend for a university information management platform supporting student registration, course and prerequisite workflows, term management, workload tracking, bans and waivers, announcements, and role-based administration. Designed for real institutional workflows with strong focus on maintainability, reusable components, and secure access control.",
 
     // About Section
     "about.title": "نبذة عني",

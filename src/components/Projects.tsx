@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Clock, ExternalLink, Github } from "lucide-react";
+import { Clock, ExternalLink, Github, Zap, BarChart3 } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 
 const Projects: React.FC = () => {
@@ -11,66 +11,177 @@ const Projects: React.FC = () => {
     threshold: 0.1,
   });
 
+  const skillLogoSlug: Record<string, string> = {
+    JavaScript: "javascript",
+    TypeScript: "typescript",
+    React: "react",
+    "Next.js": "nextdotjs",
+    "Node.js": "nodedotjs",
+    Java: "openjdk",
+    "C#": "csharp",
+    ".NET": "dotnet",
+    Blazor: "blazor",
+    Python: "python",
+    "Spring Boot": "springboot",
+    Hibernate: "hibernate",
+    Flutter: "flutter",
+    Dart: "dart",
+    HTML5: "html5",
+    CSS3: "css3",
+    "Tailwind CSS": "tailwindcss",
+    PostgreSQL: "postgresql",
+    MongoDB: "mongodb",
+    Firebase: "firebase",
+    MySQL: "mysql",
+    SQLite: "sqlite",
+    "Git/GitHub": "github",
+    Docker: "docker",
+    Postman: "postman",
+    Swing: "java",
+    "REST APIs": "fastapi",
+    JDBC: "java",
+    "CRUD Operations": "database",
+    Notifications: "fastapi",
+  };
+
   const projects = [
+    {
+      titleKey: "projects.mytask",
+      descKey: "projects.mytaskDesc",
+      technologies: ["TypeScript", "React", "Java", "PostgreSQL"],
+      status: "completed",
+      complexity: "Advanced",
+      image:
+        "https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/kardara/MyTaskMangement_BestSeller_Frontend",
+      demo: "#",
+      highlights: [
+        "Full-stack task management application",
+        "Real-time synchronization",
+        "Advanced filtering & sorting",
+      ],
+    },
     {
       titleKey: "projects.kardara",
       descKey: "projects.kardaraDesc",
       technologies: ["Java", "Swing", "MySQL", "JDBC"],
       status: "completed",
+      complexity: "Intermediate",
       image:
         "https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/kardara",
       demo: "#",
+      highlights: [
+        "Desktop inventory management",
+        "Database optimization",
+        "User-friendly UI",
+      ],
     },
     {
       titleKey: "projects.medireminder",
       descKey: "projects.medreminderDesc",
       technologies: ["Flutter", "Dart", "SQLite", "Notifications"],
       status: "completed",
+      complexity: "Intermediate",
       image:
         "https://images.pexels.com/photos/3683074/pexels-photo-3683074.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/kardara",
       demo: "#",
-    },
-    {
-      titleKey: "projects.mytask",
-      descKey: "projects.mytaskDesc",
-      technologies: ["TypeScript", "React", "Java", "PostgreSQL"],
-      status: "completed",
-      image:
-        "https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=800",
-      github: "https://github.com/kardara/MyTaskMangement_BestSeller_Frontend",
-      demo: "#",
+      highlights: [
+        "Mobile app for medication tracking",
+        "Push notifications",
+        "Cross-platform",
+      ],
     },
     {
       titleKey: "projects.aucalms",
       descKey: "projects.aucalmsDesc",
       technologies: ["Java", "Swing", "MySQL", "CRUD Operations"],
       status: "completed",
+      complexity: "Intermediate",
       image: "/lms.png",
       github: "https://github.com/kardara/auca-lms-testing",
       demo: "#",
+      highlights: [
+        "Learning management system",
+        "Course organization",
+        "Student tracking",
+      ],
     },
     {
       titleKey: "projects.aucaapp",
       descKey: "projects.aucaappDesc",
       technologies: ["TypeScript", "React", "Tailwind CSS", "REST APIs"],
       status: "completed",
+      complexity: "Advanced",
       image: "/auca-logo.png",
       github: "https://github.com/kardara/auca-online-application-fronend",
       demo: "#",
+      highlights: [
+        "Online application portal",
+        "Responsive design",
+        "Form validation",
+      ],
     },
     {
       titleKey: "projects.studentmgmt",
       descKey: "projects.studentmgmtDesc",
-      technologies: ["JavaScript", "React", "Java", "PostgreSQL"],
+      technologies: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "PostCSS",
+        "Context API",
+        "Custom Hooks",
+        "Service Layer",
+        "Role-based Auth Guards",
+      ],
       status: "completed",
-      image:
-        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
-      github: "https://github.com/kardara/Student-management-system-frontend",
+      complexity: "Advanced",
+      featured: true,
+      image: "auca-ims.png",
+      github: "https://github.com/kardara/auca-ims-frontend",
       demo: "#",
+      highlights: [
+        "Modular architecture with components, services, hooks, contexts, and domain types for long-term scalability",
+        "Reusable UI and action patterns across academic and administrative workflows",
+        "Centralized API client and caching utilities for cleaner data handling and better user experience",
+        "Production-style structure with protected routes, error handling, and role/permission-based access control",
+      ],
     },
   ];
+
+  const getComplexityColor = (complexity: string) => {
+    switch (complexity) {
+      case "Beginner":
+        return {
+          bg: "rgba(34, 197, 94, 0.1)",
+          text: "#22c55e",
+          border: "#22c55e",
+        };
+      case "Intermediate":
+        return {
+          bg: "rgba(88, 166, 255, 0.1)",
+          text: "#58a6ff",
+          border: "#58a6ff",
+        };
+      case "Advanced":
+        return {
+          bg: "rgba(233, 84, 32, 0.1)",
+          text: "#e95420",
+          border: "#e95420",
+        };
+      default:
+        return {
+          bg: "rgba(88, 166, 255, 0.1)",
+          text: "#58a6ff",
+          border: "#58a6ff",
+        };
+    }
+  };
+
+  const featuredProject = projects.find((p) => p.featured);
+  const otherProjects = projects.filter((p) => !p.featured);
 
   return (
     <section id="projects" className="py-16 sm:py-20">
@@ -82,109 +193,311 @@ const Projects: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold dev-heading mb-4">
+          <p className="terminal-title text-xs dev-muted mb-3">
+            projects --showcase
+          </p>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold dev-heading mb-4">
             {t("projects.title")}
           </h2>
-          <div className="h-1 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/60 mx-auto mb-4 w-20 rounded-full"></div>
+          <div className="h-1 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/60 mx-auto mb-6 w-20 rounded-full"></div>
           <p className="text-base sm:text-lg md:text-xl dev-muted max-w-2xl mx-auto">
             {t("projects.subtitle")}
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="shell-panel rounded-xl overflow-hidden transition-all duration-300"
-            >
-              <div className="relative overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={t(project.titleKey)}
-                  className="w-full h-40 sm:h-48 object-contain bg-[var(--dev-bg)] p-3 sm:p-4 transition-transform duration-300 hover:scale-105"
-                />
-                <div className="absolute top-4 right-4">
-                  {project.status === "development" ? (
-                    <span className="px-3 py-1 bg-[var(--color-accent)] text-white text-xs font-medium rounded-full flex items-center gap-1">
-                      <Clock size={12} />
-                      {t("projects.inDevelopment")}
-                    </span>
-                  ) : (
-                    <span className="px-3 py-1 bg-[var(--color-secondary)] text-white text-xs font-medium rounded-full">
-                      {t("projects.completed")}
-                    </span>
-                  )}
+        {/* Featured Project */}
+        {featuredProject && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="mb-12 sm:mb-16"
+          >
+            <div className="shell-panel rounded-2xl overflow-hidden group">
+              <div className="grid md:grid-cols-2 gap-0">
+                {/* Image Section */}
+                <div className="relative h-64 md:h-full overflow-hidden bg-[var(--dev-bg)]">
+                  <img
+                    src={featuredProject.image}
+                    alt={t(featuredProject.titleKey)}
+                    className="w-full h-full object-contain p-4 sm:p-6 transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)]/20 to-[var(--color-secondary)]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  {/* Featured Badge */}
+                  <motion.div
+                    initial={{ rotate: -12 }}
+                    animate={{ rotate: 0 }}
+                    className="absolute top-4 left-4"
+                  >
+                    <div
+                      style={{
+                        background:
+                          "linear-gradient(135deg, var(--color-primary), var(--color-secondary))",
+                      }}
+                      className="px-4 py-2 rounded-lg text-white font-bold text-sm flex items-center gap-2 shadow-lg"
+                    >
+                      <Zap size={16} />
+                      Featured
+                    </div>
+                  </motion.div>
                 </div>
-              </div>
 
-              <div className="p-4 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-bold dev-heading mb-3">
-                  {t(project.titleKey)}
-                </h3>
-                <p className="dev-muted mb-4 line-clamp-3">
-                  {t(project.descKey)}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech, techIndex) => {
-                    // Alternate between professional developer colors (3-color scheme)
-                    const colorStyles = [
-                      {
-                        background: "rgba(88, 166, 255, 0.1)",
-                        color: "var(--color-primary)",
-                      },
-                      {
-                        background: "rgba(63, 185, 80, 0.1)",
-                        color: "var(--color-secondary)",
-                      },
-                      {
-                        background: "rgba(233, 84, 32, 0.1)",
-                        color: "var(--color-accent)",
-                      },
-                      {
-                        background: "rgba(88, 166, 255, 0.1)",
-                        color: "var(--color-primary)",
-                      },
-                    ];
-                    const colorStyle =
-                      colorStyles[techIndex % colorStyles.length];
-                    return (
-                      <span
-                        key={techIndex}
-                        className={`px-3 py-1 text-xs font-medium rounded-full`}
-                        style={colorStyle}
+                {/* Content Section */}
+                <div className="p-6 sm:p-8 flex flex-col justify-between">
+                  <div>
+                    {/* Header */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <p className="terminal-title text-xs dev-muted mb-2">
+                          project --featured
+                        </p>
+                        <h3 className="text-2xl sm:text-3xl font-bold dev-heading mb-2">
+                          {t(featuredProject.titleKey)}
+                        </h3>
+                      </div>
+                      <div
+                        className="px-3 py-1 rounded-full text-xs font-semibold flex-shrink-0"
+                        style={{
+                          background: getComplexityColor(
+                            featuredProject.complexity,
+                          ).bg,
+                          color: getComplexityColor(featuredProject.complexity)
+                            .text,
+                          border: `1px solid ${getComplexityColor(featuredProject.complexity).border}`,
+                        }}
                       >
-                        {tech}
-                      </span>
-                    );
-                  })}
-                </div>
+                        {featuredProject.complexity}
+                      </div>
+                    </div>
 
-                <div className="flex flex-wrap gap-3 pt-2 border-t border-[var(--dev-border)]">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="terminal-title inline-flex items-center gap-2 text-sm text-[#58a6ff] hover:text-[#79c0ff] transition-colors"
-                  >
-                    <Github size={16} /> {t("projects.source")}
-                  </a>
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="terminal-title inline-flex items-center gap-2 text-sm text-[#e95420] hover:text-[#ff6a33] transition-colors"
-                  >
-                    <ExternalLink size={16} /> {t("projects.live")}
-                  </a>
+                    {/* Description */}
+                    <p className="dev-muted mb-6 leading-relaxed">
+                      {t(featuredProject.descKey)}
+                    </p>
+
+                    {/* Key Highlights */}
+                    <div className="mb-6">
+                      <p className="text-xs font-bold dev-muted uppercase tracking-wider mb-3">
+                        Key Features
+                      </p>
+                      <ul className="space-y-2">
+                        {featuredProject.highlights.map((highlight, idx) => (
+                          <motion.li
+                            key={idx}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={inView ? { opacity: 1, x: 0 } : {}}
+                            transition={{ delay: 0.1 + idx * 0.05 }}
+                            className="flex items-start gap-2 text-sm dev-text"
+                          >
+                            <span className="text-[var(--color-primary)] font-bold mt-0.5">
+                              ▸
+                            </span>
+                            {highlight}
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Tech Stack */}
+                    <div className="mb-6">
+                      <p className="text-xs font-bold dev-muted uppercase tracking-wider mb-3">
+                        Tech Stack
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {featuredProject.technologies.map((tech, idx) => {
+                          const logoSlug = skillLogoSlug[tech];
+                          return (
+                            <motion.div
+                              key={idx}
+                              whileHover={{ y: -4 }}
+                              className="group relative"
+                            >
+                              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--dev-panel)]/70 border border-[var(--dev-border)] hover:border-[var(--color-primary)] transition-all duration-300">
+                                {logoSlug && (
+                                  <img
+                                    src={`https://cdn.simpleicons.org/${logoSlug}`}
+                                    alt={`${tech} logo`}
+                                    className="w-4 h-4"
+                                    onError={(e) => {
+                                      e.currentTarget.style.display = "none";
+                                    }}
+                                  />
+                                )}
+                                <span className="text-xs font-medium dev-text">
+                                  {tech}
+                                </span>
+                              </div>
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap gap-3 pt-6 border-t border-[var(--dev-border)]">
+                    <motion.a
+                      href={featuredProject.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[var(--color-primary)]/20 border border-[var(--color-primary)] text-[var(--color-primary)] rounded-lg font-medium hover:bg-[var(--color-primary)]/30 transition-all duration-300"
+                    >
+                      <Github size={16} /> Source
+                    </motion.a>
+                    <motion.a
+                      href={featuredProject.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white rounded-lg font-medium hover:shadow-lg transition-all duration-300"
+                    >
+                      <ExternalLink size={16} /> Live Demo
+                    </motion.a>
+                  </div>
                 </div>
               </div>
-            </motion.div>
-          ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Other Projects Grid */}
+        <div>
+          <h3 className="text-xl sm:text-2xl font-bold dev-heading mb-8 flex items-center gap-3">
+            <BarChart3 size={24} /> Other Projects
+          </h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {otherProjects.map((project, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.3 + index * 0.08 }}
+                whileHover={{ y: -8 }}
+                className="shell-panel rounded-xl overflow-hidden group transition-all duration-300"
+              >
+                {/* Image Header */}
+                <div className="relative overflow-hidden h-40 sm:h-48 bg-[var(--dev-bg)]">
+                  <img
+                    src={project.image}
+                    alt={t(project.titleKey)}
+                    className="w-full h-full object-contain p-3 sm:p-4 transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--dev-bg)] to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-300" />
+
+                  {/* Status & Complexity Badges */}
+                  <div className="absolute top-3 right-3 flex flex-col gap-2">
+                    <div
+                      className="px-2 py-1 text-xs font-semibold rounded-full"
+                      style={{
+                        background: getComplexityColor(project.complexity).bg,
+                        color: getComplexityColor(project.complexity).text,
+                        border: `1px solid ${getComplexityColor(project.complexity).border}`,
+                      }}
+                    >
+                      {project.complexity}
+                    </div>
+                    {project.status === "development" ? (
+                      <span className="px-2 py-1 bg-[var(--color-accent)]/20 text-[var(--color-accent)] text-xs font-medium rounded-full flex items-center gap-1 border border-[var(--color-accent)]">
+                        <Clock size={10} />
+                        {t("projects.inDevelopment")}
+                      </span>
+                    ) : (
+                      <span className="px-2 py-1 bg-[var(--color-secondary)]/20 text-[var(--color-secondary)] text-xs font-medium rounded-full border border-[var(--color-secondary)]">
+                        {t("projects.completed")}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-4 sm:p-6 flex flex-col h-full">
+                  {/* Title & Description */}
+                  <div className="mb-4">
+                    <h4 className="text-lg font-bold dev-heading mb-2 line-clamp-2">
+                      {t(project.titleKey)}
+                    </h4>
+                    <p className="dev-muted text-sm line-clamp-2 leading-relaxed">
+                      {t(project.descKey)}
+                    </p>
+                  </div>
+
+                  {/* Tech Stack - Compact with Icons */}
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.technologies.map((tech, idx) => {
+                        const logoSlug = skillLogoSlug[tech];
+                        return (
+                          <motion.div
+                            key={idx}
+                            whileHover={{ scale: 1.1 }}
+                            className="group/tech relative"
+                            title={tech}
+                          >
+                            <div
+                              className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[var(--dev-panel)]/70 border border-[var(--dev-border)] flex items-center justify-center overflow-hidden hover:border-[var(--color-primary)] transition-all duration-300"
+                              style={{
+                                backgroundColor: `${
+                                  [
+                                    "var(--color-primary)",
+                                    "var(--color-secondary)",
+                                    "var(--color-accent)",
+                                  ][idx % 3]
+                                }20`,
+                              }}
+                            >
+                              {logoSlug && (
+                                <img
+                                  src={`https://cdn.simpleicons.org/${logoSlug}`}
+                                  alt={tech}
+                                  className="w-4 h-4"
+                                  onError={(e) => {
+                                    e.currentTarget.style.display = "none";
+                                  }}
+                                />
+                              )}
+                            </div>
+                            {/* Tooltip */}
+                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-[var(--dev-bg)] border border-[var(--dev-border)] rounded text-xs dev-text opacity-0 group-hover/tech:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap">
+                              {tech}
+                            </div>
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Links */}
+                  <div className="flex gap-2 pt-4 border-t border-[var(--dev-border)] mt-auto">
+                    <motion.a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-medium text-[var(--color-primary)] hover:text-[#79c0ff] transition-colors py-2"
+                    >
+                      <Github size={14} /> Code
+                    </motion.a>
+                    <div className="w-px bg-[var(--dev-border)]" />
+                    <motion.a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-medium text-[var(--color-accent)] hover:text-[#ff6a33] transition-colors py-2"
+                    >
+                      <ExternalLink size={14} /> Demo
+                    </motion.a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
