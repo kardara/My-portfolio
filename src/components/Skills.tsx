@@ -8,7 +8,8 @@ const Skills: React.FC = () => {
   const { t } = useLanguage();
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0,
+    rootMargin: "220px 0px -80px 0px",
   });
 
   const skillLogoSlug: Record<string, string> = {
@@ -138,10 +139,9 @@ const Skills: React.FC = () => {
   ];
 
   return (
-    <section id="skills" className="py-16 sm:py-20 md:py-24">
+    <section id="skills" ref={ref} className="py-16 sm:py-20 md:py-24">
       <div className="container mx-auto px-4 sm:px-6">
         <motion.div
-          ref={ref}
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
@@ -166,7 +166,6 @@ const Skills: React.FC = () => {
             return (
               <motion.div
                 key={categoryIndex}
-                ref={ref}
                 initial={{ opacity: 0, y: 50 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: categoryIndex * 0.15 }}
