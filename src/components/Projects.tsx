@@ -13,9 +13,8 @@ const Projects: React.FC = () => {
 
   const projects = [
     {
-      title: "Kardara Stock Management System",
-      description:
-        "A comprehensive Java-based stock control application with role-aware modules, inventory updates, and reporting support for day-to-day operations.",
+      titleKey: "projects.kardara",
+      descKey: "projects.kardaraDesc",
       technologies: ["Java", "Swing", "MySQL", "JDBC"],
       status: "completed",
       image:
@@ -24,9 +23,8 @@ const Projects: React.FC = () => {
       demo: "#",
     },
     {
-      title: "MediReminder",
-      description:
-        "A mobile medicine reminder app designed to improve treatment adherence through clear scheduling and local notification workflows.",
+      titleKey: "projects.medireminder",
+      descKey: "projects.medreminderDesc",
       technologies: ["Flutter", "Dart", "SQLite", "Notifications"],
       status: "completed",
       image:
@@ -35,9 +33,8 @@ const Projects: React.FC = () => {
       demo: "#",
     },
     {
-      title: "MyTaskMangement BestSeller",
-      description:
-        "A full-stack task management platform with a TypeScript frontend and Java backend, built around maintainable workflows and clean architecture.",
+      titleKey: "projects.mytask",
+      descKey: "projects.mytaskDesc",
       technologies: ["TypeScript", "React", "Java", "PostgreSQL"],
       status: "completed",
       image:
@@ -46,19 +43,17 @@ const Projects: React.FC = () => {
       demo: "#",
     },
     {
-      title: "AUCA Library Management System (IMS)",
-      description:
-        "Integrated library and inventory management system for AUCA. Manages book inventory, borrowing/returning, student records, and generates reports. Built with Java for robust backend operations.",
+      titleKey: "projects.aucalms",
+      descKey: "projects.aucalmsDesc",
       technologies: ["Java", "Swing", "MySQL", "CRUD Operations"],
       status: "completed",
-      image: "/auca-logo.png",
+      image: "/lms.png",
       github: "https://github.com/kardara/auca-lms-testing",
       demo: "#",
     },
     {
-      title: "AUCA Online Application Portal",
-      description:
-        "A modern AUCA admissions web portal with TypeScript and React, enabling user-friendly online application experiences for prospective students.",
+      titleKey: "projects.aucaapp",
+      descKey: "projects.aucaappDesc",
       technologies: ["TypeScript", "React", "Tailwind CSS", "REST APIs"],
       status: "completed",
       image: "/auca-logo.png",
@@ -66,9 +61,8 @@ const Projects: React.FC = () => {
       demo: "#",
     },
     {
-      title: "Student Management System",
-      description:
-        "A full-stack academic management solution handling student data, enrollment, and records with frontend-backend coordination across dedicated repositories.",
+      titleKey: "projects.studentmgmt",
+      descKey: "projects.studentmgmtDesc",
       technologies: ["JavaScript", "React", "Java", "PostgreSQL"],
       status: "completed",
       image:
@@ -110,7 +104,7 @@ const Projects: React.FC = () => {
               <div className="relative overflow-hidden">
                 <img
                   src={project.image}
-                  alt={project.title}
+                  alt={t(project.titleKey)}
                   className="w-full h-40 sm:h-48 object-contain bg-[var(--dev-bg)] p-3 sm:p-4 transition-transform duration-300 hover:scale-105"
                 />
                 <div className="absolute top-4 right-4">
@@ -129,22 +123,35 @@ const Projects: React.FC = () => {
 
               <div className="p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-bold dev-heading mb-3">
-                  {project.title}
+                  {t(project.titleKey)}
                 </h3>
                 <p className="dev-muted mb-4 line-clamp-3">
-                  {project.description}
+                  {t(project.descKey)}
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.technologies.map((tech, techIndex) => {
                     // Alternate between professional developer colors (3-color scheme)
                     const colorStyles = [
-                      {background: 'rgba(88, 166, 255, 0.1)', color: 'var(--color-primary)'},
-                      {background: 'rgba(63, 185, 80, 0.1)', color: 'var(--color-secondary)'},
-                      {background: 'rgba(233, 84, 32, 0.1)', color: 'var(--color-accent)'},
-                      {background: 'rgba(88, 166, 255, 0.1)', color: 'var(--color-primary)'},
+                      {
+                        background: "rgba(88, 166, 255, 0.1)",
+                        color: "var(--color-primary)",
+                      },
+                      {
+                        background: "rgba(63, 185, 80, 0.1)",
+                        color: "var(--color-secondary)",
+                      },
+                      {
+                        background: "rgba(233, 84, 32, 0.1)",
+                        color: "var(--color-accent)",
+                      },
+                      {
+                        background: "rgba(88, 166, 255, 0.1)",
+                        color: "var(--color-primary)",
+                      },
                     ];
-                    const colorStyle = colorStyles[techIndex % colorStyles.length];
+                    const colorStyle =
+                      colorStyles[techIndex % colorStyles.length];
                     return (
                       <span
                         key={techIndex}

@@ -58,7 +58,7 @@ const Skills: React.FC = () => {
 
   const skillCategories = [
     {
-      title: t("skills.languages"),
+      titleKey: "skills.languages",
       icon: Code2,
       accentColor: "#10b981",
       skills: [
@@ -81,19 +81,22 @@ const Skills: React.FC = () => {
       ],
     },
     {
-      title: "Web & UI Development",
+      titleKey: "skills.webUI",
+      descKey: "skills.webUIDesc",
       icon: Zap,
       accentColor: "#f97316",
       skills: ["HTML5", "CSS3", "Tailwind CSS", "Responsive Design"],
     },
     {
-      title: "Databases & Cloud",
+      titleKey: "skills.databases",
+      descKey: "skills.databasesDesc",
       icon: Database,
       accentColor: "#0284c7",
       skills: ["PostgreSQL", "MongoDB", "Firebase", "Supabase", "SQL Server"],
     },
     {
-      title: t("skills.tools"),
+      titleKey: "skills.tools",
+      descKey: "skills.toolsDesc",
       icon: Award,
       accentColor: "#f59e0b",
       skills: [
@@ -110,21 +113,21 @@ const Skills: React.FC = () => {
   ];
 
   const certifications = [
-    "Cisco Networking Essentials",
-    "Full Stack Development Training (React.js & Spring Boot)",
-    "Graphic Design (Adobe Photoshop)",
-    "Leadership & Team Management",
-    "Red Cross Humanitarian Training",
+    { key: "skills.cert1" },
+    { key: "skills.cert2" },
+    { key: "skills.cert3" },
+    { key: "skills.cert4" },
+    { key: "skills.cert5" },
   ];
 
   const softSkills = [
-    { name: "Leadership & Mentorship", icon: "👥" },
-    { name: "Team Coordination", icon: "🤝" },
-    { name: "Problem Solving", icon: "🧩" },
-    { name: "Agile Methodology", icon: "⚡" },
-    { name: "Code Review", icon: "👀" },
-    { name: "Technical Communication", icon: "💬" },
-    { name: "Cross-cultural Collaboration", icon: "🌍" },
+    { key: "skills.skill1", icon: "👥" },
+    { key: "skills.skill2", icon: "🤝" },
+    { key: "skills.skill3", icon: "🧩" },
+    { key: "skills.skill4", icon: "⚡" },
+    { key: "skills.skill5", icon: "👀" },
+    { key: "skills.skill6", icon: "💬" },
+    { key: "skills.skill7", icon: "🌍" },
   ];
 
   return (
@@ -184,7 +187,7 @@ const Skills: React.FC = () => {
                   </motion.div>
                   <div className="flex-1">
                     <h3 className="text-lg sm:text-xl font-bold dev-heading">
-                      {category.title}
+                      {t(category.titleKey)}
                     </h3>
                   </div>
                 </div>
@@ -204,7 +207,7 @@ const Skills: React.FC = () => {
                       const logoSlug = skillLogoSlug[skill];
                       return (
                         <motion.div
-                          key={`${category.title}-${skillIndex}-${skill}`}
+                          key={`${category.titleKey}-${skillIndex}-${skill}`}
                           className="group flex items-center gap-2 sm:gap-3 min-w-[160px] sm:min-w-[200px] px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-[var(--dev-panel)]/70 transition-all duration-300"
                           style={{
                             boxShadow: "0 10px 22px rgba(0, 0, 0, 0.10)",
@@ -288,10 +291,10 @@ const Skills: React.FC = () => {
                   className="flex items-center gap-3 p-3 rounded-xl border border-[var(--dev-border)] hover:border-[#a855f7] transition-all duration-300 group cursor-default"
                 >
                   <span className="text-lg group-hover:scale-125 transition-transform duration-300">
-                    {skill.icon}
+                    📜
                   </span>
                   <span className="text-sm sm:text-base font-semibold dev-text flex-1">
-                    {skill.name}
+                    {t(skill.key)}
                   </span>
                   <CheckCircle
                     size={16}
@@ -345,7 +348,7 @@ const Skills: React.FC = () => {
                     </div>
                   </div>
                   <span className="dev-text font-medium text-sm sm:text-base group-hover:text-white transition-colors duration-300">
-                    {cert}
+                    {t(cert.key)}
                   </span>
                   <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-5 bg-[#22c55e] pointer-events-none transition-opacity duration-300"></div>
                 </motion.div>

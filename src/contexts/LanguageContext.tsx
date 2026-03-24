@@ -70,7 +70,6 @@ const translations = {
     // Skills Section
     "skills.title": "Technical Skills",
     "skills.languages": "Languages & Frameworks",
-    "skills.tools": "Tools & Platforms",
     "skills.certifications": "Certifications & Training",
     "skills.subtitle":
       "30+ technologies mastered across web, mobile, and backend development",
@@ -130,6 +129,88 @@ const translations = {
     "header.quickFormTag": "contact --quick-form",
     "header.modalDescription":
       "Send your message instantly or schedule a calendar meeting.",
+
+    // Experience Section
+    "experience.lead": "Lead Software Engineer",
+    "experience.chadnova": "ChadNova",
+    "experience.leadDesc":
+      "Lead the design and development of web-based platforms with a focus on scalability, reliability, and security. Coordinate technical tasks, mentor junior developers, and align engineering decisions with organizational and community-oriented objectives.",
+    "experience.arch": "Platform Architecture",
+    "experience.leadership": "Team Leadership",
+    "experience.strategy": "Technical Strategy",
+    "experience.assistant": "Teaching Assistant - Web Technology & Internet",
+    "experience.auca": "Adventist University of Central Africa (AUCA)",
+    "experience.assistantDesc":
+      "Support undergraduate students in learning HTML, CSS, JavaScript, React, Tailwind CSS, and Spring Boot through practical exercises and full-stack projects. Assist in clarifying complex concepts, reviewing code, and introducing Agile workflows.",
+    "experience.fullstack": "Full-Stack Education",
+    "experience.codereview": "Code Review",
+    "experience.mentorship": "Mentorship",
+    "experience.trainee": "Trainee & Volunteer Coach",
+    "experience.gym": "The Gym Rwanda",
+    "experience.traineeDesc":
+      "Develop full-stack applications using React, Node.js, Express, and Tailwind CSS in collaborative team environments. Apply Agile practices such as sprint planning, task decomposition, documentation, and peer code reviews.",
+    "experience.fullstackdev": "Full-Stack Development",
+    "experience.agile": "Agile Methodology",
+    "experience.coaching": "Developer Coaching",
+    "experience.location": "Kigali, Rwanda",
+    "experience.nowPresent": "Present",
+
+    // About Section Strengths
+    "about.strength1": "Full-Stack Expertise",
+    "about.strength1Desc":
+      "Expert in modern JavaScript frameworks, backend technologies, and database design",
+    "about.strength2": "Team Leadership",
+    "about.strength2Desc":
+      "Lead Software Engineer with mentorship experience and Agile workflow expertise",
+    "about.strength3": "Problem Solving",
+    "about.strength3Desc":
+      "Strong analytical skills with focus on scalable, reliable, and secure solutions",
+    "about.strength4": "Community Focus",
+    "about.strength4Desc":
+      "Passionate about creating technology that serves and empowers communities",
+    "about.stack": "Java, React, Node.js",
+    "about.roles": "4 Roles",
+
+    // Skills Section
+    "skills.webUI": "Web & UI Development",
+    "skills.webUIDesc": "Frontend technologies and responsive design",
+    "skills.databases": "Databases & Cloud",
+    "skills.databasesDesc": "Data storage and cloud platform solutions",
+    "skills.tools": "DevTools & Deployment",
+    "skills.toolsDesc": "Development tools and hosting platforms",
+    "skills.cert1": "Cisco Networking Essentials",
+    "skills.cert2": "Full Stack Development Training (React.js & Spring Boot)",
+    "skills.cert3": "Graphic Design (Adobe Photoshop)",
+    "skills.cert4": "Leadership & Team Management",
+    "skills.cert5": "Red Cross Humanitarian Training",
+    "skills.softSkillsTitle": "Soft Skills",
+    "skills.skill1": "Leadership & Mentorship",
+    "skills.skill2": "Team Coordination",
+    "skills.skill3": "Problem Solving",
+    "skills.skill4": "Agile Methodology",
+    "skills.skill5": "Code Review",
+    "skills.skill6": "Technical Communication",
+    "skills.skill7": "Cross-cultural Collaboration",
+
+    // Projects Section
+    "projects.kardara": "Kardara Stock Management System",
+    "projects.kardaraDesc":
+      "A comprehensive Java-based stock control application with role-aware modules, inventory updates, and reporting support for day-to-day operations.",
+    "projects.medireminder": "MediReminder",
+    "projects.medreminderDesc":
+      "A mobile medicine reminder app designed to improve treatment adherence through clear scheduling and local notification workflows.",
+    "projects.mytask": "MyTaskMangement BestSeller",
+    "projects.mytaskDesc":
+      "A full-stack task management platform with a TypeScript frontend and Java backend, built around maintainable workflows and clean architecture.",
+    "projects.aucalms": "AUCA Library Management System (IMS)",
+    "projects.auca​lmsDesc":
+      "Integrated library and inventory management system for AUCA. Manages book inventory, borrowing/returning, student records, and generates reports. Built with Java for robust backend operations.",
+    "projects.aucaapp": "AUCA Online Application Portal",
+    "projects.aucaappDesc":
+      "A modern AUCA admissions web portal with TypeScript and React, enabling user-friendly online application experiences for prospective students.",
+    "projects.studentmgmt": "Student Management System",
+    "projects.studentmgmtDesc":
+      "A full-stack academic management solution handling student data, enrollment, and records with frontend-backend coordination across dedicated repositories.",
 
     // Footer
     "footer.quote": '"Creativity + Code + Community = Change."',
@@ -206,7 +287,6 @@ const translations = {
     // Skills Section
     "skills.title": "Compétences Techniques",
     "skills.languages": "Langages & Frameworks",
-    "skills.tools": "Outils & Plateformes",
     "skills.certifications": "Certifications & Formation",
     "skills.subtitle":
       "30+ technologies maîtrisées en développement web, mobile et backend",
@@ -267,6 +347,90 @@ const translations = {
     "header.modalDescription":
       "Envoyez votre message instantanément ou planifiez une réunion via le calendrier.",
 
+    // Experience Section
+    "experience.lead": "Ingénieur Logiciel Principal",
+    "experience.chadnova": "ChadNova",
+    "experience.leadDesc":
+      "Diriger la conception et le développement de plateformes Web en mettant l'accent sur l'évolutivité, la fiabilité et la sécurité. Coordonner les tâches techniques, mentorer les jeunes développeurs et aligner les décisions d'ingénierie avec les objectifs organisationnels et communautaires.",
+    "experience.arch": "Architecture de Plateforme",
+    "experience.leadership": "Leadership d'Équipe",
+    "experience.strategy": "Stratégie Technique",
+    "experience.assistant":
+      "Assistant Enseignant - Technologie Web et Internet",
+    "experience.auca": "Université Adventiste d'Afrique Centrale (AUCA)",
+    "experience.assistantDesc":
+      "Soutenir les étudiants de premier cycle dans l'apprentissage HTML, CSS, JavaScript, React, Tailwind CSS et Spring Boot à travers des exercices pratiques et des projets Full-Stack. Aider à clarifier les concepts complexes, examiner le code et introduire les flux de travail Agile.",
+    "experience.fullstack": "Éducation Full-Stack",
+    "experience.codereview": "Examen de Code",
+    "experience.mentorship": "Mentorat",
+    "experience.trainee": "Stagiaire et Coach Bénévole",
+    "experience.gym": "The Gym Rwanda",
+    "experience.traineeDesc":
+      "Développer des applications Full-Stack utilisant React, Node.js, Express et Tailwind CSS dans des environnements d'équipe collaboratifs. Appliquer les pratiques Agile telles que la planification de sprint, la décomposition des tâches, la documentation et les examens de code entre pairs.",
+    "experience.fullstackdev": "Développement Full-Stack",
+    "experience.agile": "Méthodologie Agile",
+    "experience.coaching": "Coaching de Développeurs",
+    "experience.location": "Kigali, Rwanda",
+    "experience.nowPresent": "Actuellement",
+
+    // About Section Strengths
+    "about.strength1": "Expertise Full-Stack",
+    "about.strength1Desc":
+      "Expert dans les frameworks JavaScript modernes, les technologies backend et la conception de bases de données",
+    "about.strength2": "Leadership d'Équipe",
+    "about.strength2Desc":
+      "Ingénieur Logiciel Principal avec expérience en mentorat et expertise des flux de travail Agile",
+    "about.strength3": "Résolution de Problèmes",
+    "about.strength3Desc":
+      "Fortes compétences analytiques avec accent sur les solutions évolutives, fiables et sécurisées",
+    "about.strength4": "Focus Communautaire",
+    "about.strength4Desc":
+      "Passionné par la création de technologies qui servent et responsabilisent les communautés",
+    "about.stack": "Java, React, Node.js",
+    "about.roles": "4 Rôles",
+
+    // Skills Section
+    "skills.webUI": "Développement Web et Interface Utilisateur",
+    "skills.webUIDesc": "Technologies frontend et design réactif",
+    "skills.databases": "Bases de Données et Cloud",
+    "skills.databasesDesc":
+      "Solutions de stockage de données et de plateforme cloud",
+    "skills.tools": "DevTools et Déploiement",
+    "skills.toolsDesc": "Outils de développement et plateformes d'hébergement",
+    "skills.cert1": "Cisco Networking Essentials",
+    "skills.cert2": "Cours de Formation Full Stack (React.js et Spring Boot)",
+    "skills.cert3": "Conception Graphique (Adobe Photoshop)",
+    "skills.cert4": "Leadership et Gestion d'Équipe",
+    "skills.cert5": "Formation Humanitaire de la Croix-Rouge",
+    "skills.softSkillsTitle": "Compétences Humaines",
+    "skills.skill1": "Leadership et Mentorat",
+    "skills.skill2": "Coordination d'Équipe",
+    "skills.skill3": "Résolution de Problèmes",
+    "skills.skill4": "Méthodologie Agile",
+    "skills.skill5": "Examen de Code",
+    "skills.skill6": "Communication Technique",
+    "skills.skill7": "Collaboration Multiculturelle",
+
+    // Projects Section
+    "projects.kardara": "Système de Gestion des Stocks Kardara",
+    "projects.kardaraDesc":
+      "Une application de contrôle des stocks complète basée sur Java avec des modules sensibles aux rôles, des mises à jour d'inventaire et un support de reporting pour les opérations quotidiennes.",
+    "projects.medireminder": "MediReminder",
+    "projects.medreminderDesc":
+      "Une application mobile de rappel de médicaments conçue pour améliorer l'adhérence au traitement grâce à des workflows de planification et de notification clairs.",
+    "projects.mytask": "MyTaskMangement BestSeller",
+    "projects.mytaskDesc":
+      "Une plateforme complète de gestion des tâches avec un frontend TypeScript et un backend Java, construite autour de flux de travail maintenables et d'une architecture propre.",
+    "projects.aucalms": "Système de Gestion de Bibliothèque AUCA (IMS)",
+    "projects.aucalmsDesc":
+      "Système intégré de gestion de bibliothèque et d'inventaire pour AUCA. Gère l'inventaire des livres, les emprunts/retours, les dossiers d'étudiants et génère des rapports. Construit avec Java pour des opérations backend robustes.",
+    "projects.aucaapp": "Portail de Candidature en Ligne AUCA",
+    "projects.aucaappDesc":
+      "Un portail d'admission AUCA moderne avec TypeScript et React, permettant des expériences de candidature en ligne conviviales pour les étudiants potentiels.",
+    "projects.studentmgmt": "Système de Gestion des Étudiants",
+    "projects.studentmgmtDesc":
+      "Une solution complète de gestion académique gérant les données des étudiants, les inscriptions et les dossiers avec coordination frontend-backend dans des référentiels dédiés.",
+
     // Footer
     "footer.quote": '"Créativité + Code + Communauté = Changement."',
     "footer.subquote":
@@ -315,6 +479,87 @@ const translations = {
     "hero.locationLabel": "الموقع: كيغالي",
     "hero.focusLabel": "التركيز: Full-Stack",
 
+    // Experience Section
+    "experience.lead": "مهندس برمجيات رئيسي",
+    "experience.chadnova": "ChadNova",
+    "experience.leadDesc":
+      "قيادة تصميم وتطوير منصات الويب مع التركيز على قابلية التوسع والموثوقية والأمان. تنسيق المهام التقنية وتوجيه المطورين الصغار ومواءمة قرارات الهندسة مع الأهداف التنظيمية والمجتمعية.",
+    "experience.arch": "معمارية المنصة",
+    "experience.leadership": "قيادة الفريق",
+    "experience.strategy": "الاستراتيجية التقنية",
+    "experience.assistant": "مساعد تدريس - تكنولوجيا الويب والإنترنت",
+    "experience.auca": "جامعة الأدفنتست بوسط أفريقيا (AUCA)",
+    "experience.assistantDesc":
+      "دعم الطلاب الجامعيين في تعلم HTML و CSS و JavaScript و React و Tailwind CSS و Spring Boot من خلال تمارين عملية ومشاريع Full-Stack. مساعدة في توضيح المفاهيم المعقدة ومراجعة الكود وإدخال سير العمل Agile.",
+    "experience.fullstack": "تعليم Full-Stack",
+    "experience.codereview": "مراجعة الكود",
+    "experience.mentorship": "الإرشاد",
+    "experience.trainee": "متدرب ومدرب متطوع",
+    "experience.gym": "The Gym Rwanda",
+    "experience.traineeDesc":
+      "تطوير تطبيقات Full-Stack باستخدام React و Node.js و Express و Tailwind CSS في بيئات فريق تعاونية. تطبيق ممارسات Agile مثل تخطيط Sprint وتحويل المهام والتوثيق واستعراضات الكود بين الأقران.",
+    "experience.fullstackdev": "تطوير Full-Stack",
+    "experience.agile": "منهجية Agile",
+    "experience.coaching": "تدريب المطورين",
+    "experience.location": "كيغالي، رواندا",
+    "experience.nowPresent": "الحاضر",
+
+    // About Section Strengths
+    "about.strength1": "خبرة Full-Stack",
+    "about.strength1Desc":
+      "خبير في أطر عمل JavaScript الحديثة وتقنيات Backend وتصميم قواعد البيانات",
+    "about.strength2": "قيادة الفريق",
+    "about.strength2Desc":
+      "مهندس برمجيات رئيسي بخبرة في الإرشاد وخبرة سير العمل Agile",
+    "about.strength3": "حل المشاكل",
+    "about.strength3Desc":
+      "مهارات تحليلية قوية مع التركيز على الحلول القابلة للتوسع والموثوقة والآمنة",
+    "about.strength4": "التركيز على المجتمع",
+    "about.strength4Desc": "شغوف بإنشاء تكنولوجيا تخدم وتمكن المجتمعات",
+    "about.stack": "Java, React, Node.js",
+    "about.roles": "4 أدوار",
+
+    // Skills Section
+    "skills.webUI": "تطوير الويب وواجهة المستخدم",
+    "skills.webUIDesc": "تقنيات الواجهة الأمامية والتصميم سريع الاستجابة",
+    "skills.databases": "قواعد البيانات والسحابة",
+    "skills.databasesDesc": "حلول تخزين البيانات ومنصات السحابة",
+    "skills.tools": "أدوات التطوير والنشر",
+    "skills.toolsDesc": "أدوات التطوير ومنصات الاستضافة",
+    "skills.cert1": "Cisco Networking Essentials",
+    "skills.cert2": "تدريب Full Stack (React.js و Spring Boot)",
+    "skills.cert3": "التصميم الجرافيكي (Adobe Photoshop)",
+    "skills.cert4": "القيادة وإدارة الفريق",
+    "skills.cert5": "تدريب الصليب الأحمر الإنساني",
+    "skills.softSkillsTitle": "المهارات الشخصية",
+    "skills.skill1": "القيادة والإرشاد",
+    "skills.skill2": "تنسيق الفريق",
+    "skills.skill3": "حل المشاكل",
+    "skills.skill4": "منهجية Agile",
+    "skills.skill5": "مراجعة الكود",
+    "skills.skill6": "التواصل التقني",
+    "skills.skill7": "التعاون متعدد الثقافات",
+
+    // Projects Section
+    "projects.kardara": "نظام إدارة الأسهم Kardara",
+    "projects.kardaraDesc":
+      "تطبيق تحكم مخزون شامل قائم على Java بوحدات تدرك الدور وتحديثات الجرد ودعم التقارير للعمليات اليومية.",
+    "projects.medireminder": "MediReminder",
+    "projects.medreminderDesc":
+      "تطبيق ذكي لتذكير الأدوية مصمم لتحسين الالتزام بالعلاج من خلال مسارات جدولة وإخطار واضحة.",
+    "projects.mytask": "MyTaskMangement BestSeller",
+    "projects.mytaskDesc":
+      "منصة إدارة المهام الكاملة مع واجهة أمامية TypeScript وخلفية Java، مبنية حول سير العمل القابل للصيانة والعمارة النظيفة.",
+    "projects.aucalms": "نظام إدارة مكتبة AUCA (IMS)",
+    "projects.aucalmsDesc":
+      "نظام متكامل لإدارة المكتبة والمخزون لـ AUCA. يدير مخزون الكتب والاستعارة/الإرجاع وسجلات الطلاب ويولد التقارير. مبني بـ Java لعمليات Backend قوية.",
+    "projects.aucaapp": "بوابة التقديم عبر الإنترنت AUCA",
+    "projects.aucaappDesc":
+      "بوابة التحضيرية الحديثة AUCA مع TypeScript و React، مما يتيح تجارب تقديم صديقة للمستخدم للطلاب المحتملين.",
+    "projects.studentmgmt": "نظام إدارة الطلاب",
+    "projects.studentmgmtDesc":
+      "حل إدارة أكاديمي شامل يتعامل مع بيانات الطلاب والالتحاق والسجلات مع تنسيق الواجهة الأمامية والخلفية عبر المستودعات المخصصة.",
+
     // About Section
     "about.title": "نبذة عني",
     "about.subtitle": "مطور شغوف وقائد تقني مستقبلي",
@@ -338,8 +583,6 @@ const translations = {
     // Skills Section
     "skills.title": "المهارات التقنية",
     "skills.languages": "اللغات والأطر",
-    "skills.tools": "الأدوات والمنصات",
-    "skills.certifications": "الشهادات والتدريب",
     "skills.subtitle": "أكثر من 30 تقنية في تطوير الويب والموبايل والخلفية",
     "skills.softSkills": "المهارات الشخصية",
     "skills.technologies": "تقنية",
@@ -420,9 +663,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   const [language, setLanguage] = useState<Language>("en");
 
   const t = (key: string): string => {
-    return (
-      translations[language][key as keyof (typeof translations)["en"]] || key
-    );
+    return (translations[language] as Record<string, string>)[key] || key;
   };
 
   return (
@@ -432,6 +673,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (context === undefined) {

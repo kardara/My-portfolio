@@ -13,40 +13,41 @@ const Experience: React.FC = () => {
 
   const experiences = [
     {
-      title: "Lead Software Engineer",
-      company: "ChadNova",
-      location: "Kigali, Rwanda",
+      titleKey: "experience.lead",
+      companyKey: "experience.chadnova",
+      location: t("experience.location"),
       period: "Nov 2025 – Present",
-      description:
-        "Lead the design and development of web-based platforms with a focus on scalability, reliability, and security. Coordinate technical tasks, mentor junior developers, and align engineering decisions with organizational and community-oriented objectives.",
-      highlights: [
-        "Platform Architecture",
-        "Team Leadership",
-        "Technical Strategy",
+      descriptionKey: "experience.leadDesc",
+      highlightKeys: [
+        "experience.arch",
+        "experience.leadership",
+        "experience.strategy",
       ],
       color: "from-[var(--color-primary)] to-[#0284c7]",
     },
     {
-      title: "Teaching Assistant - Web Technology & Internet",
-      company: "Adventist University of Central Africa (AUCA)",
-      location: "Kigali, Rwanda",
+      titleKey: "experience.assistant",
+      companyKey: "experience.auca",
+      location: t("experience.location"),
       period: "Sep 2025 – Present",
-      description:
-        "Support undergraduate students in learning HTML, CSS, JavaScript, React, Tailwind CSS, and Spring Boot through practical exercises and full-stack projects. Assist in clarifying complex concepts, reviewing code, and introducing Agile workflows.",
-      highlights: ["Full-Stack Education", "Code Review", "Mentorship"],
+      descriptionKey: "experience.assistantDesc",
+      highlightKeys: [
+        "experience.fullstack",
+        "experience.codereview",
+        "experience.mentorship",
+      ],
       color: "from-[var(--color-secondary)] to-[#15803d]",
     },
     {
-      title: "Trainee & Volunteer Coach",
-      company: "The Gym Rwanda",
-      location: "Kigali, Rwanda",
+      titleKey: "experience.trainee",
+      companyKey: "experience.gym",
+      location: t("experience.location"),
       period: "2024 – Present",
-      description:
-        "Develop full-stack applications using React, Node.js, Express, and Tailwind CSS in collaborative team environments. Apply Agile practices such as sprint planning, task decomposition, documentation, and peer code reviews.",
-      highlights: [
-        "Full-Stack Development",
-        "Agile Methodology",
-        "Developer Coaching",
+      descriptionKey: "experience.traineeDesc",
+      highlightKeys: [
+        "experience.fullstackdev",
+        "experience.agile",
+        "experience.coaching",
       ],
       color: "from-[#f97316] to-[var(--color-accent)]",
     },
@@ -82,7 +83,9 @@ const Experience: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12 sm:mb-16 md:mb-20"
         >
-          <p className="terminal-title text-xs dev-muted mb-3">experience --timeline</p>
+          <p className="terminal-title text-xs dev-muted mb-3">
+            experience --timeline
+          </p>
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold dev-heading mb-4">
             {t("experience.title") || "Professional Journey"}
           </h2>
@@ -122,19 +125,23 @@ const Experience: React.FC = () => {
                 {/* Card */}
                 <motion.div
                   whileHover={{ y: -8, shadow: "0 25px 50px rgba(0,0,0,0.2)" }}
-                className="shell-panel rounded-2xl p-4 sm:p-6 md:p-8 transition-all duration-300 border-l-4 border-transparent hover:border-[var(--color-primary)]"
+                  className="shell-panel rounded-2xl p-4 sm:p-6 md:p-8 transition-all duration-300 border-l-4 border-transparent hover:border-[var(--color-primary)]"
                 >
                   <div className="flex items-start justify-between gap-3 mb-4">
                     <div>
                       <h3 className="text-xl sm:text-2xl font-bold dev-heading mb-2">
-                        {exp.title}
+                        {t(exp.titleKey)}
                       </h3>
-                      <p className="text-base sm:text-lg font-semibold" style={{color: 'var(--color-primary)'}}>
-                        {exp.company}
+                      <p
+                        className="text-base sm:text-lg font-semibold"
+                        style={{ color: "var(--color-primary)" }}
+                      >
+                        {t(exp.companyKey)}
                       </p>
                     </div>
                     <Badge
-                      className="hidden sm:block" style={{color: 'var(--color-primary)'}}
+                      className="hidden sm:block"
+                      style={{ color: "var(--color-primary)" }}
                       size={24}
                     />
                   </div>
@@ -151,20 +158,20 @@ const Experience: React.FC = () => {
                   </div>
 
                   <p className="dev-text mb-5 leading-relaxed">
-                    {exp.description}
+                    {t(exp.descriptionKey)}
                   </p>
 
                   <div className="flex flex-wrap gap-2">
-                    {exp.highlights.map((highlight, idx) => (
+                    {exp.highlightKeys.map((key, idx) => (
                       <span
                         key={idx}
                         className="px-3 py-1 text-sm font-medium rounded-full"
                         style={{
-                          background: 'rgba(88, 166, 255, 0.1)',
-                          color: 'var(--color-primary)'
+                          background: "rgba(88, 166, 255, 0.1)",
+                          color: "var(--color-primary)",
                         }}
                       >
-                        {highlight}
+                        {t(key)}
                       </span>
                     ))}
                   </div>

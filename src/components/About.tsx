@@ -14,30 +14,26 @@ const About: React.FC = () => {
   const strengths = [
     {
       icon: Code,
-      title: "Full-Stack Expertise",
-      description:
-        "Expert in modern JavaScript frameworks, backend technologies, and database design",
+      titleKey: "about.strength1",
+      descKey: "about.strength1Desc",
       color: "from-[var(--color-primary)] to-[#0284c7]",
     },
     {
       icon: Users,
-      title: "Team Leadership",
-      description:
-        "Lead Software Engineer with mentorship experience and Agile workflow expertise",
+      titleKey: "about.strength2",
+      descKey: "about.strength2Desc",
       color: "from-[var(--color-secondary)] to-[#15803d]",
     },
     {
       icon: Brain,
-      title: "Problem Solving",
-      description:
-        "Strong analytical skills with focus on scalable, reliable, and secure solutions",
+      titleKey: "about.strength3",
+      descKey: "about.strength3Desc",
       color: "from-[var(--color-accent)] to-[#dc2626]",
     },
     {
       icon: Target,
-      title: "Community Focus",
-      description:
-        "Passionate about creating technology that serves and empowers communities",
+      titleKey: "about.strength4",
+      descKey: "about.strength4Desc",
       color: "from-[#f59e0b] to-[var(--color-accent)]",
     },
   ];
@@ -52,7 +48,9 @@ const About: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12 sm:mb-16 md:mb-20"
         >
-          <p className="terminal-title text-xs dev-muted mb-3">about --profile</p>
+          <p className="terminal-title text-xs dev-muted mb-3">
+            about --profile
+          </p>
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold dev-heading mb-4">
             {t("about.title")}
           </h2>
@@ -84,16 +82,28 @@ const About: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-6 sm:pt-8 border-t border-[var(--dev-border)]">
               <div>
-                <div className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent" style={{backgroundImage: 'linear-gradient(to right, var(--color-primary), #0284c7)'}}>
-                  Java, React, Node.js
+                <div
+                  className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to right, var(--color-primary), #0284c7)",
+                  }}
+                >
+                  {t("about.stack")}
                 </div>
                 <p className="text-sm dev-muted mt-2">
                   {t("about.primaryStack")}
                 </p>
               </div>
               <div>
-                <div className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent" style={{backgroundImage: 'linear-gradient(to right, var(--color-primary), #0284c7)'}}>
-                  4 Roles
+                <div
+                  className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to right, var(--color-primary), #0284c7)",
+                  }}
+                >
+                  {t("about.roles")}
                 </div>
                 <p className="text-sm dev-muted mt-2">
                   {t("about.currentPositions")}
@@ -123,10 +133,10 @@ const About: React.FC = () => {
                   <strength.icon className="text-white" size={28} />
                 </div>
                 <h3 className="text-base sm:text-lg font-bold dev-heading mb-2">
-                  {strength.title}
+                  {t(strength.titleKey)}
                 </h3>
                 <p className="dev-muted text-sm leading-relaxed">
-                  {strength.description}
+                  {t(strength.descKey)}
                 </p>
               </motion.div>
             ))}
@@ -140,7 +150,7 @@ const About: React.FC = () => {
           className="shell-panel rounded-3xl p-6 sm:p-8 md:p-12"
         >
           <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-            <Award size={28} style={{color: 'var(--color-primary)'}} />
+            <Award size={28} style={{ color: "var(--color-primary)" }} />
             <h3 className="text-2xl sm:text-3xl font-bold dev-heading">
               {t("about.keyAchievements")}
             </h3>
@@ -148,39 +158,24 @@ const About: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-5 sm:gap-8">
             <div className="space-y-2">
               <p className="dev-heading font-semibold flex items-center gap-2">
-                <Zap
-                  size={20}
-                  style={{color: 'var(--color-primary)'}}
-                />
+                <Zap size={20} style={{ color: "var(--color-primary)" }} />
                 {t("about.achievement1Title")}
               </p>
-              <p className="dev-muted text-sm">
-                {t("about.achievement1Desc")}
-              </p>
+              <p className="dev-muted text-sm">{t("about.achievement1Desc")}</p>
             </div>
             <div className="space-y-2">
               <p className="dev-heading font-semibold flex items-center gap-2">
-                <Users
-                  size={20}
-                  style={{color: 'var(--color-primary)'}}
-                />
+                <Users size={20} style={{ color: "var(--color-primary)" }} />
                 {t("about.achievement2Title")}
               </p>
-              <p className="dev-muted text-sm">
-                {t("about.achievement2Desc")}
-              </p>
+              <p className="dev-muted text-sm">{t("about.achievement2Desc")}</p>
             </div>
             <div className="space-y-2">
               <p className="dev-heading font-semibold flex items-center gap-2">
-                <Brain
-                  size={20}
-                  style={{color: 'var(--color-primary)'}}
-                />
+                <Brain size={20} style={{ color: "var(--color-primary)" }} />
                 {t("about.achievement3Title")}
               </p>
-              <p className="dev-muted text-sm">
-                {t("about.achievement3Desc")}
-              </p>
+              <p className="dev-muted text-sm">{t("about.achievement3Desc")}</p>
             </div>
           </div>
         </motion.div>

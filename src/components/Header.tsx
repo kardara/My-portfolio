@@ -128,7 +128,7 @@ const Header: React.FC = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-[var(--dev-bg)]/85 backdrop-blur-md border-b border-[var(--dev-border)]"
-          : "bg-transparent"
+          : "bg-[var(--dev-bg)]/40 md:bg-transparent border-b md:border-b-0 border-[var(--dev-border)]/30 md:border-0"
       }`}
     >
       <nav className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
@@ -250,47 +250,58 @@ const Header: React.FC = () => {
             opacity: isMenuOpen ? 1 : 0,
             height: isMenuOpen ? "auto" : 0,
           }}
-          className="md:hidden overflow-hidden"
+          className="md:hidden overflow-hidden bg-[var(--dev-bg)] border-t border-[var(--dev-border)]"
         >
-          <div className="pt-4 pb-2 space-y-2 border-t border-[var(--dev-border)] mt-4">
+          <div className="px-4 pt-4 pb-4 space-y-2">
             {navItems.map((item) => {
               const sectionId = item.href.replace("#", "");
               const isActive = activeSection === sectionId;
               return (
-                <button
+                <motion.button
                   key={item.key}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => handleNavClick(item.href)}
-                  className={`block w-full text-left py-2 terminal-title transition-colors`}
+                  className={`block w-full text-left px-3 py-2.5 rounded-lg transition-all duration-200 terminal-title font-medium`}
                   style={
                     isActive
-                      ? { color: "var(--color-primary)", fontWeight: "600" }
-                      : {}
+                      ? {
+                          backgroundColor: "var(--color-primary)",
+                          color: "#0d1117",
+                          fontWeight: "600",
+                        }
+                      : {
+                          backgroundColor: "var(--dev-panel)",
+                          color: "var(--dev-text)",
+                          border: "1px solid var(--dev-border)",
+                        }
                   }
                 >
                   {t(item.key)}
-                </button>
+                </motion.button>
               );
             })}
             <div className="pt-3 grid grid-cols-1 gap-2">
-              <button
+              <motion.button
+                whileTap={{ scale: 0.97 }}
                 onClick={() => {
                   setIsContactModalOpen(true);
                   setIsMenuOpen(false);
                 }}
-                className="inline-flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[var(--dev-panel)] border border-[var(--dev-border)] terminal-title text-sm dev-text"
+                className="inline-flex items-center justify-center gap-2 py-3 px-3 rounded-lg bg-[var(--dev-panel)] border border-[var(--dev-border)] terminal-title text-sm font-semibold dev-text transition-all duration-200 hover:bg-[var(--dev-border)]"
               >
                 <MessageSquare size={16} />
                 {t("header.quickContact")}
-              </button>
-              <a
+              </motion.button>
+              <motion.a
+                whileTap={{ scale: 0.97 }}
                 href={googleCalendarLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[var(--color-secondary)] text-[#0b1220] terminal-title text-sm font-semibold"
+                className="inline-flex items-center justify-center gap-2 py-3 px-3 rounded-lg bg-[var(--color-secondary)] text-[#0b1220] terminal-title text-sm font-semibold transition-all duration-200 hover:opacity-90"
               >
                 <CalendarPlus size={16} />
                 {t("header.scheduleMeeting")}
-              </a>
+              </motion.a>
             </div>
           </div>
         </motion.div>
