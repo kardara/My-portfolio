@@ -216,9 +216,9 @@ const translations = {
     "projects.aucaappDesc":
       "A modern AUCA admissions web portal with TypeScript and React, enabling user-friendly online application experiences for prospective students.",
     "projects.studentmgmt":
-      "Frontend AUCA IMS (Système de Gestion des Informations Universitaires)",
+      "AUCA IMS Frontend (University Information Management System)",
     "projects.studentmgmtDesc":
-      "Développement d'un frontend moderne et évolutif pour une plateforme de gestion universitaire, prenant en charge l'inscription des étudiants, les parcours de cours et prérequis, la gestion des trimestres, le suivi de la charge de travail, les interdictions et dérogations, les annonces, ainsi que l'administration basée sur les rôles. Conçu pour des flux institutionnels réels avec un fort accent sur la maintenabilité, les composants réutilisables et le contrôle d'accès sécurisé.",
+      "Built a modern, scalable frontend for a university information management platform supporting student registration, course and prerequisite workflows, term management, workload tracking, bans and waivers, announcements, and role-based administration. Designed for real institutional workflows with strong focus on maintainability, reusable components, and secure access control.",
 
     // Footer
     "footer.quote": '"Creativity + Code + Community = Change."',
@@ -442,9 +442,10 @@ const translations = {
     "projects.aucaapp": "Portail de Candidature en Ligne AUCA",
     "projects.aucaappDesc":
       "Un portail d'admission AUCA moderne avec TypeScript et React, permettant des expériences de candidature en ligne conviviales pour les étudiants potentiels.",
-    "projects.studentmgmt": "واجهة AUCA IMS (نظام إدارة المعلومات الجامعية)",
+    "projects.studentmgmt":
+      "Frontend AUCA IMS (Système de Gestion des Informations Universitaires)",
     "projects.studentmgmtDesc":
-      "تم تطوير واجهة أمامية حديثة وقابلة للتوسع لمنصة إدارة معلومات جامعية تدعم تسجيل الطلاب، ومسارات المقررات والمتطلبات المسبقة، وإدارة الفصول الدراسية، وتتبع عبء العمل، والحظر والإعفاءات، والإعلانات، والإدارة المعتمدة على الأدوار. صُممت لتخدم سير العمل المؤسسي الحقيقي مع تركيز قوي على سهولة الصيانة، والمكونات القابلة لإعادة الاستخدام، والتحكم الآمن في الوصول.",
+      "Développement d'un frontend moderne et évolutif pour une plateforme de gestion universitaire, prenant en charge l'inscription des étudiants, les parcours de cours et prérequis, la gestion des trimestres, le suivi de la charge de travail, les interdictions et dérogations, les annonces, ainsi que l'administration basée sur les rôles. Conçu pour des flux institutionnels réels avec un fort accent sur la maintenabilité, les composants réutilisables et le contrôle d'accès sécurisé.",
 
     // Footer
     "footer.quote": '"Créativité + Code + Communauté = Changement."',
@@ -576,10 +577,9 @@ const translations = {
     "projects.aucaapp": "بوابة التقديم عبر الإنترنت AUCA",
     "projects.aucaappDesc":
       "بوابة التحضيرية الحديثة AUCA مع TypeScript و React، مما يتيح تجارب تقديم صديقة للمستخدم للطلاب المحتملين.",
-    "projects.studentmgmt":
-      "AUCA IMS Frontend (University Information Management System)",
+    "projects.studentmgmt": "واجهة AUCA IMS (نظام إدارة المعلومات الجامعية)",
     "projects.studentmgmtDesc":
-      "Built a modern, scalable frontend for a university information management platform supporting student registration, course and prerequisite workflows, term management, workload tracking, bans and waivers, announcements, and role-based administration. Designed for real institutional workflows with strong focus on maintainability, reusable components, and secure access control.",
+      "تم تطوير واجهة أمامية حديثة وقابلة للتوسع لمنصة إدارة معلومات جامعية تدعم تسجيل الطلاب، ومسارات المقررات والمتطلبات المسبقة، وإدارة الفصول الدراسية، وتتبع عبء العمل، والحظر والإعفاءات، والإعلانات، والإدارة المعتمدة على الأدوار. صُممت لتخدم سير العمل المؤسسي الحقيقي مع تركيز قوي على سهولة الصيانة، والمكونات القابلة لإعادة الاستخدام، والتحكم الآمن في الوصول.",
 
     // About Section
     "about.title": "نبذة عني",
