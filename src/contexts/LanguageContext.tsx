@@ -75,6 +75,8 @@ const translations = {
       "30+ technologies mastered across web, mobile, and backend development",
     "skills.softSkills": "Soft Skills",
     "skills.technologies": "technologies",
+    "skills.manualScroll": "Manual Scroll",
+    "skills.autoScroll": "Auto Scroll",
 
     // Projects Section
     "projects.title": "Featured Projects",
@@ -113,7 +115,7 @@ const translations = {
     "contact.success": "Message sent successfully!",
     "contact.error": "Failed to send message.",
     "contact.errorLater": "An error occurred. Try again later.",
-    "contact.connectTitle": "Let's Connect Professionally",
+    "contact.connectTitle": "Let's Connect",
     "contact.actionsDescription":
       "Use the Quick Contact button in the header to send a direct message, or schedule a meeting instantly on Google Calendar.",
     "contact.scheduleGoogle": "Schedule Meeting on Google Calendar",
@@ -145,13 +147,18 @@ const translations = {
     "experience.fullstack": "Full-Stack Education",
     "experience.codereview": "Code Review",
     "experience.mentorship": "Mentorship",
-    "experience.trainee": "Trainee & Volunteer Coach",
+    "experience.trainee": "Software Engineering Trainee",
     "experience.gym": "The Gym Rwanda",
     "experience.traineeDesc":
-      "Develop full-stack applications using React, Node.js, Express, and Tailwind CSS in collaborative team environments. Apply Agile practices such as sprint planning, task decomposition, documentation, and peer code reviews.",
+      "Build full-stack applications using React, Node.js, Express, and Tailwind CSS in collaborative teams. Apply Agile delivery practices including sprint planning, task decomposition, documentation, and peer code reviews.",
+    "experience.volunteer": "Volunteer Coach",
+    "experience.volunteerDesc":
+      "Support junior developers through technical coaching sessions, practical code walkthroughs, and project guidance. Help teams improve communication, collaboration, and engineering discipline across delivery cycles.",
     "experience.fullstackdev": "Full-Stack Development",
     "experience.agile": "Agile Methodology",
     "experience.coaching": "Developer Coaching",
+    "experience.community": "Community Mentoring",
+    "experience.facilitation": "Technical Facilitation",
     "experience.location": "Kigali, Rwanda",
     "experience.nowPresent": "Present",
 
@@ -203,15 +210,15 @@ const translations = {
     "projects.mytaskDesc":
       "A full-stack task management platform with a TypeScript frontend and Java backend, built around maintainable workflows and clean architecture.",
     "projects.aucalms": "AUCA Library Management System (IMS)",
-    "projects.auca​lmsDesc":
+    "projects.aucalmsDesc":
       "Integrated library and inventory management system for AUCA. Manages book inventory, borrowing/returning, student records, and generates reports. Built with Java for robust backend operations.",
     "projects.aucaapp": "AUCA Online Application Portal",
     "projects.aucaappDesc":
       "A modern AUCA admissions web portal with TypeScript and React, enabling user-friendly online application experiences for prospective students.",
     "projects.studentmgmt":
-      "AUCA IMS Frontend (University Information Management System)",
+      "Frontend AUCA IMS (Système de Gestion des Informations Universitaires)",
     "projects.studentmgmtDesc":
-      "Built a modern, scalable frontend for a university information management platform supporting student registration, course and prerequisite workflows, term management, workload tracking, bans and waivers, announcements, and role-based administration. Designed for real institutional workflows with strong focus on maintainability, reusable components, and secure access control.",
+      "Développement d'un frontend moderne et évolutif pour une plateforme de gestion universitaire, prenant en charge l'inscription des étudiants, les parcours de cours et prérequis, la gestion des trimestres, le suivi de la charge de travail, les interdictions et dérogations, les annonces, ainsi que l'administration basée sur les rôles. Conçu pour des flux institutionnels réels avec un fort accent sur la maintenabilité, les composants réutilisables et le contrôle d'accès sécurisé.",
 
     // Footer
     "footer.quote": '"Creativity + Code + Community = Change."',
@@ -293,6 +300,8 @@ const translations = {
       "30+ technologies maîtrisées en développement web, mobile et backend",
     "skills.softSkills": "Compétences humaines",
     "skills.technologies": "technologies",
+    "skills.manualScroll": "Défilement manuel",
+    "skills.autoScroll": "Défilement automatique",
 
     // Projects Section
     "projects.title": "Projets Phares",
@@ -331,7 +340,7 @@ const translations = {
     "contact.success": "Message envoyé avec succès !",
     "contact.error": "Échec de l'envoi du message.",
     "contact.errorLater": "Une erreur est survenue. Réessayez plus tard.",
-    "contact.connectTitle": "Connectons-nous professionnellement",
+    "contact.connectTitle": "Connectons-nous",
     "contact.actionsDescription":
       "Utilisez le bouton Contact rapide dans l'en-tête pour envoyer un message direct, ou planifiez instantanément une réunion sur Google Calendar.",
     "contact.scheduleGoogle": "Planifier une réunion sur Google Calendar",
@@ -364,13 +373,18 @@ const translations = {
     "experience.fullstack": "Éducation Full-Stack",
     "experience.codereview": "Examen de Code",
     "experience.mentorship": "Mentorat",
-    "experience.trainee": "Stagiaire et Coach Bénévole",
+    "experience.trainee": "Stagiaire en Génie Logiciel",
     "experience.gym": "The Gym Rwanda",
     "experience.traineeDesc":
-      "Développer des applications Full-Stack utilisant React, Node.js, Express et Tailwind CSS dans des environnements d'équipe collaboratifs. Appliquer les pratiques Agile telles que la planification de sprint, la décomposition des tâches, la documentation et les examens de code entre pairs.",
+      "Développer des applications Full-Stack avec React, Node.js, Express et Tailwind CSS dans des équipes collaboratives. Appliquer des pratiques Agile comme la planification de sprint, la décomposition des tâches, la documentation et les revues de code entre pairs.",
+    "experience.volunteer": "Coach Bénévole",
+    "experience.volunteerDesc":
+      "Accompagner les développeurs juniors à travers des sessions de coaching technique, des revues de code pratiques et un suivi de projets. Renforcer la communication d'équipe, la collaboration et la discipline d'ingénierie.",
     "experience.fullstackdev": "Développement Full-Stack",
     "experience.agile": "Méthodologie Agile",
     "experience.coaching": "Coaching de Développeurs",
+    "experience.community": "Mentorat Communautaire",
+    "experience.facilitation": "Facilitation Technique",
     "experience.location": "Kigali, Rwanda",
     "experience.nowPresent": "Actuellement",
 
@@ -428,10 +442,9 @@ const translations = {
     "projects.aucaapp": "Portail de Candidature en Ligne AUCA",
     "projects.aucaappDesc":
       "Un portail d'admission AUCA moderne avec TypeScript et React, permettant des expériences de candidature en ligne conviviales pour les étudiants potentiels.",
-    "projects.studentmgmt":
-      "AUCA IMS Frontend (University Information Management System)",
+    "projects.studentmgmt": "واجهة AUCA IMS (نظام إدارة المعلومات الجامعية)",
     "projects.studentmgmtDesc":
-      "Built a modern, scalable frontend for a university information management platform supporting student registration, course and prerequisite workflows, term management, workload tracking, bans and waivers, announcements, and role-based administration. Designed for real institutional workflows with strong focus on maintainability, reusable components, and secure access control.",
+      "تم تطوير واجهة أمامية حديثة وقابلة للتوسع لمنصة إدارة معلومات جامعية تدعم تسجيل الطلاب، ومسارات المقررات والمتطلبات المسبقة، وإدارة الفصول الدراسية، وتتبع عبء العمل، والحظر والإعفاءات، والإعلانات، والإدارة المعتمدة على الأدوار. صُممت لتخدم سير العمل المؤسسي الحقيقي مع تركيز قوي على سهولة الصيانة، والمكونات القابلة لإعادة الاستخدام، والتحكم الآمن في الوصول.",
 
     // Footer
     "footer.quote": '"Créativité + Code + Communauté = Changement."',
@@ -496,13 +509,18 @@ const translations = {
     "experience.fullstack": "تعليم Full-Stack",
     "experience.codereview": "مراجعة الكود",
     "experience.mentorship": "الإرشاد",
-    "experience.trainee": "متدرب ومدرب متطوع",
+    "experience.trainee": "متدرب هندسة برمجيات",
     "experience.gym": "The Gym Rwanda",
     "experience.traineeDesc":
-      "تطوير تطبيقات Full-Stack باستخدام React و Node.js و Express و Tailwind CSS في بيئات فريق تعاونية. تطبيق ممارسات Agile مثل تخطيط Sprint وتحويل المهام والتوثيق واستعراضات الكود بين الأقران.",
+      "بناء تطبيقات Full-Stack باستخدام React و Node.js و Express و Tailwind CSS ضمن فرق تعاونية. تطبيق ممارسات Agile مثل تخطيط Sprint وتقسيم المهام والتوثيق ومراجعات الكود بين الزملاء.",
+    "experience.volunteer": "مدرب متطوع",
+    "experience.volunteerDesc":
+      "دعم المطورين المبتدئين عبر جلسات تدريب تقني ومراجعات كود عملية وتوجيه المشاريع. المساعدة في تحسين التواصل والتعاون والانضباط الهندسي داخل الفرق.",
     "experience.fullstackdev": "تطوير Full-Stack",
     "experience.agile": "منهجية Agile",
     "experience.coaching": "تدريب المطورين",
+    "experience.community": "إرشاد مجتمعي",
+    "experience.facilitation": "تيسير تقني",
     "experience.location": "كيغالي، رواندا",
     "experience.nowPresent": "الحاضر",
 
@@ -589,6 +607,8 @@ const translations = {
     "skills.subtitle": "أكثر من 30 تقنية في تطوير الويب والموبايل والخلفية",
     "skills.softSkills": "المهارات الشخصية",
     "skills.technologies": "تقنية",
+    "skills.manualScroll": "تمرير يدوي",
+    "skills.autoScroll": "تمرير تلقائي",
 
     // Projects Section
     "projects.title": "المشاريع المميزة",
@@ -626,7 +646,7 @@ const translations = {
     "contact.success": "تم إرسال الرسالة بنجاح!",
     "contact.error": "فشل إرسال الرسالة.",
     "contact.errorLater": "حدث خطأ. حاول مرة أخرى لاحقاً.",
-    "contact.connectTitle": "لنتواصل بشكل مهني",
+    "contact.connectTitle": "لنتواصل",
     "contact.actionsDescription":
       "استخدم زر التواصل السريع في الترويسة لإرسال رسالة مباشرة، أو قم بجدولة اجتماع فوراً عبر Google Calendar.",
     "contact.scheduleGoogle": "جدولة اجتماع على Google Calendar",

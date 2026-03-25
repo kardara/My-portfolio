@@ -6,6 +6,7 @@ import { useLanguage } from "../contexts/LanguageContext";
 
 const Projects: React.FC = () => {
   const { t } = useLanguage();
+  const githubProfile = "https://github.com/kardara";
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -54,11 +55,12 @@ const Projects: React.FC = () => {
       image:
         "https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/kardara/MyTaskMangement_BestSeller_Frontend",
-      demo: "#",
+      demo: "https://github.com/kardara/MyTaskMangement_BestSeller_Frontend",
       highlights: [
-        "Full-stack task management application",
-        "Real-time synchronization",
-        "Advanced filtering & sorting",
+        "Modular frontend and backend coordination for task workflows",
+        "Structured state and data flow for maintainable features",
+        "Reliable CRUD lifecycle with clear task ownership",
+        "Scalable architecture prepared for team collaboration",
       ],
     },
     {
@@ -70,11 +72,12 @@ const Projects: React.FC = () => {
       image:
         "https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/kardara",
-      demo: "#",
+      demo: "https://github.com/kardara",
       highlights: [
-        "Desktop inventory management",
-        "Database optimization",
-        "User-friendly UI",
+        "Role-aware stock operations and inventory tracking",
+        "Structured data handling and reporting support",
+        "Operational workflows aligned to day-to-day usage",
+        "Maintainable desktop module organization",
       ],
     },
     {
@@ -86,11 +89,12 @@ const Projects: React.FC = () => {
       image:
         "https://images.pexels.com/photos/3683074/pexels-photo-3683074.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/kardara",
-      demo: "#",
+      demo: "https://github.com/kardara",
       highlights: [
-        "Mobile app for medication tracking",
-        "Push notifications",
-        "Cross-platform",
+        "Medication scheduling with dependable reminder flows",
+        "Cross-platform mobile architecture using Flutter",
+        "Notification-first UX for adherence improvement",
+        "Offline-friendly local data behavior",
       ],
     },
     {
@@ -101,11 +105,12 @@ const Projects: React.FC = () => {
       complexity: "Intermediate",
       image: "/lms.png",
       github: "https://github.com/kardara/auca-lms-testing",
-      demo: "#",
+      demo: "https://github.com/kardara/auca-lms-testing",
       highlights: [
-        "Learning management system",
-        "Course organization",
-        "Student tracking",
+        "Domain-based modules for academic resource handling",
+        "Clear borrowing and return workflows with user tracking",
+        "Report-ready data operations for administration",
+        "Maintainable Java desktop architecture",
       ],
     },
     {
@@ -116,11 +121,12 @@ const Projects: React.FC = () => {
       complexity: "Advanced",
       image: "/auca-logo.png",
       github: "https://github.com/kardara/auca-online-application-fronend",
-      demo: "#",
+      demo: "https://github.com/kardara/auca-online-application-fronend",
       highlights: [
-        "Online application portal",
-        "Responsive design",
-        "Form validation",
+        "Institutional admission workflow modeled for usability",
+        "Responsive UI architecture with clear validation flow",
+        "Service-driven integration with backend endpoints",
+        "Scalable structure for future admission modules",
       ],
     },
     {
@@ -141,7 +147,7 @@ const Projects: React.FC = () => {
       featured: true,
       image: "auca-ims.png",
       github: "https://github.com/kardara/auca-ims-frontend",
-      demo: "#",
+      demo: "https://github.com/kardara/auca-ims-frontend",
       highlights: [
         "Modular architecture with components, services, hooks, contexts, and domain types for long-term scalability",
         "Reusable UI and action patterns across academic and administrative workflows",
@@ -203,6 +209,16 @@ const Projects: React.FC = () => {
           <p className="text-base sm:text-lg md:text-xl dev-muted max-w-2xl mx-auto">
             {t("projects.subtitle")}
           </p>
+          <motion.a
+            href={githubProfile}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            className="mt-5 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--dev-border)] bg-[var(--dev-panel)] text-sm terminal-title dev-text"
+          >
+            <Github size={16} /> GitHub Profile
+          </motion.a>
         </motion.div>
 
         {/* Featured Project */}
@@ -415,7 +431,6 @@ const Projects: React.FC = () => {
 
                 {/* Content */}
                 <div className="p-4 sm:p-6 flex flex-col h-full">
-                  {/* Title & Description */}
                   <div className="mb-4">
                     <h4 className="text-lg font-bold dev-heading mb-2 line-clamp-2">
                       {t(project.titleKey)}
@@ -425,8 +440,27 @@ const Projects: React.FC = () => {
                     </p>
                   </div>
 
-                  {/* Tech Stack - Compact with Icons */}
                   <div className="mb-4">
+                    <p className="text-xs font-bold dev-muted uppercase tracking-wider mb-2">
+                      Key Features
+                    </p>
+                    <ul className="space-y-1.5">
+                      {project.highlights.slice(0, 3).map((highlight, idx) => (
+                        <li
+                          key={idx}
+                          className="text-xs sm:text-sm dev-text flex gap-2"
+                        >
+                          <span className="text-[var(--color-primary)]">▸</span>
+                          <span className="line-clamp-1">{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mb-4">
+                    <p className="text-xs font-bold dev-muted uppercase tracking-wider mb-2">
+                      Tech Stack
+                    </p>
                     <div className="flex flex-wrap gap-1.5">
                       {project.technologies.map((tech, idx) => {
                         const logoSlug = skillLogoSlug[tech];

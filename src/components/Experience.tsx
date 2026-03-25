@@ -47,9 +47,22 @@ const Experience: React.FC = () => {
       highlightKeys: [
         "experience.fullstackdev",
         "experience.agile",
-        "experience.coaching",
+        "experience.codereview",
       ],
       color: "from-[#f97316] to-[var(--color-accent)]",
+    },
+    {
+      titleKey: "experience.volunteer",
+      companyKey: "experience.gym",
+      location: t("experience.location"),
+      period: "2025 – Present",
+      descriptionKey: "experience.volunteerDesc",
+      highlightKeys: [
+        "experience.coaching",
+        "experience.community",
+        "experience.facilitation",
+      ],
+      color: "from-[#8b5cf6] to-[#7c3aed]",
     },
   ];
 

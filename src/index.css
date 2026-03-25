@@ -15,15 +15,15 @@
   --color-accent: #e95420; /* Orange - CTA & attention */
 
   /* Background & Surfaces */
-  --dev-bg: #f6f8fa;
-  --dev-panel: rgba(255, 255, 255, 0.9);
-  --dev-border: #d0d7de;
-  --dev-text: #1f2328;
-  --dev-muted: #57606a;
-  --dev-heading: #0b1220;
-  --dev-grid-soft: rgba(88, 166, 255, 0.06);
-  --dev-grid-strong: rgba(63, 185, 80, 0.08);
-  --dev-grid-scan: rgba(63, 185, 80, 0.03);
+  --dev-bg: #f3f7fb;
+  --dev-panel: rgba(255, 255, 255, 0.96);
+  --dev-border: #cfd8e3;
+  --dev-text: #172332;
+  --dev-muted: #536479;
+  --dev-heading: #0a1422;
+  --dev-grid-soft: rgba(88, 166, 255, 0.035);
+  --dev-grid-strong: rgba(63, 185, 80, 0.045);
+  --dev-grid-scan: rgba(63, 185, 80, 0.016);
 
   /* Legacy tokens for consistency */
   --dev-blue: var(--color-primary);
@@ -77,22 +77,20 @@
   }
 
   html {
-    /* Global UI scaling to mimic ~75-80% browser zoom across all sections */
-    font-size: 75%;
+    font-size: 87.5%;
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
   }
 
   @media (max-width: 1024px) {
     html {
-      font-size: 81.25%;
+      font-size: 90%;
     }
   }
 
   @media (max-width: 768px) {
     html {
-      /* Keep mobile comfortably readable */
-      font-size: 90%;
+      font-size: 93.75%;
     }
   }
 
@@ -101,6 +99,7 @@
     isolation: isolate;
     overflow-x: hidden;
     font-family: "IBM Plex Sans", sans-serif;
+    line-height: 1.55;
     color: var(--dev-text);
     background: 
 			/* Subtle scanlines for dev-console feel */
@@ -148,6 +147,26 @@
           transparent 62%
         ),
       var(--dev-bg);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "IBM Plex Sans", sans-serif;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  p,
+  li,
+  button,
+  input,
+  textarea,
+  select {
+    font-family: "IBM Plex Sans", sans-serif;
   }
 
   body::before {
@@ -402,6 +421,15 @@
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
   }
 
+  .skills-marquee-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .skills-marquee-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
   @media (hover: hover) and (pointer: fine) {
     a,
     button,
@@ -455,7 +483,7 @@
     }
 
     .skills-marquee-row {
-      overflow-x: clip;
+      -webkit-overflow-scrolling: touch;
     }
   }
 

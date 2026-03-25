@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Award, Code2, Database, Zap, CheckCircle, Flame } from "lucide-react";
@@ -6,6 +6,8 @@ import { useLanguage } from "../contexts/LanguageContext";
 
 const Skills: React.FC = () => {
   const { t } = useLanguage();
+  const [manualScroll, setManualScroll] = useState(false);
+  const [interactingRow, setInteractingRow] = useState<number | null>(null);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.05,
@@ -149,14 +151,26 @@ const Skills: React.FC = () => {
           <p className="text-base sm:text-lg md:text-xl dev-muted max-w-2xl mx-auto">
             {t("skills.subtitle")}
           </p>
+          <div className="mt-5">
+            <button
+              onClick={() => setManualScroll((prev) => !prev)}
+              className="terminal-title text-xs sm:text-sm px-4 py-2 rounded-lg border border-[var(--dev-border)] bg-[var(--dev-panel)] dev-text hover:border-[var(--color-primary)] transition-colors"
+            >
+              {manualScroll ? t("skills.autoScroll") : t("skills.manualScroll")}
+            </button>
+          </div>
         </motion.div>
 
         {/* Animated Skill Rows */}
         <div className="space-y-4 sm:space-y-6 mb-12 sm:mb-16">
           {skillCategories.map((category, categoryIndex) => {
             const IconComponent = category.icon;
-            const rowItems = [...category.skills, ...category.skills];
+            const rowItems = manualScroll
+              ? category.skills
+              : [...category.skills, ...category.skills];
             const isEven = categoryIndex % 2 === 0;
+            const marqueeDuration = 32;
+            const isPaused = manualScroll || interactingRow === categoryIndex;
             return (
               <motion.div
                 key={categoryIndex}
@@ -192,12 +206,41 @@ const Skills: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="skills-marquee-row relative overflow-hidden py-4 sm:py-5">
-                  <div className="absolute left-0 top-0 h-full w-8 sm:w-16 bg-gradient-to-r from-[var(--dev-panel)] to-transparent z-10" />
-                  <div className="absolute right-0 top-0 h-full w-8 sm:w-16 bg-gradient-to-l from-[var(--dev-panel)] to-transparent z-10" />
+                <div
+                  className={`skills-marquee-row skills-marquee-scroll relative py-4 sm:py-5 overflow-x-auto ${manualScroll ? "cursor-grab active:cursor-grabbing" : "hover:cursor-grab active:cursor-grabbing"}`}
+                  style={
+                    manualScroll ? { WebkitOverflowScrolling: "touch" } : {}
+                  }
+                  onMouseEnter={() =>
+                    !manualScroll && setInteractingRow(categoryIndex)
+                  }
+                  onMouseLeave={() => !manualScroll && setInteractingRow(null)}
+                  onPointerDown={() => setInteractingRow(categoryIndex)}
+                  onPointerUp={() => !manualScroll && setInteractingRow(null)}
+                  onPointerCancel={() =>
+                    !manualScroll && setInteractingRow(null)
+                  }
+                >
+                  {!manualScroll && (
+                    <>
+                      <div className="absolute left-0 top-0 h-full w-8 sm:w-16 bg-gradient-to-r from-[var(--dev-panel)] to-transparent z-10" />
+                      <div className="absolute right-0 top-0 h-full w-8 sm:w-16 bg-gradient-to-l from-[var(--dev-panel)] to-transparent z-10" />
+                    </>
+                  )}
                   <div
-                    className={`skills-marquee-track ${isEven ? "skills-marquee-left" : "skills-marquee-right"}`}
-                    style={{ animationDuration: `${28 + categoryIndex * 3}s` }}
+                    className={
+                      manualScroll
+                        ? "flex w-max gap-3 sm:gap-4 px-4 sm:px-6"
+                        : `skills-marquee-track ${isEven ? "skills-marquee-left" : "skills-marquee-right"}`
+                    }
+                    style={
+                      manualScroll
+                        ? undefined
+                        : {
+                            animationDuration: `${marqueeDuration}s`,
+                            animationPlayState: isPaused ? "paused" : "running",
+                          }
+                    }
                   >
                     {rowItems.map((skill, skillIndex) => {
                       const logoSlug = skillLogoSlug[skill];
