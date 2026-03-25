@@ -56,11 +56,11 @@ const Projects: React.FC = () => {
         "https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/kardara/MyTaskMangement_BestSeller_Frontend",
       demo: "https://github.com/kardara/MyTaskMangement_BestSeller_Frontend",
-      highlights: [
-        "Modular frontend and backend coordination for task workflows",
-        "Structured state and data flow for maintainable features",
-        "Reliable CRUD lifecycle with clear task ownership",
-        "Scalable architecture prepared for team collaboration",
+      highlightKeys: [
+        "projects.mytaskFeature1",
+        "projects.mytaskFeature2",
+        "projects.mytaskFeature3",
+        "projects.mytaskFeature4",
       ],
     },
     {
@@ -73,11 +73,11 @@ const Projects: React.FC = () => {
         "https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/kardara",
       demo: "https://github.com/kardara",
-      highlights: [
-        "Role-aware stock operations and inventory tracking",
-        "Structured data handling and reporting support",
-        "Operational workflows aligned to day-to-day usage",
-        "Maintainable desktop module organization",
+      highlightKeys: [
+        "projects.kardaraFeature1",
+        "projects.kardaraFeature2",
+        "projects.kardaraFeature3",
+        "projects.kardaraFeature4",
       ],
     },
     {
@@ -90,11 +90,11 @@ const Projects: React.FC = () => {
         "https://images.pexels.com/photos/3683074/pexels-photo-3683074.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/kardara",
       demo: "https://github.com/kardara",
-      highlights: [
-        "Medication scheduling with dependable reminder flows",
-        "Cross-platform mobile architecture using Flutter",
-        "Notification-first UX for adherence improvement",
-        "Offline-friendly local data behavior",
+      highlightKeys: [
+        "projects.medireminderFeature1",
+        "projects.medireminderFeature2",
+        "projects.medireminderFeature3",
+        "projects.medireminderFeature4",
       ],
     },
     {
@@ -106,11 +106,11 @@ const Projects: React.FC = () => {
       image: "/lms.png",
       github: "https://github.com/kardara/auca-lms-testing",
       demo: "https://github.com/kardara/auca-lms-testing",
-      highlights: [
-        "Domain-based modules for academic resource handling",
-        "Clear borrowing and return workflows with user tracking",
-        "Report-ready data operations for administration",
-        "Maintainable Java desktop architecture",
+      highlightKeys: [
+        "projects.aucalmsFeature1",
+        "projects.aucalmsFeature2",
+        "projects.aucalmsFeature3",
+        "projects.aucalmsFeature4",
       ],
     },
     {
@@ -122,11 +122,11 @@ const Projects: React.FC = () => {
       image: "/auca-logo.png",
       github: "https://github.com/kardara/auca-online-application-fronend",
       demo: "https://github.com/kardara/auca-online-application-fronend",
-      highlights: [
-        "Institutional admission workflow modeled for usability",
-        "Responsive UI architecture with clear validation flow",
-        "Service-driven integration with backend endpoints",
-        "Scalable structure for future admission modules",
+      highlightKeys: [
+        "projects.aucaappFeature1",
+        "projects.aucaappFeature2",
+        "projects.aucaappFeature3",
+        "projects.aucaappFeature4",
       ],
     },
     {
@@ -148,11 +148,11 @@ const Projects: React.FC = () => {
       image: "auca-ims.png",
       github: "https://github.com/kardara/auca-ims-frontend",
       demo: "https://github.com/kardara/auca-ims-frontend",
-      highlights: [
-        "Modular architecture with components, services, hooks, contexts, and domain types for long-term scalability",
-        "Reusable UI and action patterns across academic and administrative workflows",
-        "Centralized API client and caching utilities for cleaner data handling and better user experience",
-        "Production-style structure with protected routes, error handling, and role/permission-based access control",
+      highlightKeys: [
+        "projects.studentmgmtFeature1",
+        "projects.studentmgmtFeature2",
+        "projects.studentmgmtFeature3",
+        "projects.studentmgmtFeature4",
       ],
     },
   ];
@@ -295,30 +295,32 @@ const Projects: React.FC = () => {
                     {/* Key Highlights */}
                     <div className="mb-6">
                       <p className="text-xs font-bold dev-muted uppercase tracking-wider mb-3">
-                        Key Features
+                        {t("projects.keyFeatures")}
                       </p>
                       <ul className="space-y-2">
-                        {featuredProject.highlights.map((highlight, idx) => (
-                          <motion.li
-                            key={idx}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={inView ? { opacity: 1, x: 0 } : {}}
-                            transition={{ delay: 0.1 + idx * 0.05 }}
-                            className="flex items-start gap-2 text-sm dev-text"
-                          >
-                            <span className="text-[var(--color-primary)] font-bold mt-0.5">
-                              ▸
-                            </span>
-                            {highlight}
-                          </motion.li>
-                        ))}
+                        {featuredProject.highlightKeys.map(
+                          (highlightKey, idx) => (
+                            <motion.li
+                              key={idx}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={inView ? { opacity: 1, x: 0 } : {}}
+                              transition={{ delay: 0.1 + idx * 0.05 }}
+                              className="flex items-start gap-2 text-sm dev-text"
+                            >
+                              <span className="text-[var(--color-primary)] font-bold mt-0.5">
+                                ▸
+                              </span>
+                              {t(highlightKey)}
+                            </motion.li>
+                          ),
+                        )}
                       </ul>
                     </div>
 
                     {/* Tech Stack */}
                     <div className="mb-6">
                       <p className="text-xs font-bold dev-muted uppercase tracking-wider mb-3">
-                        Tech Stack
+                        {t("projects.techStack")}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {featuredProject.technologies.map((tech, idx) => {
@@ -442,24 +444,30 @@ const Projects: React.FC = () => {
 
                   <div className="mb-4">
                     <p className="text-xs font-bold dev-muted uppercase tracking-wider mb-2">
-                      Key Features
+                      {t("projects.keyFeatures")}
                     </p>
                     <ul className="space-y-1.5">
-                      {project.highlights.slice(0, 3).map((highlight, idx) => (
-                        <li
-                          key={idx}
-                          className="text-xs sm:text-sm dev-text flex gap-2"
-                        >
-                          <span className="text-[var(--color-primary)]">▸</span>
-                          <span className="line-clamp-1">{highlight}</span>
-                        </li>
-                      ))}
+                      {project.highlightKeys
+                        .slice(0, 3)
+                        .map((highlightKey, idx) => (
+                          <li
+                            key={idx}
+                            className="text-xs sm:text-sm dev-text flex gap-2"
+                          >
+                            <span className="text-[var(--color-primary)]">
+                              ▸
+                            </span>
+                            <span className="line-clamp-1">
+                              {t(highlightKey)}
+                            </span>
+                          </li>
+                        ))}
                     </ul>
                   </div>
 
                   <div className="mb-4">
                     <p className="text-xs font-bold dev-muted uppercase tracking-wider mb-2">
-                      Tech Stack
+                      {t("projects.techStack")}
                     </p>
                     <div className="flex flex-wrap gap-1.5">
                       {project.technologies.map((tech, idx) => {

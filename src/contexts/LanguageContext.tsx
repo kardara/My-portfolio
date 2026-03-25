@@ -87,6 +87,8 @@ const translations = {
     "projects.completed": "Completed",
     "projects.source": "Source",
     "projects.live": "Live",
+    "projects.keyFeatures": "Key Features",
+    "projects.techStack": "Tech Stack",
 
     // Contact Section
     "contact.title": "Get In Touch",
@@ -219,6 +221,51 @@ const translations = {
       "AUCA IMS Frontend (University Information Management System)",
     "projects.studentmgmtDesc":
       "Built a modern, scalable frontend for a university information management platform supporting student registration, course and prerequisite workflows, term management, workload tracking, bans and waivers, announcements, and role-based administration. Designed for real institutional workflows with strong focus on maintainability, reusable components, and secure access control.",
+    "projects.mytaskFeature1":
+      "Modular frontend and backend coordination for task workflows",
+    "projects.mytaskFeature2":
+      "Structured state and data flow for maintainable features",
+    "projects.mytaskFeature3":
+      "Reliable CRUD lifecycle with clear task ownership",
+    "projects.mytaskFeature4":
+      "Scalable architecture prepared for team collaboration",
+    "projects.kardaraFeature1":
+      "Role-aware stock operations and inventory tracking",
+    "projects.kardaraFeature2":
+      "Structured data handling and reporting support",
+    "projects.kardaraFeature3":
+      "Operational workflows aligned to day-to-day usage",
+    "projects.kardaraFeature4": "Maintainable desktop module organization",
+    "projects.medireminderFeature1":
+      "Medication scheduling with dependable reminder flows",
+    "projects.medireminderFeature2":
+      "Cross-platform mobile architecture using Flutter",
+    "projects.medireminderFeature3":
+      "Notification-first UX for adherence improvement",
+    "projects.medireminderFeature4": "Offline-friendly local data behavior",
+    "projects.aucalmsFeature1":
+      "Domain-based modules for academic resource handling",
+    "projects.aucalmsFeature2":
+      "Clear borrowing and return workflows with user tracking",
+    "projects.aucalmsFeature3":
+      "Report-ready data operations for administration",
+    "projects.aucalmsFeature4": "Maintainable Java desktop architecture",
+    "projects.aucaappFeature1":
+      "Institutional admission workflow modeled for usability",
+    "projects.aucaappFeature2":
+      "Responsive UI architecture with clear validation flow",
+    "projects.aucaappFeature3":
+      "Service-driven integration with backend endpoints",
+    "projects.aucaappFeature4":
+      "Scalable structure for future admission modules",
+    "projects.studentmgmtFeature1":
+      "Modular architecture with components, services, hooks, contexts, and domain types for long-term scalability",
+    "projects.studentmgmtFeature2":
+      "Reusable UI and action patterns across academic and administrative workflows",
+    "projects.studentmgmtFeature3":
+      "Centralized API client and caching utilities for cleaner data handling and better user experience",
+    "projects.studentmgmtFeature4":
+      "Production-style structure with protected routes, error handling, and role-based access control",
 
     // Footer
     "footer.quote": '"Creativity + Code + Community = Change."',
@@ -312,6 +359,8 @@ const translations = {
     "projects.completed": "Terminé",
     "projects.source": "Source",
     "projects.live": "Démo",
+    "projects.keyFeatures": "Fonctionnalités clés",
+    "projects.techStack": "Pile technologique",
 
     // Contact Section
     "contact.title": "Entrons en Contact",
@@ -446,6 +495,52 @@ const translations = {
       "Frontend AUCA IMS (Système de Gestion des Informations Universitaires)",
     "projects.studentmgmtDesc":
       "Développement d'un frontend moderne et évolutif pour une plateforme de gestion universitaire, prenant en charge l'inscription des étudiants, les parcours de cours et prérequis, la gestion des trimestres, le suivi de la charge de travail, les interdictions et dérogations, les annonces, ainsi que l'administration basée sur les rôles. Conçu pour des flux institutionnels réels avec un fort accent sur la maintenabilité, les composants réutilisables et le contrôle d'accès sécurisé.",
+    "projects.mytaskFeature1":
+      "Coordination modulaire frontend-backend pour les flux de tâches",
+    "projects.mytaskFeature2":
+      "Flux d'état et de données structuré pour une meilleure maintenabilité",
+    "projects.mytaskFeature3":
+      "Cycle CRUD fiable avec attribution claire des responsabilités",
+    "projects.mytaskFeature4":
+      "Architecture évolutive prête pour la collaboration d'équipe",
+    "projects.kardaraFeature1":
+      "Opérations de stock sensibles aux rôles et suivi d'inventaire",
+    "projects.kardaraFeature2":
+      "Traitement structuré des données et support de reporting",
+    "projects.kardaraFeature3":
+      "Flux opérationnels alignés sur l'utilisation quotidienne",
+    "projects.kardaraFeature4": "Organisation modulaire desktop maintenable",
+    "projects.medireminderFeature1":
+      "Planification des médicaments avec rappels fiables",
+    "projects.medireminderFeature2":
+      "Architecture mobile multiplateforme avec Flutter",
+    "projects.medireminderFeature3":
+      "UX orientée notifications pour améliorer l'adhérence",
+    "projects.medireminderFeature4":
+      "Comportement local adapté aux usages hors ligne",
+    "projects.aucalmsFeature1":
+      "Modules orientés domaine pour la gestion académique",
+    "projects.aucalmsFeature2":
+      "Flux clairs d'emprunt et de retour avec suivi utilisateur",
+    "projects.aucalmsFeature3":
+      "Opérations prêtes pour les rapports administratifs",
+    "projects.aucalmsFeature4": "Architecture desktop Java maintenable",
+    "projects.aucaappFeature1":
+      "Workflow d'admission institutionnel conçu pour l'utilisabilité",
+    "projects.aucaappFeature2":
+      "Architecture UI responsive avec validation claire",
+    "projects.aucaappFeature3":
+      "Intégration orientée services avec les endpoints backend",
+    "projects.aucaappFeature4":
+      "Structure évolutive pour de futurs modules d'admission",
+    "projects.studentmgmtFeature1":
+      "Architecture modulaire avec composants, services, hooks, contextes et types domaine",
+    "projects.studentmgmtFeature2":
+      "Patterns UI/actions réutilisables sur les flux académiques et administratifs",
+    "projects.studentmgmtFeature3":
+      "Client API centralisé et utilitaires de cache pour une meilleure expérience",
+    "projects.studentmgmtFeature4":
+      "Structure de production avec routes protégées et gestion d'erreurs",
 
     // Footer
     "footer.quote": '"Créativité + Code + Communauté = Changement."',
@@ -580,6 +675,41 @@ const translations = {
     "projects.studentmgmt": "واجهة AUCA IMS (نظام إدارة المعلومات الجامعية)",
     "projects.studentmgmtDesc":
       "تم تطوير واجهة أمامية حديثة وقابلة للتوسع لمنصة إدارة معلومات جامعية تدعم تسجيل الطلاب، ومسارات المقررات والمتطلبات المسبقة، وإدارة الفصول الدراسية، وتتبع عبء العمل، والحظر والإعفاءات، والإعلانات، والإدارة المعتمدة على الأدوار. صُممت لتخدم سير العمل المؤسسي الحقيقي مع تركيز قوي على سهولة الصيانة، والمكونات القابلة لإعادة الاستخدام، والتحكم الآمن في الوصول.",
+    "projects.mytaskFeature1":
+      "تنسيق معياري بين الواجهة الأمامية والخلفية لمسارات المهام",
+    "projects.mytaskFeature2": "تدفق حالة وبيانات منظم لسهولة الصيانة",
+    "projects.mytaskFeature3": "دورة CRUD موثوقة مع ملكية واضحة للمهام",
+    "projects.mytaskFeature4": "معمارية قابلة للتوسع وجاهزة للتعاون بين الفريق",
+    "projects.kardaraFeature1": "عمليات مخزون تراعي الأدوار وتتبع الجرد",
+    "projects.kardaraFeature2": "معالجة بيانات منظمة ودعم التقارير",
+    "projects.kardaraFeature3": "تدفقات تشغيلية متوافقة مع الاستخدام اليومي",
+    "projects.kardaraFeature4": "تنظيم وحدات سطح مكتب قابل للصيانة",
+    "projects.medireminderFeature1": "جدولة الأدوية مع تدفقات تذكير موثوقة",
+    "projects.medireminderFeature2":
+      "معمارية موبايل متعددة المنصات باستخدام Flutter",
+    "projects.medireminderFeature3":
+      "تجربة استخدام قائمة على الإشعارات لتحسين الالتزام",
+    "projects.medireminderFeature4":
+      "سلوك بيانات محلي مناسب للاستخدام دون اتصال",
+    "projects.aucalmsFeature1":
+      "وحدات مبنية على المجال لإدارة الموارد الأكاديمية",
+    "projects.aucalmsFeature2":
+      "تدفقات واضحة للاستعارة والإرجاع مع تتبع المستخدم",
+    "projects.aucalmsFeature3": "عمليات بيانات جاهزة للتقارير الإدارية",
+    "projects.aucalmsFeature4": "معمارية Java لسطح المكتب سهلة الصيانة",
+    "projects.aucaappFeature1": "مسار قبول مؤسسي مصمم لسهولة الاستخدام",
+    "projects.aucaappFeature2": "معمارية واجهة متجاوبة مع تدفق تحقق واضح",
+    "projects.aucaappFeature3":
+      "تكامل قائم على طبقة الخدمات مع نقاط نهاية الخلفية",
+    "projects.aucaappFeature4": "بنية قابلة للتوسع لوحدات قبول مستقبلية",
+    "projects.studentmgmtFeature1":
+      "معمارية معيارية تضم المكونات والخدمات والخطافات والسياقات وأنواع المجال",
+    "projects.studentmgmtFeature2":
+      "أنماط واجهة وإجراءات قابلة لإعادة الاستخدام عبر المسارات الأكاديمية والإدارية",
+    "projects.studentmgmtFeature3":
+      "عميل API مركزي وأدوات تخزين مؤقت لتحسين تجربة الاستخدام",
+    "projects.studentmgmtFeature4":
+      "بنية إنتاجية مع مسارات محمية ومعالجة أخطاء",
 
     // About Section
     "about.title": "نبذة عني",
@@ -619,6 +749,8 @@ const translations = {
     "projects.completed": "مكتمل",
     "projects.source": "المصدر",
     "projects.live": "العرض",
+    "projects.keyFeatures": "الميزات الأساسية",
+    "projects.techStack": "الحزمة التقنية",
 
     // Contact Section
     "contact.title": "تواصل معي",
