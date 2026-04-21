@@ -21,7 +21,7 @@ const Contact: React.FC = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 });
 
   const googleCalendarLink =
-    "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Portfolio%20Meeting%20with%20Abdoulaye%20Zakaria&details=Hi%20Abdoulaye%2C%20I%20would%20like%20to%20schedule%20a%20meeting%20from%20your%20portfolio.&location=Google%20Meet&add=azdjerou@gmail.com";
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Scheduling%20Meeting%20with%20Abdoulaye%20Zakaria&details=Hi%20Abdoulaye%2C%20I%20would%20like%20to%20schedule%20a%20meeting%20with%20you%20if%20you%20are%20available.&location=Google%20Meet&add=azdjerou@gmail.com";
 
   const contactInfo = [
     {
