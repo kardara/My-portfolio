@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import Header from "./components/Header";
@@ -9,8 +9,11 @@ import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import LoadingScreen from "./components/LoadingScreen";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     let rafId = 0;
     let idleTimer: number | undefined;
@@ -58,22 +61,31 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider>
-      <LanguageProvider>
-        <div className="min-h-screen app-surface transition-colors duration-300">
-          <Header />
-          <main>
-            <Hero />
-            <About />
-            <Experience />
-            <Projects />
-            <Skills />
-            <Contact />
-          </main>
-          <Footer />
-        </div>
-      </LanguageProvider>
-    </ThemeProvider>
+    <>
+      <LoadingScreen onComplete={() => setIsLoading(false)} />
+      <ThemeProvider>
+        <LanguageProvider>
+          <div
+            className="min-h-screen app-surface transition-colors duration-300"
+            style={{
+              opacity: isLoading ? 0 : 1,
+              transition: "opacity 0.5s ease",
+            }}
+          >
+            <Header />
+            <main>
+              <Hero />
+              <About />
+              <Experience />
+              <Projects />
+              <Skills />
+              <Contact />
+            </main>
+            <Footer />
+          </div>
+        </LanguageProvider>
+      </ThemeProvider>
+    </>
   );
 }
 

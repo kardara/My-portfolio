@@ -190,34 +190,32 @@ const Projects: React.FC = () => {
   const otherProjects = projects.filter((p) => !p.featured);
 
   return (
-    <section id="projects" className="py-16 sm:py-20">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section id="projects" className="py-20 sm:py-24 md:py-28">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12 sm:mb-16"
+          transition={{ duration: 0.7 }}
+          className="text-center mb-14 sm:mb-18"
         >
-          <p className="terminal-title text-xs dev-muted mb-3">
-            projects --showcase
-          </p>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold dev-heading mb-4">
+          <div className="section-tag">projects --showcase</div>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold dev-heading">
             {t("projects.title")}
           </h2>
-          <div className="h-1 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/60 mx-auto mb-6 w-20 rounded-full"></div>
-          <p className="text-base sm:text-lg md:text-xl dev-muted max-w-2xl mx-auto">
+          <div className="section-divider" />
+          <p className="text-base sm:text-lg dev-muted max-w-2xl mx-auto leading-relaxed mb-5">
             {t("projects.subtitle")}
           </p>
           <motion.a
             href={githubProfile}
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            className="mt-5 inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--dev-border)] bg-[var(--dev-panel)] text-sm terminal-title dev-text"
+            whileHover={{ y: -2, scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[var(--dev-border)] bg-[var(--dev-panel)] text-sm terminal-title dev-text hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all duration-200"
           >
-            <Github size={16} /> GitHub Profile
+            <Github size={15} /> GitHub Profile
           </motion.a>
         </motion.div>
 
