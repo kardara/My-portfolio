@@ -1,7 +1,21 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Award, Code2, Database, Zap, CheckCircle, Flame } from "lucide-react";
+import {
+  Award,
+  Code2,
+  Database,
+  Zap,
+  CheckCircle,
+  Flame,
+  Users,
+  Handshake,
+  Puzzle,
+  Eye,
+  MessageSquare,
+  Globe,
+  Rocket,
+} from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 
 const Skills: React.FC = () => {
@@ -54,8 +68,9 @@ const Skills: React.FC = () => {
     const cleaned = value.replace(/[^a-zA-Z0-9 ]/g, "").trim();
     if (!cleaned) return "SK";
     const parts = cleaned.split(/\s+/);
-    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-    return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+    return parts.length === 1
+      ? parts[0].slice(0, 2).toUpperCase()
+      : `${parts[0][0]}${parts[1][0]}`.toUpperCase();
   };
 
   const skillCategories = [
@@ -64,53 +79,27 @@ const Skills: React.FC = () => {
       icon: Code2,
       accentColor: "#10b981",
       skills: [
-        "JavaScript",
-        "TypeScript",
-        "React",
-        "Next.js",
-        "Node.js",
-        "Express",
-        "NestJS",
-        "Java",
-        "C#",
-        ".NET",
-        "Blazor",
-        "Razor",
-        "Python",
-        "Spring Boot",
-        "Hibernate",
-        "Maven",
+        "JavaScript","TypeScript","React","Next.js","Node.js","Express","NestJS",
+        "Java","C#",".NET","Blazor","Razor","Python","Spring Boot","Hibernate","Maven",
       ],
     },
     {
       titleKey: "skills.webUI",
-      descKey: "skills.webUIDesc",
       icon: Zap,
       accentColor: "#f97316",
       skills: ["HTML5", "CSS3", "Tailwind CSS", "Responsive Design"],
     },
     {
       titleKey: "skills.databases",
-      descKey: "skills.databasesDesc",
       icon: Database,
       accentColor: "#0284c7",
       skills: ["PostgreSQL", "MongoDB", "Firebase", "Supabase", "SQL Server"],
     },
     {
       titleKey: "skills.tools",
-      descKey: "skills.toolsDesc",
       icon: Award,
       accentColor: "#f59e0b",
-      skills: [
-        "Git/GitHub",
-        "Docker",
-        "Postman",
-        "VS Code",
-        "IntelliJ",
-        "Netlify",
-        "Vercel",
-        "Render",
-      ],
+      skills: ["Git/GitHub","Docker","Postman","VS Code","IntelliJ","Netlify","Vercel","Render"],
     },
   ];
 
@@ -123,32 +112,32 @@ const Skills: React.FC = () => {
   ];
 
   const softSkills = [
-    { key: "skills.skill1", icon: "👥" },
-    { key: "skills.skill2", icon: "🤝" },
-    { key: "skills.skill3", icon: "🧩" },
-    { key: "skills.skill4", icon: "⚡" },
-    { key: "skills.skill5", icon: "👀" },
-    { key: "skills.skill6", icon: "💬" },
-    { key: "skills.skill7", icon: "🌍" },
+    { key: "skills.skill1", Icon: Users },
+    { key: "skills.skill2", Icon: Handshake },
+    { key: "skills.skill3", Icon: Puzzle },
+    { key: "skills.skill4", Icon: Rocket },
+    { key: "skills.skill5", Icon: Eye },
+    { key: "skills.skill6", Icon: MessageSquare },
+    { key: "skills.skill7", Icon: Globe },
   ];
 
   return (
-    <section id="skills" ref={ref} className="py-16 sm:py-20 md:py-24">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section id="skills" ref={ref} className="py-20 sm:py-24 md:py-28">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+
+        {/* ── Section Header ── */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12 sm:mb-16 md:mb-20"
+          transition={{ duration: 0.7 }}
+          className="text-center mb-14 sm:mb-18"
         >
-          <p className="terminal-title text-xs dev-muted mb-3">
-            skills --stack
-          </p>
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold dev-heading mb-4">
+          <div className="section-tag">skills --stack</div>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold dev-heading">
             {t("skills.title")}
           </h2>
-          <div className="h-1 bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-secondary)]/60 mx-auto mb-6 w-20 rounded-full"></div>
-          <p className="text-base sm:text-lg md:text-xl dev-muted max-w-2xl mx-auto">
+          <div className="section-divider" />
+          <p className="text-base sm:text-lg dev-muted max-w-2xl mx-auto leading-relaxed">
             {t("skills.subtitle")}
           </p>
           <div className="mt-5">
@@ -161,76 +150,63 @@ const Skills: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Animated Skill Rows */}
-        <div className="space-y-4 sm:space-y-6 mb-12 sm:mb-16">
+        {/* ── Animated Skill Rows ── */}
+        <div className="space-y-4 sm:space-y-5 mb-12 sm:mb-14">
           {skillCategories.map((category, categoryIndex) => {
             const IconComponent = category.icon;
             const rowItems = manualScroll
               ? category.skills
               : [...category.skills, ...category.skills];
             const isEven = categoryIndex % 2 === 0;
-            const marqueeDuration = 32;
+            const marqueeDuration = 34;
             const isPaused = manualScroll || interactingRow === categoryIndex;
+
             return (
               <motion.div
                 key={categoryIndex}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 40 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: categoryIndex * 0.15 }}
-                className="shell-panel rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl"
+                transition={{ duration: 0.7, delay: categoryIndex * 0.12 }}
+                className="shell-panel rounded-2xl overflow-hidden card-glow"
               >
-                <div
-                  className="px-4 sm:px-6 pt-4 sm:pt-5 pb-2 flex items-center gap-2 sm:gap-3"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0))",
-                  }}
-                >
-                  <motion.div
-                    whileHover={{ rotate: 10, scale: 1.15 }}
-                    className="p-2 rounded-lg"
+                {/* Row header */}
+                <div className="px-5 sm:px-6 pt-4 pb-3 flex items-center gap-3 border-b border-[var(--dev-border)]">
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{
-                      background: `linear-gradient(135deg, ${category.accentColor}, ${category.accentColor}40)`,
+                      background: `linear-gradient(135deg, ${category.accentColor}, ${category.accentColor}55)`,
                     }}
                   >
-                    <IconComponent
-                      className="text-white"
-                      size={24}
-                      style={{ color: category.accentColor }}
-                    />
-                  </motion.div>
-                  <div className="flex-1">
-                    <h3 className="text-lg sm:text-xl font-bold dev-heading">
-                      {t(category.titleKey)}
-                    </h3>
+                    <IconComponent size={20} className="text-white" />
+                  </div>
+                  <h3 className="text-base sm:text-lg font-bold dev-heading">
+                    {t(category.titleKey)}
+                  </h3>
+                  <div className="ml-auto terminal-title text-xs dev-muted">
+                    {category.skills.length} skills
                   </div>
                 </div>
 
+                {/* Marquee/scroll area */}
                 <div
-                  className={`skills-marquee-row skills-marquee-scroll relative py-4 sm:py-5 overflow-x-auto ${manualScroll ? "cursor-grab active:cursor-grabbing" : "hover:cursor-grab active:cursor-grabbing"}`}
-                  style={
-                    manualScroll ? { WebkitOverflowScrolling: "touch" } : {}
-                  }
-                  onMouseEnter={() =>
-                    !manualScroll && setInteractingRow(categoryIndex)
-                  }
+                  className={`skills-marquee-row skills-marquee-scroll relative py-4 sm:py-5 overflow-x-auto ${manualScroll ? "cursor-grab active:cursor-grabbing" : "hover:cursor-grab"}`}
+                  style={manualScroll ? { WebkitOverflowScrolling: "touch" } : {}}
+                  onMouseEnter={() => !manualScroll && setInteractingRow(categoryIndex)}
                   onMouseLeave={() => !manualScroll && setInteractingRow(null)}
                   onPointerDown={() => setInteractingRow(categoryIndex)}
                   onPointerUp={() => !manualScroll && setInteractingRow(null)}
-                  onPointerCancel={() =>
-                    !manualScroll && setInteractingRow(null)
-                  }
+                  onPointerCancel={() => !manualScroll && setInteractingRow(null)}
                 >
                   {!manualScroll && (
                     <>
-                      <div className="absolute left-0 top-0 h-full w-8 sm:w-16 bg-gradient-to-r from-[var(--dev-panel)] to-transparent z-10" />
-                      <div className="absolute right-0 top-0 h-full w-8 sm:w-16 bg-gradient-to-l from-[var(--dev-panel)] to-transparent z-10" />
+                      <div className="absolute left-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-r from-[var(--dev-panel)] to-transparent z-10 pointer-events-none" />
+                      <div className="absolute right-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-l from-[var(--dev-panel)] to-transparent z-10 pointer-events-none" />
                     </>
                   )}
                   <div
                     className={
                       manualScroll
-                        ? "flex w-max gap-3 sm:gap-4 px-4 sm:px-6"
+                        ? "flex w-max gap-3 px-5"
                         : `skills-marquee-track ${isEven ? "skills-marquee-left" : "skills-marquee-right"}`
                     }
                     style={
@@ -246,38 +222,32 @@ const Skills: React.FC = () => {
                       const logoSlug = skillLogoSlug[skill];
                       return (
                         <motion.div
-                          key={`${category.titleKey}-${skillIndex}-${skill}`}
-                          className="group flex items-center gap-2 sm:gap-3 min-w-[160px] sm:min-w-[200px] px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-[var(--dev-panel)]/70 transition-all duration-300"
-                          style={{
-                            boxShadow: "0 10px 22px rgba(0, 0, 0, 0.10)",
-                          }}
-                          whileHover={{ y: -4, scale: 1.03 }}
-                          transition={{ duration: 0.22, ease: "easeOut" }}
+                          key={`${category.titleKey}-${skillIndex}`}
+                          whileHover={{ y: -3, scale: 1.04 }}
+                          transition={{ duration: 0.2 }}
+                          className="flex items-center gap-2.5 min-w-[155px] sm:min-w-[185px] px-4 py-2.5 rounded-xl bg-[var(--dev-panel)]/80 border border-[var(--dev-border)] hover:border-[var(--color-primary)]/50 transition-colors duration-200"
                         >
+                          {/* Icon box */}
                           <div
-                            className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl flex items-center justify-center overflow-hidden"
-                            style={{
-                              backgroundColor: `${category.accentColor}18`,
-                            }}
+                            className="relative h-9 w-9 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0"
+                            style={{ background: `${category.accentColor}18` }}
                           >
                             <span className="text-xs font-bold terminal-title dev-muted">
                               {getInitials(skill)}
                             </span>
                             {logoSlug && (
-                              <motion.img
+                              <img
                                 src={`https://cdn.simpleicons.org/${logoSlug}`}
-                                alt={`${skill} logo`}
+                                alt={skill}
                                 loading="lazy"
-                                className="absolute inset-1.5 sm:inset-2 w-7 h-7 sm:w-8 sm:h-8 object-contain"
-                                whileHover={{ rotate: 8, scale: 1.08 }}
-                                transition={{ duration: 0.2, ease: "easeOut" }}
-                                onError={(event) => {
-                                  event.currentTarget.style.display = "none";
+                                className="absolute inset-1.5 w-6 h-6 object-contain"
+                                onError={(e) => {
+                                  e.currentTarget.style.display = "none";
                                 }}
                               />
                             )}
                           </div>
-                          <span className="text-sm sm:text-base font-semibold dev-text whitespace-nowrap group-hover:text-[var(--dev-heading)] transition-colors duration-300">
+                          <span className="text-sm font-semibold dev-text whitespace-nowrap">
                             {skill}
                           </span>
                         </motion.div>
@@ -290,106 +260,95 @@ const Skills: React.FC = () => {
           })}
         </div>
 
-        {/* Soft Skills & Certifications Section */}
-        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8">
+        {/* ── Soft Skills & Certifications ── */}
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-7">
+
           {/* Soft Skills */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="shell-panel rounded-2xl overflow-hidden"
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="shell-panel rounded-2xl overflow-hidden card-glow"
           >
-            <div
-              className="px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-3 border-b border-[var(--dev-border)]"
-              style={{
-                background:
-                  "linear-gradient(90deg, rgba(168, 85, 247, 0.1), rgba(255,255,255,0))",
-              }}
-            >
-              <motion.div
-                whileHover={{ rotate: 10 }}
-                className="p-2 rounded-lg"
-                style={{
-                  background: "linear-gradient(135deg, #a855f7, #a855f740)",
-                }}
-              >
-                <Flame className="text-[#a855f7]" size={24} />
-              </motion.div>
-              <h3 className="text-lg sm:text-xl font-bold dev-heading">
+            {/* Header */}
+            <div className="px-5 sm:px-6 py-4 flex items-center gap-3 border-b border-[var(--dev-border)]"
+              style={{ background: "linear-gradient(90deg, rgba(168,85,247,0.08), transparent)" }}>
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center"
+                style={{ background: "linear-gradient(135deg, #a855f7, #7c3aed)" }}>
+                <Flame size={20} className="text-white" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold dev-heading">
                 {t("skills.softSkills")}
               </h3>
             </div>
-            <div className="p-4 sm:p-6 grid grid-cols-1 gap-3">
-              {softSkills.map((skill, index) => (
+
+            {/* Items */}
+            <div className="p-5 sm:p-6 grid grid-cols-1 gap-2.5">
+              {softSkills.map(({ key, Icon }, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={inView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 0.7 + index * 0.05 }}
-                  whileHover={{ scale: 1.02, x: 4 }}
-                  className="flex items-center gap-3 p-3 rounded-xl border border-[var(--dev-border)] hover:border-[#a855f7] transition-all duration-300 group cursor-default"
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.4, delay: 0.6 + index * 0.06 }}
+                  whileHover={{ x: 5, scale: 1.01 }}
+                  className="group flex items-center gap-3 p-3 rounded-xl border border-[var(--dev-border)] hover:border-[#a855f7]/50 bg-[var(--dev-bg)]/30 transition-all duration-250 cursor-default"
                 >
-                  <span className="text-lg group-hover:scale-125 transition-transform duration-300">
-                    📜
-                  </span>
-                  <span className="text-sm sm:text-base font-semibold dev-text flex-1">
-                    {t(skill.key)}
-                  </span>
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-250"
+                    style={{ background: "rgba(168,85,247,0.12)" }}>
+                    <Icon size={16} style={{ color: "#a855f7" }} />
+                  </div>
+                  <span className="text-sm font-semibold dev-text flex-1">{t(key)}</span>
                   <CheckCircle
-                    size={16}
-                    className="text-[#a855f7] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    size={15}
+                    className="text-[#a855f7] opacity-0 group-hover:opacity-100 transition-opacity duration-250 flex-shrink-0"
                   />
                 </motion.div>
               ))}
             </div>
           </motion.div>
 
-          {/* Certifications - Professional Badge Style */}
+          {/* Certifications */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="shell-panel rounded-2xl overflow-hidden"
+            transition={{ duration: 0.7, delay: 0.6 }}
+            className="shell-panel rounded-2xl overflow-hidden card-glow"
           >
-            <div
-              className="px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-3 border-b border-[var(--dev-border)]"
-              style={{
-                background:
-                  "linear-gradient(90deg, rgba(34, 197, 94, 0.1), rgba(255,255,255,0))",
-              }}
-            >
-              <motion.div
-                whileHover={{ rotate: 10 }}
-                className="p-2 rounded-lg"
-                style={{
-                  background: "linear-gradient(135deg, #22c55e, #22c55e40)",
-                }}
-              >
-                <Award className="text-[#22c55e]" size={24} />
-              </motion.div>
-              <h3 className="text-lg sm:text-xl font-bold dev-heading">
+            {/* Header */}
+            <div className="px-5 sm:px-6 py-4 flex items-center gap-3 border-b border-[var(--dev-border)]"
+              style={{ background: "linear-gradient(90deg, rgba(34,197,94,0.08), transparent)" }}>
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center"
+                style={{ background: "linear-gradient(135deg, #22c55e, #15803d)" }}>
+                <Award size={20} className="text-white" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold dev-heading">
                 {t("skills.certifications")}
               </h3>
             </div>
-            <div className="p-4 sm:p-6 space-y-3">
+
+            {/* Items */}
+            <div className="p-5 sm:p-6 space-y-3">
               {certifications.map((cert, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -16 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.8 + index * 0.08 }}
-                  whileHover={{ x: 8, scale: 1.02 }}
-                  className="group relative flex items-start gap-3 p-3 sm:p-4 bg-gradient-to-r from-[#22c55e]/10 to-transparent rounded-xl border border-[var(--dev-border)] hover:border-[#22c55e] transition-all duration-300 cursor-default"
+                  transition={{ duration: 0.45, delay: 0.7 + index * 0.08 }}
+                  whileHover={{ x: 6, scale: 1.01 }}
+                  className="group flex items-start gap-3.5 p-4 rounded-xl border border-[var(--dev-border)] hover:border-[#22c55e]/50 bg-[var(--dev-bg)]/30 transition-all duration-250 cursor-default"
                 >
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="flex items-center justify-center h-5 w-5 rounded-full bg-[#22c55e]/30 group-hover:bg-[#22c55e]/50 transition-colors duration-300">
-                      <CheckCircle size={14} className="text-[#22c55e]" />
-                    </div>
+                  {/* Numbered badge */}
+                  <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold terminal-title"
+                    style={{ background: "rgba(34,197,94,0.15)", color: "#22c55e" }}>
+                    {String(index + 1).padStart(2, "0")}
                   </div>
-                  <span className="dev-text font-medium text-sm sm:text-base group-hover:text-white transition-colors duration-300">
+                  <span className="dev-text font-medium text-sm leading-relaxed flex-1">
                     {t(cert.key)}
                   </span>
-                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-5 bg-[#22c55e] pointer-events-none transition-opacity duration-300"></div>
+                  <CheckCircle
+                    size={15}
+                    className="text-[#22c55e] opacity-0 group-hover:opacity-100 transition-opacity duration-250 flex-shrink-0 mt-0.5"
+                  />
                 </motion.div>
               ))}
             </div>
