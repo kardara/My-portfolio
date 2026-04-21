@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ArrowUp, Heart } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 
 const Footer: React.FC = () => {
@@ -41,7 +41,10 @@ const Footer: React.FC = () => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <footer className="relative overflow-hidden" style={{ background: "var(--dev-bg)" }}>
+    <footer
+      className="relative overflow-hidden"
+      style={{ background: "var(--dev-bg)" }}
+    >
       {/* Gradient top border */}
       <div
         className="absolute top-0 inset-x-0 h-px"
@@ -71,7 +74,6 @@ const Footer: React.FC = () => {
           className="pt-12 pb-8"
         >
           <div className="grid md:grid-cols-3 gap-10 md:gap-12 mb-10">
-
             {/* Brand column */}
             <div className="space-y-4">
               <div className="terminal-title text-2xl font-bold">
@@ -185,11 +187,6 @@ const Footer: React.FC = () => {
             <p className="terminal-title dev-muted text-xs text-center sm:text-left">
               © {currentYear} Abdoulaye Zakaria Djerou.{" "}
               {t("footer.rights")}{" "}
-              <span className="inline-flex items-center gap-1">
-                Built with{" "}
-                <Heart size={11} className="text-[#e95420] inline" fill="#e95420" />{" "}
-                & React
-              </span>
             </p>
 
             <motion.button
