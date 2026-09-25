@@ -28,6 +28,10 @@ const ParticleCanvas: React.FC = () => {
     resize();
     window.addEventListener("resize", resize);
 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return () => window.removeEventListener("resize", resize);
+    }
+
     const count = window.innerWidth < 768 ? 28 : 48;
     type Pt = { x: number; y: number; vx: number; vy: number; r: number; a: number };
     const pts: Pt[] = Array.from({ length: count }, () => ({
@@ -39,8 +43,19 @@ const ParticleCanvas: React.FC = () => {
       a: Math.random() * 0.45 + 0.08,
     }));
 
-    let rafId: number;
+    let rafId = 0;
+    let visible = true;
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible && !rafId) rafId = requestAnimationFrame(draw);
+    });
+    observer.observe(canvas);
+
     const draw = () => {
+      if (!visible) {
+        rafId = 0;
+        return;
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (let i = 0; i < pts.length; i++) {
@@ -79,6 +94,7 @@ const ParticleCanvas: React.FC = () => {
 
     return () => {
       cancelAnimationFrame(rafId);
+      observer.disconnect();
       window.removeEventListener("resize", resize);
     };
   }, []);
@@ -152,7 +168,7 @@ const Hero: React.FC = () => {
 
   const handleDownloadCV = () => {
     const link = document.createElement("a");
-    link.href = "/Zakaria_CV.pdf";
+    link.href = `${import.meta.env.BASE_URL}Zakaria_CV.pdf`;
     link.download = "CV-Abdoulaye-Zakaria-Djerou.pdf";
     link.click();
   };
@@ -211,7 +227,7 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, x: -80 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
-            className={`space-y-6 sm:space-y-8 ${language === "ar" ? "text-right" : "text-left"}`}
+            className="space-y-6 sm:space-y-8 text-start"
           >
             {/* Badge */}
             <motion.div
@@ -231,13 +247,21 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25, duration: 0.6 }}
-              className="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight dev-heading"
+              className="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight dev-heading grid"
+              aria-label={fullHeadline}
             >
-              <span>{typedGreeting}</span>
-              <span className="bg-gradient-to-r from-[#58a6ff] via-[#79c0ff] to-[#3fb950] bg-clip-text text-transparent">
-                {typedName}
+              {/* invisible full text reserves the final height so typing doesn't shift layout */}
+              <span className="invisible col-start-1 row-start-1" aria-hidden="true">
+                {fullHeadline}
+                <span className="type-cursor">|</span>
               </span>
-              <span className="type-cursor" aria-hidden="true">|</span>
+              <span className="col-start-1 row-start-1" aria-hidden="true">
+                <span>{typedGreeting}</span>
+                <span className="bg-gradient-to-r from-[#58a6ff] via-[#79c0ff] to-[#3fb950] bg-clip-text text-transparent">
+                  {typedName}
+                </span>
+                <span className="type-cursor">|</span>
+              </span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -283,13 +307,13 @@ const Hero: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-xl sm:text-2xl font-bold text-[var(--color-secondary)]">
-                    3
+                    4
                   </div>
                   <p className="text-sm dev-muted">{t("hero.activeRolesStat")}</p>
                 </div>
                 <div>
                   <div className="text-xl sm:text-2xl font-bold text-[var(--color-accent)]">
-                    5+
+                    5
                   </div>
                   <p className="text-sm dev-muted">
                     {t("hero.certificationsStat")}
@@ -412,7 +436,7 @@ const Hero: React.FC = () => {
                 {/* Photo */}
                 <div className="relative w-full h-64 sm:h-72 md:h-80 rounded-2xl overflow-hidden border border-[var(--dev-border)]">
                   <img
-                    src="/kardara.png"
+                    src={`${import.meta.env.BASE_URL}kardara.png`}
                     alt="Abdoulaye Zakaria Djerou"
                     className="w-full h-full object-cover"
                   />

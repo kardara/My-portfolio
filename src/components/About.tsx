@@ -58,19 +58,19 @@ const About: React.FC = () => {
   const stats = [
     {
       value: "10+",
-      label: "Projects Built",
+      label: t("hero.projectsStat"),
       icon: GitBranch,
       color: "var(--color-primary)",
     },
     {
-      value: "3",
-      label: "Active Roles",
+      value: "4",
+      label: t("hero.activeRolesStat"),
       icon: TrendingUp,
       color: "var(--color-secondary)",
     },
     {
-      value: "5+",
-      label: "Certifications",
+      value: "5",
+      label: t("hero.certificationsStat"),
       icon: Award,
       color: "var(--color-accent)",
     },
@@ -132,7 +132,7 @@ const About: React.FC = () => {
               <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
               <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
               <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
-              <span className="terminal-title text-xs dev-muted ml-2">
+              <span className="terminal-title text-xs dev-muted ms-2">
                 profile.md
               </span>
             </div>
@@ -141,7 +141,7 @@ const About: React.FC = () => {
               <p className="text-base sm:text-lg dev-text leading-relaxed">
                 {t("about.description")}
               </p>
-              <div className="space-y-2.5 pl-4 border-l-2 border-[var(--color-primary)]/30">
+              <div className="space-y-2.5 ps-4 border-s-2 border-[var(--color-primary)]/30">
                 {[
                   "about.point1",
                   "about.point2",
@@ -149,7 +149,7 @@ const About: React.FC = () => {
                   "about.point4",
                 ].map((key) => (
                   <p key={key} className="dev-text text-sm leading-relaxed">
-                    <span className="text-[var(--color-primary)] mr-2">▸</span>
+                    <span className="text-[var(--color-primary)] me-2 inline-block rtl:rotate-180">▸</span>
                     {t(key)}
                   </p>
                 ))}

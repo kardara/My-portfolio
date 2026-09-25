@@ -182,8 +182,8 @@ const Skills: React.FC = () => {
                   <h3 className="text-base sm:text-lg font-bold dev-heading">
                     {t(category.titleKey)}
                   </h3>
-                  <div className="ml-auto terminal-title text-xs dev-muted">
-                    {category.skills.length} skills
+                  <div className="ms-auto terminal-title text-xs dev-muted">
+                    {category.skills.length} {t("skills.count")}
                   </div>
                 </div>
 

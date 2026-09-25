@@ -83,21 +83,21 @@ const Contact: React.FC = () => {
     {
       icon: MessageSquare,
       label: t("header.quickContact"),
-      description: "Send a quick message",
+      description: t("contact.quickDesc"),
       onClick: () => window.dispatchEvent(new Event("open-contact-modal")),
       style: "ghost",
     },
     {
       icon: CalendarPlus,
       label: t("contact.scheduleGoogle"),
-      description: "Book a meeting slot",
+      description: t("contact.scheduleDesc"),
       href: googleCalendarLink,
       style: "green",
     },
     {
       icon: Mail,
       label: t("contact.sendEmailDirect"),
-      description: "Reach me directly",
+      description: t("contact.emailDesc"),
       href: "mailto:azdjerou@gmail.com?subject=Portfolio%20Inquiry",
       style: "accent",
     },
@@ -178,7 +178,7 @@ const Contact: React.FC = () => {
                   </div>
                   <ArrowRight
                     size={14}
-                    className="relative z-10 dev-muted group-hover:text-[var(--color-primary)] transition-colors ml-auto flex-shrink-0 mt-1"
+                    className="relative z-10 dev-muted group-hover:text-[var(--color-primary)] transition-colors ms-auto flex-shrink-0 mt-1 rtl:rotate-180"
                   />
                 </motion.a>
               ))}
@@ -260,7 +260,7 @@ const Contact: React.FC = () => {
               <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
               <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
               <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
-              <span className="terminal-title text-xs dev-muted ml-2">
+              <span className="terminal-title text-xs dev-muted ms-2">
                 connect.sh
               </span>
             </div>
@@ -302,7 +302,7 @@ const Contact: React.FC = () => {
                     >
                       <action.icon size={18} />
                     </div>
-                    <div className="flex-1 text-left">
+                    <div className="flex-1 text-start">
                       <div className="font-semibold">{action.label}</div>
                       <div
                         className="text-xs mt-0.5 opacity-70"
@@ -312,7 +312,7 @@ const Contact: React.FC = () => {
                     </div>
                     <ArrowRight
                       size={16}
-                      className="opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200"
+                      className="opacity-60 group-hover:opacity-100 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1 transition-all duration-200"
                     />
                   </>
                 );
