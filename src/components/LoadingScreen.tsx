@@ -6,12 +6,12 @@ interface LoadingScreenProps {
 }
 
 const BOOT_SEQUENCE = [
-  { text: "$ initializing portfolio v2.0...", delay: 180, color: "#3fb950" },
-  { text: "> loading modules.................. [OK]", delay: 680 },
-  { text: "> mounting components.............. [OK]", delay: 1080 },
-  { text: "> compiling assets................. [OK]", delay: 1400 },
-  { text: "> establishing connection.......... [OK]", delay: 1700 },
-  { text: "$ system online — welcome.", delay: 2050, color: "#58a6ff" },
+  { text: "$ initializing portfolio v2.0...", delay: 80, color: "#3fb950" },
+  { text: "> loading modules.................. [OK]", delay: 280 },
+  { text: "> mounting components.............. [OK]", delay: 460 },
+  { text: "> compiling assets................. [OK]", delay: 640 },
+  { text: "> establishing connection.......... [OK]", delay: 820 },
+  { text: "$ system online — welcome.", delay: 1000, color: "#58a6ff" },
 ];
 
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
@@ -29,8 +29,8 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
             timers.push(
               setTimeout(() => {
                 setIsExiting(true);
-                timers.push(setTimeout(onComplete, 750));
-              }, 550)
+                timers.push(setTimeout(onComplete, 450));
+              }, 300)
             );
           }
         }, line.delay)
@@ -47,7 +47,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
           key="loading-screen"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.03 }}
-          transition={{ duration: 0.75, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
           className="fixed inset-0 z-[9999] flex items-center justify-center"
           style={{ background: "#0d1117" }}
         >
@@ -220,7 +220,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
                 <motion.span
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 2.55 }}
+                  transition={{ delay: 1.1 }}
                 >
                   100%
                 </motion.span>
@@ -233,7 +233,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
                   className="h-full rounded-full"
                   initial={{ width: "0%" }}
                   animate={{ width: "100%" }}
-                  transition={{ duration: 2.75, ease: [0.4, 0, 0.2, 1] }}
+                  transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
                   style={{
                     background:
                       "linear-gradient(90deg, #58a6ff 0%, #3fb950 100%)",

@@ -114,7 +114,7 @@ const Footer: React.FC = () => {
                   <button
                     key={link.id}
                     onClick={() => scrollTo(link.id)}
-                    className="text-left text-sm dev-muted hover:text-[var(--color-primary)] transition-colors duration-200 flex items-center gap-1.5 group"
+                    className="text-start text-sm dev-muted hover:text-[var(--color-primary)] transition-colors duration-200 flex items-center gap-1.5 group"
                   >
                     <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[var(--color-primary)] text-xs">
                       ›
@@ -166,7 +166,7 @@ const Footer: React.FC = () => {
                     />
                   </div>
                   <span className="terminal-title text-xs dev-muted">
-                    Available for opportunities
+                    {t("footer.available")}
                   </span>
                 </div>
               </div>
@@ -184,7 +184,7 @@ const Footer: React.FC = () => {
 
           {/* ── Bottom bar ── */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="terminal-title dev-muted text-xs text-center sm:text-left">
+            <p className="terminal-title dev-muted text-xs text-center sm:text-start">
               © {currentYear} Abdoulaye Zakaria Djerou.{" "}
               {t("footer.rights")}{" "}
             </p>

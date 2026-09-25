@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
 import {
@@ -12,7 +12,7 @@ import {
   Send,
 } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
-import { useLanguage } from "../contexts/LanguageContext";
+import { useLanguage, type Language } from "../contexts/LanguageContext";
 import { toast } from "react-toastify";
 
 const Header: React.FC = () => {
@@ -20,6 +20,8 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  const langMenuRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,7 +34,9 @@ const Header: React.FC = () => {
     "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Portfolio%20Meeting%20with%20Abdoulaye%20Zakaria&details=Hi%20Abdoulaye%2C%20I%20would%20like%20to%20schedule%20a%20meeting%20from%20your%20portfolio.&location=Google%20Meet&add=azdjerou@gmail.com";
 
   useEffect(() => {
-    const handleScroll = () => {
+    let rafId = 0;
+    const update = () => {
+      rafId = 0;
       setIsScrolled(window.scrollY > 50);
 
       // Track active section
@@ -46,10 +50,30 @@ const Header: React.FC = () => {
       });
       setActiveSection(current);
     };
+    const handleScroll = () => {
+      if (!rafId) rafId = requestAnimationFrame(update);
+    };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
+
+  useEffect(() => {
+    if (!isLangOpen) return;
+    const close = (e: PointerEvent) => {
+      if (!langMenuRef.current?.contains(e.target as Node)) setIsLangOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setIsLangOpen(false);
+    document.addEventListener("pointerdown", close);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", close);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [isLangOpen]);
 
   useEffect(() => {
     document.body.style.overflow = isContactModalOpen ? "hidden" : "";
@@ -115,7 +139,7 @@ const Header: React.FC = () => {
     { key: "nav.contact", href: "#contact" },
   ];
 
-  const languages = [
+  const languages: { code: Language; label: string }[] = [
     { code: "en", label: "EN" },
     { code: "fr", label: "FR" },
     { code: "ar", label: "AR" },
@@ -151,7 +175,7 @@ const Header: React.FC = () => {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center gap-6 lg:gap-8">
             {navItems.map((item) => {
               const sectionId = item.href.replace("#", "");
               const isActive = activeSection === sectionId;
@@ -182,7 +206,7 @@ const Header: React.FC = () => {
           </div>
 
           {/* Theme Toggle, Language Selector */}
-          <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <div className="hidden md:flex items-center gap-2">
               <motion.button
                 whileHover={{ y: -1 }}
@@ -207,24 +231,49 @@ const Header: React.FC = () => {
             </div>
 
             {/* Language Selector */}
-            <div className="relative group hidden sm:block">
-              <button className="flex items-center space-x-1 dev-text transition-colors group-hover:text-[var(--color-primary)]">
+            <div ref={langMenuRef} className="relative hidden sm:block">
+              <button
+                onClick={() => setIsLangOpen((open) => !open)}
+                aria-label={t("header.language")}
+                aria-haspopup="menu"
+                aria-expanded={isLangOpen}
+                className="flex items-center gap-1 dev-text transition-colors hover:text-[var(--color-primary)]"
+              >
                 <Globe size={20} />
-                <span className="hidden sm:inline text-sm font-medium">
+                <span className="text-sm font-medium">
                   {language.toUpperCase()}
                 </span>
               </button>
-              <div className="absolute top-full right-0 mt-2 bg-[var(--dev-panel)] border border-[var(--dev-border)] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => setLanguage(lang.code as any)}
-                    className="block w-full text-left px-4 py-2 text-sm dev-text hover:bg-gray-100 dark:hover:bg-[#21262d] first:rounded-t-lg last:rounded-b-lg"
+              <AnimatePresence>
+                {isLangOpen && (
+                  <motion.div
+                    role="menu"
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-full end-0 mt-2 min-w-[5rem] bg-[var(--dev-panel)] border border-[var(--dev-border)] rounded-lg shadow-lg overflow-hidden"
                   >
-                    {lang.label}
-                  </button>
-                ))}
-              </div>
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        role="menuitem"
+                        onClick={() => {
+                          setLanguage(lang.code);
+                          setIsLangOpen(false);
+                        }}
+                        className={`block w-full text-start px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#21262d] ${
+                          language === lang.code
+                            ? "text-[var(--color-primary)] font-semibold"
+                            : "dev-text"
+                        }`}
+                      >
+                        {lang.label}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Theme Toggle */}
@@ -232,6 +281,7 @@ const Header: React.FC = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={toggleTheme}
+              aria-label={t("header.toggleTheme")}
               className="p-2 rounded-lg bg-[var(--dev-panel)] border border-[var(--dev-border)] dev-text"
             >
               {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
@@ -242,6 +292,8 @@ const Header: React.FC = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={t("header.menu")}
+              aria-expanded={isMenuOpen}
               className="md:hidden p-2 rounded-lg bg-[var(--dev-panel)] border border-[var(--dev-border)] dev-text"
             >
               {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -267,7 +319,7 @@ const Header: React.FC = () => {
                   key={item.key}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleNavClick(item.href)}
-                  className={`block w-full text-left px-3 py-2.5 rounded-lg transition-all duration-200 terminal-title font-medium`}
+                  className={`block w-full text-start px-3 py-2.5 rounded-lg transition-all duration-200 terminal-title font-medium`}
                   style={
                     isActive
                       ? {
@@ -292,7 +344,7 @@ const Header: React.FC = () => {
                   <motion.button
                     key={lang.code}
                     whileTap={{ scale: 0.97 }}
-                    onClick={() => setLanguage(lang.code as "en" | "fr" | "ar")}
+                    onClick={() => setLanguage(lang.code)}
                     className="py-2 rounded-lg terminal-title text-sm font-semibold border transition-all duration-200"
                     style={
                       language === lang.code
@@ -365,12 +417,12 @@ const Header: React.FC = () => {
                   <button
                     aria-label="Close"
                     onClick={() => setIsContactModalOpen(false)}
-                    className="absolute top-4 right-4 p-2 rounded-md border border-[var(--dev-border)] dev-muted hover:text-[var(--color-primary)]"
+                    className="absolute top-4 end-4 p-2 rounded-md border border-[var(--dev-border)] dev-muted hover:text-[var(--color-primary)]"
                   >
                     <X size={16} />
                   </button>
 
-                  <div className="mb-5 sm:mb-6 pr-10">
+                  <div className="mb-5 sm:mb-6 pe-10">
                     <p className="terminal-title text-xs dev-muted mb-2">
                       {t("header.quickFormTag")}
                     </p>

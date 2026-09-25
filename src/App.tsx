@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { MotionConfig } from "framer-motion";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import Header from "./components/Header";
@@ -11,8 +12,27 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import LoadingScreen from "./components/LoadingScreen";
 
+const BOOT_KEY = "portfolio-booted";
+
+const hasBootedThisSession = () => {
+  try {
+    return sessionStorage.getItem(BOOT_KEY) === "1";
+  } catch {
+    return false;
+  }
+};
+
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => !hasBootedThisSession());
+
+  const handleBootComplete = useCallback(() => {
+    try {
+      sessionStorage.setItem(BOOT_KEY, "1");
+    } catch {
+      // ignore
+    }
+    setIsLoading(false);
+  }, []);
 
   useEffect(() => {
     let rafId = 0;
@@ -61,8 +81,8 @@ function App() {
   }, []);
 
   return (
-    <>
-      <LoadingScreen onComplete={() => setIsLoading(false)} />
+    <MotionConfig reducedMotion="user">
+      {isLoading && <LoadingScreen onComplete={handleBootComplete} />}
       <ThemeProvider>
         <LanguageProvider>
           <div
@@ -85,7 +105,7 @@ function App() {
           </div>
         </LanguageProvider>
       </ThemeProvider>
-    </>
+    </MotionConfig>
   );
 }
 

@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-type Language = "en" | "fr" | "ar";
+export type Language = "en" | "fr" | "ar";
 
 interface LanguageContextType {
   language: Language;
@@ -60,11 +60,11 @@ const translations = {
     "about.primaryStack": "Primary Tech Stack",
     "about.currentPositions": "Current Positions",
     "about.keyAchievements": "Key Achievements",
-    "about.achievement1Title": "6+ Projects Delivered",
+    "about.achievement1Title": "10+ Projects Built",
     "about.achievement1Desc": "Full-stack applications in production",
     "about.achievement2Title": "Multiple Leadership Roles",
     "about.achievement2Desc": "Community organizations & tech teams",
-    "about.achievement3Title": "3+ Certifications",
+    "about.achievement3Title": "5 Certifications",
     "about.achievement3Desc": "Networking, design, and technical skills",
 
     // Skills Section
@@ -208,7 +208,7 @@ const translations = {
     "projects.medireminder": "MediReminder",
     "projects.medreminderDesc":
       "A mobile medicine reminder app designed to improve treatment adherence through clear scheduling and local notification workflows.",
-    "projects.mytask": "MyTaskMangement BestSeller",
+    "projects.mytask": "MyTaskManagement BestSeller",
     "projects.mytaskDesc":
       "A full-stack task management platform with a TypeScript frontend and Java backend, built around maintainable workflows and clean architecture.",
     "projects.aucalms": "AUCA Library Management System (IMS)",
@@ -278,6 +278,22 @@ const translations = {
     "footer.quickLinksTag": "navigate --quick-links",
     "footer.directContactTag": "contact --direct",
     "footer.scheduleMeeting": "Schedule Meeting",
+
+    // Misc UI labels
+    "projects.featured": "Featured",
+    "projects.other": "Other Projects",
+    "projects.githubProfile": "GitHub Profile",
+    "projects.privateRepo": "Private repository",
+    "projects.advanced": "Advanced",
+    "projects.intermediate": "Intermediate",
+    "skills.count": "skills",
+    "contact.quickDesc": "Send a quick message",
+    "contact.scheduleDesc": "Book a meeting slot",
+    "contact.emailDesc": "Reach me directly",
+    "footer.available": "Available for opportunities",
+    "header.language": "Change language",
+    "header.toggleTheme": "Toggle theme",
+    "header.menu": "Toggle menu",
   },
   fr: {
     // Navigation
@@ -332,11 +348,11 @@ const translations = {
     "about.primaryStack": "Stack technique principal",
     "about.currentPositions": "Postes actuels",
     "about.keyAchievements": "Réalisations clés",
-    "about.achievement1Title": "6+ projets livrés",
+    "about.achievement1Title": "10+ projets réalisés",
     "about.achievement1Desc": "Applications full-stack en production",
     "about.achievement2Title": "Plusieurs rôles de leadership",
     "about.achievement2Desc": "Organisations communautaires et équipes tech",
-    "about.achievement3Title": "3+ certifications",
+    "about.achievement3Title": "5 certifications",
     "about.achievement3Desc": "Réseaux, design et compétences techniques",
 
     // Skills Section
@@ -482,7 +498,7 @@ const translations = {
     "projects.medireminder": "MediReminder",
     "projects.medreminderDesc":
       "Une application mobile de rappel de médicaments conçue pour améliorer l'adhérence au traitement grâce à des workflows de planification et de notification clairs.",
-    "projects.mytask": "MyTaskMangement BestSeller",
+    "projects.mytask": "MyTaskManagement BestSeller",
     "projects.mytaskDesc":
       "Une plateforme complète de gestion des tâches avec un frontend TypeScript et un backend Java, construite autour de flux de travail maintenables et d'une architecture propre.",
     "projects.aucalms": "Système de Gestion de Bibliothèque AUCA (IMS)",
@@ -553,6 +569,22 @@ const translations = {
     "footer.quickLinksTag": "navigation --liens-rapides",
     "footer.directContactTag": "contact --direct",
     "footer.scheduleMeeting": "Planifier une réunion",
+
+    // Misc UI labels
+    "projects.featured": "En vedette",
+    "projects.other": "Autres projets",
+    "projects.githubProfile": "Profil GitHub",
+    "projects.privateRepo": "Dépôt privé",
+    "projects.advanced": "Avancé",
+    "projects.intermediate": "Intermédiaire",
+    "skills.count": "compétences",
+    "contact.quickDesc": "Envoyer un message rapide",
+    "contact.scheduleDesc": "Réserver un créneau",
+    "contact.emailDesc": "Me contacter directement",
+    "footer.available": "Disponible pour des opportunités",
+    "header.language": "Changer de langue",
+    "header.toggleTheme": "Changer de thème",
+    "header.menu": "Ouvrir le menu",
   },
   ar: {
     // Navigation
@@ -663,7 +695,7 @@ const translations = {
     "projects.medireminder": "MediReminder",
     "projects.medreminderDesc":
       "تطبيق ذكي لتذكير الأدوية مصمم لتحسين الالتزام بالعلاج من خلال مسارات جدولة وإخطار واضحة.",
-    "projects.mytask": "MyTaskMangement BestSeller",
+    "projects.mytask": "MyTaskManagement BestSeller",
     "projects.mytaskDesc":
       "منصة إدارة المهام الكاملة مع واجهة أمامية TypeScript وخلفية Java، مبنية حول سير العمل القابل للصيانة والعمارة النظيفة.",
     "projects.aucalms": "نظام إدارة مكتبة AUCA (IMS)",
@@ -724,11 +756,11 @@ const translations = {
     "about.primaryStack": "الحزمة التقنية الأساسية",
     "about.currentPositions": "المناصب الحالية",
     "about.keyAchievements": "الإنجازات الرئيسية",
-    "about.achievement1Title": "6+ مشاريع منجزة",
+    "about.achievement1Title": "+10 مشاريع منجزة",
     "about.achievement1Desc": "تطبيقات Full-Stack في الإنتاج",
     "about.achievement2Title": "أدوار قيادية متعددة",
     "about.achievement2Desc": "منظمات مجتمعية وفرق تقنية",
-    "about.achievement3Title": "3+ شهادات",
+    "about.achievement3Title": "5 شهادات",
     "about.achievement3Desc": "الشبكات والتصميم والمهارات التقنية",
 
     // Skills Section
@@ -805,6 +837,22 @@ const translations = {
     "footer.quickLinksTag": "التنقل --روابط-سريعة",
     "footer.directContactTag": "التواصل --مباشر",
     "footer.scheduleMeeting": "جدولة اجتماع",
+
+    // Misc UI labels
+    "projects.featured": "مميز",
+    "projects.other": "مشاريع أخرى",
+    "projects.githubProfile": "حساب GitHub",
+    "projects.privateRepo": "مستودع خاص",
+    "projects.advanced": "متقدم",
+    "projects.intermediate": "متوسط",
+    "skills.count": "مهارة",
+    "contact.quickDesc": "أرسل رسالة سريعة",
+    "contact.scheduleDesc": "احجز موعداً",
+    "contact.emailDesc": "تواصل معي مباشرة",
+    "footer.available": "متاح للفرص",
+    "header.language": "تغيير اللغة",
+    "header.toggleTheme": "تبديل المظهر",
+    "header.menu": "القائمة",
   },
 };
 
@@ -815,7 +863,25 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>(() => {
+    try {
+      const saved = localStorage.getItem("language");
+      if (saved === "en" || saved === "fr" || saved === "ar") return saved;
+    } catch {
+      // storage unavailable (private mode); fall back to default
+    }
+    return "en";
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("language", language);
+    } catch {
+      // ignore
+    }
+    document.documentElement.lang = language;
+    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+  }, [language]);
 
   const t = (key: string): string => {
     return (translations[language] as Record<string, string>)[key] || key;

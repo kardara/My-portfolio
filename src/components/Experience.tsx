@@ -93,10 +93,7 @@ const Experience: React.FC = () => {
         <div className="relative">
 
           {/* Vertical growing line */}
-          <div
-            className="absolute left-5 sm:left-8 top-0 bottom-0 w-px overflow-hidden"
-            style={{ originY: 0 }}
-          >
+          <div className="absolute start-5 sm:start-8 top-0 bottom-0 w-px overflow-hidden">
             {/* Track */}
             <div
               className="absolute inset-0"
@@ -119,17 +116,17 @@ const Experience: React.FC = () => {
             {experiences.map((exp, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: -40 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
+                initial={{ opacity: 0, y: 24 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{
                   duration: 0.6,
                   delay: 0.3 + index * 0.15,
                   ease: "easeOut",
                 }}
-                className="relative pl-16 sm:pl-24"
+                className="relative ps-16 sm:ps-24"
               >
                 {/* ── Timeline node ── */}
-                <div className="absolute left-0 sm:left-3 top-5 sm:top-6 flex items-center justify-center">
+                <div className="absolute start-0 sm:start-3 top-5 sm:top-6 flex items-center justify-center">
                   {/* Ping ring */}
                   <motion.div
                     className="absolute w-10 h-10 sm:w-12 sm:h-12 rounded-full opacity-40"
@@ -158,21 +155,21 @@ const Experience: React.FC = () => {
                   transition={{ duration: 0.22 }}
                   className="shell-panel rounded-2xl p-5 sm:p-6 md:p-7 overflow-hidden relative"
                   style={{
-                    borderLeftWidth: 3,
-                    borderLeftStyle: "solid",
-                    borderLeftColor: exp.borderColor,
+                    borderInlineStartWidth: 3,
+                    borderInlineStartStyle: "solid",
+                    borderInlineStartColor: exp.borderColor,
                   }}
                 >
                   {/* Glow corner */}
                   <div
-                    className="absolute top-0 left-0 w-48 h-48 rounded-full pointer-events-none"
+                    className="absolute top-0 start-0 w-48 h-48 rounded-full pointer-events-none"
                     style={{
                       background: `radial-gradient(circle at 0% 0%, ${exp.glowColor}, transparent 70%)`,
                     }}
                   />
 
                   {/* Header */}
-                  <div className="flex items-start justify-between gap-4 mb-3">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-3">
                     <div>
                       <h3 className="text-lg sm:text-xl font-bold dev-heading mb-1">
                         {t(exp.titleKey)}
@@ -184,7 +181,7 @@ const Experience: React.FC = () => {
                         {t(exp.companyKey)}
                       </p>
                     </div>
-                    <div className="flex-shrink-0 flex flex-col items-end gap-1 text-xs dev-muted terminal-title">
+                    <div className="flex-shrink-0 flex flex-row flex-wrap sm:flex-col sm:items-end gap-x-3 gap-y-1 text-xs dev-muted terminal-title">
                       <span className="flex items-center gap-1">
                         <Calendar size={12} />
                         {exp.period}
@@ -216,7 +213,7 @@ const Experience: React.FC = () => {
                           border: `1px solid ${exp.borderColor}30`,
                         }}
                       >
-                        <ArrowRight size={10} />
+                        <ArrowRight size={10} className="rtl:rotate-180" />
                         {t(key)}
                       </motion.span>
                     ))}

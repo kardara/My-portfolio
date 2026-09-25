@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Clock, ExternalLink, Github, Zap, BarChart3 } from "lucide-react";
+import { Clock, ExternalLink, Github, Zap, BarChart3, Lock } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 
 const Projects: React.FC = () => {
@@ -45,7 +45,24 @@ const Projects: React.FC = () => {
     Notifications: "fastapi",
   };
 
-  const projects = [
+  type Project = {
+    titleKey: string;
+    descKey: string;
+    technologies: string[];
+    status: "completed" | "development";
+    complexity: "Intermediate" | "Advanced";
+    image: string;
+    highlightKeys: string[];
+    github?: string;
+    demo?: string;
+    featured?: boolean;
+    isPrivate?: boolean;
+  };
+
+  const complexityLabel = (c: Project["complexity"]) =>
+    t(c === "Advanced" ? "projects.advanced" : "projects.intermediate");
+
+  const projects: Project[] = [
     {
       titleKey: "projects.mytask",
       descKey: "projects.mytaskDesc",
@@ -54,8 +71,7 @@ const Projects: React.FC = () => {
       complexity: "Advanced",
       image:
         "https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=800",
-      github: "https://github.com/kardara/MyTaskMangement_BestSeller_Frontend",
-      demo: "https://github.com/kardara/MyTaskMangement_BestSeller_Frontend",
+      github: "https://github.com/kardara/MyTaskMangement_BestSeller_Interview_Frontend",
       highlightKeys: [
         "projects.mytaskFeature1",
         "projects.mytaskFeature2",
@@ -71,8 +87,7 @@ const Projects: React.FC = () => {
       complexity: "Intermediate",
       image:
         "https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800",
-      github: "https://github.com/kardara",
-      demo: "https://github.com/kardara",
+      github: "https://github.com/kardara/Kardara-Stock-Management-System",
       highlightKeys: [
         "projects.kardaraFeature1",
         "projects.kardaraFeature2",
@@ -88,8 +103,6 @@ const Projects: React.FC = () => {
       complexity: "Intermediate",
       image:
         "https://images.pexels.com/photos/3683074/pexels-photo-3683074.jpeg?auto=compress&cs=tinysrgb&w=800",
-      github: "https://github.com/kardara",
-      demo: "https://github.com/kardara",
       highlightKeys: [
         "projects.medireminderFeature1",
         "projects.medireminderFeature2",
@@ -103,9 +116,8 @@ const Projects: React.FC = () => {
       technologies: ["Java", "Swing", "MySQL", "CRUD Operations"],
       status: "completed",
       complexity: "Intermediate",
-      image: "/lms.png",
+      image: `${import.meta.env.BASE_URL}lms.png`,
       github: "https://github.com/kardara/auca-lms-testing",
-      demo: "https://github.com/kardara/auca-lms-testing",
       highlightKeys: [
         "projects.aucalmsFeature1",
         "projects.aucalmsFeature2",
@@ -119,9 +131,8 @@ const Projects: React.FC = () => {
       technologies: ["TypeScript", "React", "Tailwind CSS", "REST APIs"],
       status: "completed",
       complexity: "Advanced",
-      image: "/auca-logo.png",
+      image: `${import.meta.env.BASE_URL}auca-logo.png`,
       github: "https://github.com/kardara/auca-online-application-fronend",
-      demo: "https://github.com/kardara/auca-online-application-fronend",
       highlightKeys: [
         "projects.aucaappFeature1",
         "projects.aucaappFeature2",
@@ -145,9 +156,9 @@ const Projects: React.FC = () => {
       status: "completed",
       complexity: "Advanced",
       featured: true,
-      image: "auca-ims.png",
-      github: "https://github.com/kardara/auca-ims-frontend",
-      demo: "https://github.com/kardara/auca-ims-frontend",
+      image: `${import.meta.env.BASE_URL}auca-ims.png`,
+      // repository is private
+      isPrivate: true,
       highlightKeys: [
         "projects.studentmgmtFeature1",
         "projects.studentmgmtFeature2",
@@ -215,7 +226,7 @@ const Projects: React.FC = () => {
             whileTap={{ scale: 0.97 }}
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[var(--dev-border)] bg-[var(--dev-panel)] text-sm terminal-title dev-text hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all duration-200"
           >
-            <Github size={15} /> GitHub Profile
+            <Github size={15} /> {t("projects.githubProfile")}
           </motion.a>
         </motion.div>
 
@@ -242,7 +253,7 @@ const Projects: React.FC = () => {
                   <motion.div
                     initial={{ rotate: -12 }}
                     animate={{ rotate: 0 }}
-                    className="absolute top-4 left-4"
+                    className="absolute top-4 start-4"
                   >
                     <div
                       style={{
@@ -252,7 +263,7 @@ const Projects: React.FC = () => {
                       className="px-4 py-2 rounded-lg text-white font-bold text-sm flex items-center gap-2 shadow-lg"
                     >
                       <Zap size={16} />
-                      Featured
+                      {t("projects.featured")}
                     </div>
                   </motion.div>
                 </div>
@@ -281,7 +292,7 @@ const Projects: React.FC = () => {
                           border: `1px solid ${getComplexityColor(featuredProject.complexity).border}`,
                         }}
                       >
-                        {featuredProject.complexity}
+                        {complexityLabel(featuredProject.complexity)}
                       </div>
                     </div>
 
@@ -353,26 +364,35 @@ const Projects: React.FC = () => {
 
                   {/* Action Buttons */}
                   <div className="flex flex-wrap gap-3 pt-6 border-t border-[var(--dev-border)]">
-                    <motion.a
-                      href={featuredProject.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[var(--color-primary)]/20 border border-[var(--color-primary)] text-[var(--color-primary)] rounded-lg font-medium hover:bg-[var(--color-primary)]/30 transition-all duration-300"
-                    >
-                      <Github size={16} /> Source
-                    </motion.a>
-                    <motion.a
-                      href={featuredProject.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white rounded-lg font-medium hover:shadow-lg transition-all duration-300"
-                    >
-                      <ExternalLink size={16} /> Live Demo
-                    </motion.a>
+                    {featuredProject.github && (
+                      <motion.a
+                        href={featuredProject.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[var(--color-primary)]/20 border border-[var(--color-primary)] text-[var(--color-primary)] rounded-lg font-medium hover:bg-[var(--color-primary)]/30 transition-all duration-300"
+                      >
+                        <Github size={16} /> {t("projects.source")}
+                      </motion.a>
+                    )}
+                    {featuredProject.demo && (
+                      <motion.a
+                        href={featuredProject.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white rounded-lg font-medium hover:shadow-lg transition-all duration-300"
+                      >
+                        <ExternalLink size={16} /> {t("projects.live")}
+                      </motion.a>
+                    )}
+                    {featuredProject.isPrivate && (
+                      <span className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 border border-dashed border-[var(--dev-border)] dev-muted rounded-lg text-sm terminal-title">
+                        <Lock size={15} /> {t("projects.privateRepo")}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -383,7 +403,7 @@ const Projects: React.FC = () => {
         {/* Other Projects Grid */}
         <div>
           <h3 className="text-xl sm:text-2xl font-bold dev-heading mb-8 flex items-center gap-3">
-            <BarChart3 size={24} /> Other Projects
+            <BarChart3 size={24} /> {t("projects.other")}
           </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {otherProjects.map((project, index) => (
@@ -393,10 +413,10 @@ const Projects: React.FC = () => {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.3 + index * 0.08 }}
                 whileHover={{ y: -8 }}
-                className="shell-panel rounded-xl overflow-hidden group transition-all duration-300"
+                className="shell-panel rounded-xl overflow-hidden group transition-all duration-300 flex flex-col"
               >
                 {/* Image Header */}
-                <div className="relative overflow-hidden h-40 sm:h-48 bg-[var(--dev-bg)]">
+                <div className="relative overflow-hidden h-40 sm:h-48 bg-[var(--dev-bg)] shrink-0">
                   <img
                     src={project.image}
                     alt={t(project.titleKey)}
@@ -405,7 +425,7 @@ const Projects: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--dev-bg)] to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-300" />
 
                   {/* Status & Complexity Badges */}
-                  <div className="absolute top-3 right-3 flex flex-col gap-2">
+                  <div className="absolute top-3 end-3 flex flex-col items-end gap-2">
                     <div
                       className="px-2 py-1 text-xs font-semibold rounded-full"
                       style={{
@@ -414,7 +434,7 @@ const Projects: React.FC = () => {
                         border: `1px solid ${getComplexityColor(project.complexity).border}`,
                       }}
                     >
-                      {project.complexity}
+                      {complexityLabel(project.complexity)}
                     </div>
                     {project.status === "development" ? (
                       <span className="px-2 py-1 bg-[var(--color-accent)]/20 text-[var(--color-accent)] text-xs font-medium rounded-full flex items-center gap-1 border border-[var(--color-accent)]">
@@ -430,7 +450,7 @@ const Projects: React.FC = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-4 sm:p-6 flex flex-col h-full">
+                <div className="p-4 sm:p-6 flex flex-col flex-1">
                   <div className="mb-4">
                     <h4 className="text-lg font-bold dev-heading mb-2 line-clamp-2">
                       {t(project.titleKey)}
@@ -511,29 +531,41 @@ const Projects: React.FC = () => {
                   </div>
 
                   {/* Links */}
+                  {(project.github || project.demo || project.isPrivate) && (
                   <div className="flex gap-2 pt-4 border-t border-[var(--dev-border)] mt-auto">
-                    <motion.a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-medium text-[var(--color-primary)] hover:text-[#79c0ff] transition-colors py-2"
-                    >
-                      <Github size={14} /> Code
-                    </motion.a>
-                    <div className="w-px bg-[var(--dev-border)]" />
-                    <motion.a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-medium text-[var(--color-accent)] hover:text-[#ff6a33] transition-colors py-2"
-                    >
-                      <ExternalLink size={14} /> Demo
-                    </motion.a>
+                    {project.github ? (
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-medium text-[var(--color-primary)] hover:text-[#79c0ff] transition-colors py-2"
+                      >
+                        <Github size={14} /> {t("projects.source")}
+                      </motion.a>
+                    ) : project.isPrivate ? (
+                      <span className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs dev-muted py-2">
+                        <Lock size={13} /> {t("projects.privateRepo")}
+                      </span>
+                    ) : null}
+                    {project.demo && (
+                      <>
+                        <div className="w-px bg-[var(--dev-border)]" />
+                        <motion.a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-medium text-[var(--color-accent)] hover:text-[#ff6a33] transition-colors py-2"
+                        >
+                          <ExternalLink size={14} /> {t("projects.live")}
+                        </motion.a>
+                      </>
+                    )}
                   </div>
+                  )}
                 </div>
               </motion.div>
             ))}
