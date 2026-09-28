@@ -17,6 +17,7 @@ import Footer from "./components/Footer";
 import LoadingScreen from "./components/LoadingScreen";
 import CommandPalette from "./components/CommandPalette";
 import ContactModal from "./components/ContactModal";
+import CvViewer from "./components/CvViewer";
 import ScrollProgress from "./components/ui/ScrollProgress";
 
 const BOOT_KEY = "portfolio-booted";
@@ -103,6 +104,7 @@ function App() {
               <Footer />
               <CommandPalette />
               <ContactModal />
+              <CvViewer />
               <Toasts />
             </div>
           )}
