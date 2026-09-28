@@ -2,10 +2,14 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 export type Language = "en" | "fr" | "ar";
 
+/** Inline translations used by the content files in src/data. */
+export type Localized = Record<Language, string>;
+
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
+  tr: (value: Localized) => string;
 }
 
 const translations = {
@@ -26,7 +30,7 @@ const translations = {
     "hero.title":
       "Software Engineering Student | Full-Stack & Mobile Developer | Future Cybersecurity Expert",
     "hero.description":
-      "As a passionate software engineering student at Adventist University of Central Africa (AUCA), I'm at the beginning of my journey to become an IT professional. With a deep interest in web development and design, I thrive on combining technical skills with creativity to build innovative and user-friendly digital solutions.",
+      "I build web and mobile products that solve real problems, from university systems in Kigali to business websites in N'Djamena. I lead engineering at ChadNova, teach web technologies at AUCA, and I'm growing toward cybersecurity.",
     "hero.location": "Chadian 🇹🇩 living in Rwanda 🇷🇼",
     "hero.education":
       "Studying at AUCA and currently part of the gym, the most intense software development training program in Rwanda",
@@ -119,7 +123,7 @@ const translations = {
     "contact.errorLater": "An error occurred. Try again later.",
     "contact.connectTitle": "Let's Connect",
     "contact.actionsDescription":
-      "Use the Quick Contact button in the header to send a direct message, or schedule a meeting instantly on Google Calendar.",
+      "Send a quick message, book a slot on my calendar, or email me directly. I usually reply within a day.",
     "contact.scheduleGoogle": "Schedule Meeting on Google Calendar",
     "contact.sendEmailDirect": "Send Email Directly",
     "contact.availabilityTag": "availability --status",
@@ -280,6 +284,7 @@ const translations = {
     "footer.scheduleMeeting": "Schedule Meeting",
 
     // Misc UI labels
+    "nav.journey": "Journey",
     "projects.featured": "Featured",
     "projects.other": "Other Projects",
     "projects.githubProfile": "GitHub Profile",
@@ -311,7 +316,7 @@ const translations = {
     "hero.title":
       "Étudiant en Génie Logiciel | Développeur Full-Stack & Mobile | Futur Expert en Cybersécurité",
     "hero.description":
-      "En tant qu'étudiant passionné en génie logiciel à l'Université Adventiste d'Afrique Centrale (AUCA), je suis au début de mon parcours pour devenir un professionnel de l'informatique. Avec un intérêt profond pour le développement web et le design, je prospère en combinant les compétences techniques avec la créativité pour construire des solutions numériques innovantes et conviviales.",
+      "Je conçois des produits web et mobiles qui résolvent de vrais problèmes, des systèmes universitaires à Kigali aux sites d'entreprises à N'Djamena. Je dirige l'ingénierie chez ChadNova, j'enseigne les technologies web à l'AUCA et je m'oriente vers la cybersécurité.",
     "hero.location": "Tchadien 🇹🇩 vivant au Rwanda 🇷🇼",
     "hero.education":
       "Étudiant à AUCA et actuellement membre du gym, le programme de formation en développement logiciel le plus intense du Rwanda",
@@ -407,7 +412,7 @@ const translations = {
     "contact.errorLater": "Une erreur est survenue. Réessayez plus tard.",
     "contact.connectTitle": "Connectons-nous",
     "contact.actionsDescription":
-      "Utilisez le bouton Contact rapide dans l'en-tête pour envoyer un message direct, ou planifiez instantanément une réunion sur Google Calendar.",
+      "Envoyez un message rapide, réservez un créneau dans mon agenda ou écrivez-moi directement. Je réponds généralement sous 24 h.",
     "contact.scheduleGoogle": "Planifier une réunion sur Google Calendar",
     "contact.sendEmailDirect": "Envoyer un email directement",
     "contact.availabilityTag": "disponibilité --statut",
@@ -571,6 +576,7 @@ const translations = {
     "footer.scheduleMeeting": "Planifier une réunion",
 
     // Misc UI labels
+    "nav.journey": "Parcours",
     "projects.featured": "En vedette",
     "projects.other": "Autres projets",
     "projects.githubProfile": "Profil GitHub",
@@ -602,7 +608,7 @@ const translations = {
     "hero.title":
       "طالب هندسة البرمجيات | مطور Full-Stack و Mobile | خبير أمن سيبراني مستقبلي",
     "hero.description":
-      "كطالب شغوف في هندسة البرمجيات في جامعة الأدفنتست في وسط أفريقيا (AUCA)، أنا في بداية رحلتي لأصبح محترف في تكنولوجيا المعلومات. مع اهتمام عميق بتطوير الويب والتصميم، أزدهر في دمج المهارات التقنية مع الإبداع لبناء حلول رقمية مبتكرة وسهلة الاستخدام.",
+      "أبني منتجات ويب وتطبيقات جوال تحل مشكلات حقيقية، من الأنظمة الجامعية في كيغالي إلى مواقع الشركات في نجامينا. أقود الهندسة في ChadNova، وأدرّس تقنيات الويب في AUCA، وأتجه نحو الأمن السيبراني.",
     "hero.location": "تشادي 🇹🇩 يعيش في رواندا 🇷🇼",
     "hero.education":
       "أدرس في AUCA وحالياً جزء من الجيم، برنامج التدريب الأكثر كثافة في تطوير البرمجيات في رواندا",
@@ -812,7 +818,7 @@ const translations = {
     "contact.errorLater": "حدث خطأ. حاول مرة أخرى لاحقاً.",
     "contact.connectTitle": "لنتواصل",
     "contact.actionsDescription":
-      "استخدم زر التواصل السريع في الترويسة لإرسال رسالة مباشرة، أو قم بجدولة اجتماع فوراً عبر Google Calendar.",
+      "أرسل رسالة سريعة، أو احجز موعداً في تقويمي، أو راسلني مباشرة. عادةً أرد خلال يوم.",
     "contact.scheduleGoogle": "جدولة اجتماع على Google Calendar",
     "contact.sendEmailDirect": "إرسال بريد إلكتروني مباشرة",
     "contact.availabilityTag": "التوفر --الحالة",
@@ -839,6 +845,7 @@ const translations = {
     "footer.scheduleMeeting": "جدولة اجتماع",
 
     // Misc UI labels
+    "nav.journey": "المسيرة",
     "projects.featured": "مميز",
     "projects.other": "مشاريع أخرى",
     "projects.githubProfile": "حساب GitHub",
@@ -887,8 +894,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
     return (translations[language] as Record<string, string>)[key] || key;
   };
 
+  const tr = (value: Localized): string => value[language] ?? value.en;
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, tr }}>
       {children}
     </LanguageContext.Provider>
   );
