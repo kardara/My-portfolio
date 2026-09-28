@@ -28,9 +28,9 @@ const translations = {
     "hero.greeting": "Hi, I'm",
     "hero.name": "Abdoulaye Zakaria Djerou",
     "hero.title":
-      "Software Engineering Student | Full-Stack & Mobile Developer | Future Cybersecurity Expert",
+      "Software Developer | MSIT Student at Carnegie Mellon University Africa | Full-Stack & Backend Engineering",
     "hero.description":
-      "I build web and mobile products that solve real problems, from university systems in Kigali to business websites in N'Djamena. I lead engineering at ChadNova, teach web technologies at AUCA, and I'm growing toward cybersecurity.",
+      "I build full-stack and backend systems with Java, Spring Boot, React, Next.js and PostgreSQL, like the academic management platform replacing AUCA's legacy registration. I'm a software developer at AUCA and an MSIT student at Carnegie Mellon University Africa, specializing in AI and machine learning.",
     "hero.location": "Chadian 🇹🇩 living in Rwanda 🇷🇼",
     "hero.education":
       "Studying at AUCA and currently part of the gym, the most intense software development training program in Rwanda",
@@ -52,15 +52,18 @@ const translations = {
 
     // About Section
     "about.title": "About Me",
-    "about.subtitle": "Passionate Developer & Future Tech Leader",
+    "about.subtitle":
+      "Software developer, MSIT student, mentor",
     "about.description":
-      "I am a dedicated software engineering student with a passion for creating innovative solutions that make a real impact. My journey combines technical excellence with creative problem-solving, always focusing on building technology that serves communities and solves real-world problems.",
+      "I'm a software developer and a Master of Science in Information Technology student at Carnegie Mellon University Africa, specializing in AI and machine learning. I build full-stack and backend applications: academic information systems, REST APIs, authentication and authorization, database design, and deployment on Linux servers.",
     "about.point1":
-      "Passionate about software development, cybersecurity, and networks",
+      "Backend-first full-stack developer: Java 21, Spring Boot, PostgreSQL, Next.js",
     "about.point2":
-      "Currently learning advanced mobile development,full stack software development focused in JavaScript and TypeScript",
-    "about.point3": "I build software that solves real community problems",
-    "about.point4": "Community leader, team collaborator, and lifelong learner",
+      "Studying AI & machine learning at Carnegie Mellon University Africa",
+    "about.point3":
+      "Former teaching assistant and coach: I enjoy helping others learn",
+    "about.point4":
+      "Interested in research, science, and technology that addresses challenges in Africa",
     "about.primaryStack": "Primary Tech Stack",
     "about.currentPositions": "Current Positions",
     "about.keyAchievements": "Key Achievements",
@@ -76,7 +79,7 @@ const translations = {
     "skills.languages": "Languages & Frameworks",
     "skills.certifications": "Certifications & Training",
     "skills.subtitle":
-      "30+ technologies mastered across web, mobile, and backend development",
+      "The languages, frameworks and tools I use across backend, frontend and deployment",
     "skills.softSkills": "Soft Skills",
     "skills.technologies": "technologies",
     "skills.manualScroll": "Manual Scroll",
@@ -169,18 +172,22 @@ const translations = {
     "experience.nowPresent": "Present",
 
     // About Section Strengths
-    "about.strength1": "Full-Stack Expertise",
+    "about.strength1":
+      "Full-Stack & Backend",
     "about.strength1Desc":
-      "Expert in modern JavaScript frameworks, backend technologies, and database design",
-    "about.strength2": "Team Leadership",
+      "Spring Boot services, PostgreSQL schemas, REST APIs and React/Next.js front-ends",
+    "about.strength2":
+      "Leadership & Mentoring",
     "about.strength2Desc":
-      "Lead Software Engineer with mentorship experience and Agile workflow expertise",
-    "about.strength3": "Problem Solving",
+      "Former lead engineer at ChadNova and teaching assistant at AUCA",
+    "about.strength3":
+      "Secure System Design",
     "about.strength3Desc":
-      "Strong analytical skills with focus on scalable, reliable, and secure solutions",
-    "about.strength4": "Community Focus",
+      "Authentication, role-based access control and workflows built to scale",
+    "about.strength4":
+      "Tech for Africa",
     "about.strength4Desc":
-      "Passionate about creating technology that serves and empowers communities",
+      "Building technology that serves communities, from university systems to CleanEX",
     "about.stack": "Java, React, Node.js",
     "about.roles": "4 Roles",
 
@@ -278,7 +285,7 @@ const translations = {
     "footer.rights": "All rights reserved.",
     "footer.backToTop": "Back to Top ↑",
     "footer.profileSummary":
-      "Full-stack engineer focused on reliable, community-impact products.",
+      "Full-stack & backend developer and MSIT student at CMU-Africa.",
     "footer.quickLinksTag": "navigate --quick-links",
     "footer.directContactTag": "contact --direct",
     "footer.scheduleMeeting": "Schedule Meeting",
@@ -314,9 +321,9 @@ const translations = {
     "hero.greeting": "Salut, je suis",
     "hero.name": "Abdoulaye Zakaria Djerou",
     "hero.title":
-      "Étudiant en Génie Logiciel | Développeur Full-Stack & Mobile | Futur Expert en Cybersécurité",
+      "Développeur logiciel | Étudiant MSIT à Carnegie Mellon University Africa | Ingénierie full-stack & back-end",
     "hero.description":
-      "Je conçois des produits web et mobiles qui résolvent de vrais problèmes, des systèmes universitaires à Kigali aux sites d'entreprises à N'Djamena. Je dirige l'ingénierie chez ChadNova, j'enseigne les technologies web à l'AUCA et je m'oriente vers la cybersécurité.",
+      "Je conçois des systèmes full-stack et back-end avec Java, Spring Boot, React, Next.js et PostgreSQL, comme la plateforme de gestion académique qui remplace l'ancien système d'inscription de l'AUCA. Je suis développeur logiciel à l'AUCA et étudiant MSIT à Carnegie Mellon University Africa, spécialisé en IA et apprentissage automatique.",
     "hero.location": "Tchadien 🇹🇩 vivant au Rwanda 🇷🇼",
     "hero.education":
       "Étudiant à AUCA et actuellement membre du gym, le programme de formation en développement logiciel le plus intense du Rwanda",
@@ -339,17 +346,18 @@ const translations = {
 
     // About Section
     "about.title": "À Propos de Moi",
-    "about.subtitle": "Développeur Passionné & Futur Leader Tech",
+    "about.subtitle":
+      "Développeur logiciel, étudiant MSIT, mentor",
     "about.description":
-      "Je suis un étudiant en génie logiciel dévoué avec une passion pour créer des solutions innovantes qui ont un impact réel. Mon parcours combine l'excellence technique avec la résolution créative de problèmes, en me concentrant toujours sur la construction de technologies qui servent les communautés et résolvent les problèmes du monde réel.",
+      "Je suis développeur logiciel et étudiant en Master of Science in Information Technology à Carnegie Mellon University Africa, spécialisé en IA et apprentissage automatique. Je conçois des applications full-stack et back-end : systèmes d'information académiques, API REST, authentification et autorisation, conception de bases de données et déploiement sur serveurs Linux.",
     "about.point1":
-      "Passionné par le développement logiciel, la cybersécurité et les réseaux",
+      "Développeur full-stack orienté back-end : Java 21, Spring Boot, PostgreSQL, Next.js",
     "about.point2":
-      "Actuellement en apprentissage du développement mobile avancé, de l'administration Linux et de Spring Boot",
+      "J'étudie l'IA et l'apprentissage automatique à Carnegie Mellon University Africa",
     "about.point3":
-      "Je construis des logiciels qui résolvent de vrais problèmes communautaires",
+      "Ancien assistant d'enseignement et coach : j'aime aider les autres à apprendre",
     "about.point4":
-      "Leader communautaire, collaborateur d'équipe et apprenant à vie",
+      "Intéressé par la recherche, la science et la technologie au service des défis de l'Afrique",
     "about.primaryStack": "Stack technique principal",
     "about.currentPositions": "Postes actuels",
     "about.keyAchievements": "Réalisations clés",
@@ -365,7 +373,7 @@ const translations = {
     "skills.languages": "Langages & Frameworks",
     "skills.certifications": "Certifications & Formation",
     "skills.subtitle":
-      "30+ technologies maîtrisées en développement web, mobile et backend",
+      "Les langages, frameworks et outils que j'utilise en back-end, en front-end et en déploiement",
     "skills.softSkills": "Compétences humaines",
     "skills.technologies": "technologies",
     "skills.manualScroll": "Défilement manuel",
@@ -459,18 +467,22 @@ const translations = {
     "experience.nowPresent": "Actuellement",
 
     // About Section Strengths
-    "about.strength1": "Expertise Full-Stack",
+    "about.strength1":
+      "Full-stack & back-end",
     "about.strength1Desc":
-      "Expert dans les frameworks JavaScript modernes, les technologies backend et la conception de bases de données",
-    "about.strength2": "Leadership d'Équipe",
+      "Services Spring Boot, schémas PostgreSQL, API REST et front-ends React/Next.js",
+    "about.strength2":
+      "Leadership & mentorat",
     "about.strength2Desc":
-      "Ingénieur Logiciel Principal avec expérience en mentorat et expertise des flux de travail Agile",
-    "about.strength3": "Résolution de Problèmes",
+      "Ancien lead engineer chez ChadNova et assistant d'enseignement à l'AUCA",
+    "about.strength3":
+      "Conception de systèmes sécurisés",
     "about.strength3Desc":
-      "Fortes compétences analytiques avec accent sur les solutions évolutives, fiables et sécurisées",
-    "about.strength4": "Focus Communautaire",
+      "Authentification, contrôle d'accès par rôles et processus conçus pour monter en charge",
+    "about.strength4":
+      "La tech pour l'Afrique",
     "about.strength4Desc":
-      "Passionné par la création de technologies qui servent et responsabilisent les communautés",
+      "Une technologie au service des communautés, des systèmes universitaires à CleanEX",
     "about.stack": "Java, React, Node.js",
     "about.roles": "4 Rôles",
 
@@ -570,7 +582,7 @@ const translations = {
     "footer.rights": "Tous droits réservés.",
     "footer.backToTop": "Retour en haut ↑",
     "footer.profileSummary":
-      "Ingénieur full-stack axé sur des produits fiables à impact communautaire.",
+      "Développeur full-stack & back-end, étudiant MSIT à CMU-Africa.",
     "footer.quickLinksTag": "navigation --liens-rapides",
     "footer.directContactTag": "contact --direct",
     "footer.scheduleMeeting": "Planifier une réunion",
@@ -606,9 +618,9 @@ const translations = {
     "hero.greeting": "مرحباً، أنا",
     "hero.name": "عبد الله زكريا جيرو",
     "hero.title":
-      "طالب هندسة البرمجيات | مطور Full-Stack و Mobile | خبير أمن سيبراني مستقبلي",
+      "مطور برمجيات | طالب ماجستير تقنية المعلومات في جامعة كارنيغي ميلون أفريقيا | هندسة التطبيقات المتكاملة والخوادم",
     "hero.description":
-      "أبني منتجات ويب وتطبيقات جوال تحل مشكلات حقيقية، من الأنظمة الجامعية في كيغالي إلى مواقع الشركات في نجامينا. أقود الهندسة في ChadNova، وأدرّس تقنيات الويب في AUCA، وأتجه نحو الأمن السيبراني.",
+      "أبني أنظمة متكاملة وخوادم باستخدام Java وSpring Boot وReact وNext.js وPostgreSQL، مثل منصة الإدارة الأكاديمية التي تحل محل نظام التسجيل القديم في AUCA. أعمل مطور برمجيات في AUCA وأدرس ماجستير تقنية المعلومات في جامعة كارنيغي ميلون أفريقيا بتخصص الذكاء الاصطناعي وتعلم الآلة.",
     "hero.location": "تشادي 🇹🇩 يعيش في رواندا 🇷🇼",
     "hero.education":
       "أدرس في AUCA وحالياً جزء من الجيم، برنامج التدريب الأكثر كثافة في تطوير البرمجيات في رواندا",
@@ -659,17 +671,22 @@ const translations = {
     "experience.nowPresent": "الحاضر",
 
     // About Section Strengths
-    "about.strength1": "خبرة Full-Stack",
+    "about.strength1":
+      "التطوير المتكامل والخوادم",
     "about.strength1Desc":
-      "خبير في أطر عمل JavaScript الحديثة وتقنيات Backend وتصميم قواعد البيانات",
-    "about.strength2": "قيادة الفريق",
+      "خدمات Spring Boot ومخططات PostgreSQL وواجهات REST وواجهات React/Next.js",
+    "about.strength2":
+      "القيادة والإرشاد",
     "about.strength2Desc":
-      "مهندس برمجيات رئيسي بخبرة في الإرشاد وخبرة سير العمل Agile",
-    "about.strength3": "حل المشاكل",
+      "مهندس رئيسي سابق في ChadNova ومساعد تدريس سابق في AUCA",
+    "about.strength3":
+      "تصميم أنظمة آمنة",
     "about.strength3Desc":
-      "مهارات تحليلية قوية مع التركيز على الحلول القابلة للتوسع والموثوقة والآمنة",
-    "about.strength4": "التركيز على المجتمع",
-    "about.strength4Desc": "شغوف بإنشاء تكنولوجيا تخدم وتمكن المجتمعات",
+      "المصادقة والتحكم بالوصول حسب الأدوار ومسارات عمل مصممة للتوسع",
+    "about.strength4":
+      "التقنية من أجل أفريقيا",
+    "about.strength4Desc":
+      "بناء تقنية تخدم المجتمعات، من الأنظمة الجامعية إلى CleanEX",
     "about.stack": "Java, React, Node.js",
     "about.roles": "4 أدوار",
 
@@ -751,14 +768,18 @@ const translations = {
 
     // About Section
     "about.title": "نبذة عني",
-    "about.subtitle": "مطور شغوف وقائد تقني مستقبلي",
+    "about.subtitle":
+      "مطور برمجيات، طالب ماجستير، ومرشد",
     "about.description":
-      "أنا طالب هندسة برمجيات مخلص مع شغف لإنشاء حلول مبتكرة تحدث تأثيراً حقيقياً. رحلتي تجمع بين التميز التقني وحل المشاكل الإبداعي، مع التركيز دائماً على بناء تكنولوجيا تخدم المجتمعات وتحل مشاكل العالم الحقيقي.",
-    "about.point1": "شغوف بتطوير البرمجيات والأمن السيبراني والشبكات",
+      "أنا مطور برمجيات وطالب ماجستير العلوم في تقنية المعلومات بجامعة كارنيغي ميلون أفريقيا، بتخصص الذكاء الاصطناعي وتعلم الآلة. أبني تطبيقات متكاملة وخوادم: أنظمة معلومات أكاديمية، وواجهات REST، والمصادقة والتفويض، وتصميم قواعد البيانات، والنشر على خوادم Linux.",
+    "about.point1":
+      "مطور متكامل يركز على الخوادم: Java 21 وSpring Boot وPostgreSQL وNext.js",
     "about.point2":
-      "أتعلم حالياً تطوير الهاتف المحمول المتقدم وإدارة Linux و Spring Boot",
-    "about.point3": "أبني برمجيات تحل مشاكل المجتمع الحقيقية",
-    "about.point4": "قائد مجتمعي ومتعاون في الفريق ومتعلم مدى الحياة",
+      "أدرس الذكاء الاصطناعي وتعلم الآلة في جامعة كارنيغي ميلون أفريقيا",
+    "about.point3":
+      "مساعد تدريس ومدرب سابق: أستمتع بمساعدة الآخرين على التعلم",
+    "about.point4":
+      "مهتم بالبحث والعلوم والتقنية التي تعالج تحديات أفريقيا",
     "about.primaryStack": "الحزمة التقنية الأساسية",
     "about.currentPositions": "المناصب الحالية",
     "about.keyAchievements": "الإنجازات الرئيسية",
@@ -772,7 +793,8 @@ const translations = {
     // Skills Section
     "skills.title": "المهارات التقنية",
     "skills.languages": "اللغات والأطر",
-    "skills.subtitle": "أكثر من 30 تقنية في تطوير الويب والموبايل والخلفية",
+    "skills.subtitle":
+      "اللغات والأطر والأدوات التي أستخدمها في الخوادم والواجهات والنشر",
     "skills.softSkills": "المهارات الشخصية",
     "skills.technologies": "تقنية",
     "skills.manualScroll": "تمرير يدوي",
@@ -839,7 +861,7 @@ const translations = {
     "footer.rights": "جميع الحقوق محفوظة.",
     "footer.backToTop": "العودة للأعلى ↑",
     "footer.profileSummary":
-      "مهندس Full-stack يركز على منتجات موثوقة ذات أثر مجتمعي.",
+      "مطور متكامل وخوادم، وطالب ماجستير في CMU-Africa.",
     "footer.quickLinksTag": "التنقل --روابط-سريعة",
     "footer.directContactTag": "التواصل --مباشر",
     "footer.scheduleMeeting": "جدولة اجتماع",

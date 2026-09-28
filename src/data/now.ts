@@ -10,26 +10,35 @@ export const nowUpdated: Localized = {
 export type NowItem = {
   label: Localized;
   text: Localized;
-  icon: "build" | "teach" | "learn" | "ship";
+  icon: "build" | "teach" | "learn" | "ship" | "study";
 };
 
 export const nowItems: NowItem[] = [
   {
-    icon: "build",
-    label: { en: "Building", fr: "Je construis", ar: "أبني" },
+    icon: "study",
+    label: { en: "Studying", fr: "J'étudie", ar: "أدرس" },
     text: {
-      en: "Web platforms at ChadNova, as lead engineer.",
-      fr: "Des plateformes web chez ChadNova, en tant que lead engineer.",
-      ar: "منصات ويب في ChadNova بصفتي المهندس الرئيسي.",
+      en: "MSIT at Carnegie Mellon University Africa, specializing in AI & machine learning.",
+      fr: "Le MSIT à Carnegie Mellon University Africa, spécialisation IA & apprentissage automatique.",
+      ar: "ماجستير تقنية المعلومات في جامعة كارنيغي ميلون أفريقيا، بتخصص الذكاء الاصطناعي وتعلم الآلة.",
     },
   },
   {
-    icon: "teach",
-    label: { en: "Teaching", fr: "J'enseigne", ar: "أدرّس" },
+    icon: "build",
+    label: { en: "Building", fr: "Je construis", ar: "أبني" },
     text: {
-      en: "Web Technology & Internet at AUCA.",
-      fr: "Technologies web & Internet à l'AUCA.",
-      ar: "تقنيات الويب والإنترنت في AUCA.",
+      en: "University information systems at AUCA, as a software developer.",
+      fr: "Les systèmes d'information de l'AUCA, en tant que développeur logiciel.",
+      ar: "أنظمة المعلومات الجامعية في AUCA بصفتي مطور برمجيات.",
+    },
+  },
+  {
+    icon: "learn",
+    label: { en: "Sharpening", fr: "J'approfondis", ar: "أطوّر" },
+    text: {
+      en: "Advanced Java, concurrency and system design with The Gym × MaibornWolff.",
+      fr: "Java avancé, concurrence et conception de systèmes avec The Gym × MaibornWolff.",
+      ar: "Java المتقدم والتزامن وتصميم الأنظمة مع The Gym × MaibornWolff.",
     },
   },
   {
@@ -39,15 +48,6 @@ export const nowItems: NowItem[] = [
       en: "Websites for businesses back home in Chad.",
       fr: "Des sites pour des entreprises au Tchad.",
       ar: "مواقع لشركات في بلدي تشاد.",
-    },
-  },
-  {
-    icon: "learn",
-    label: { en: "Exploring", fr: "J'explore", ar: "أستكشف" },
-    text: {
-      en: "Embedded systems and BLE, and moving toward cybersecurity.",
-      fr: "Les systèmes embarqués et le BLE, en route vers la cybersécurité.",
-      ar: "الأنظمة المدمجة وBLE، في طريقي نحو الأمن السيبراني.",
     },
   },
 ];
