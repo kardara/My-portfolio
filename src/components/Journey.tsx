@@ -10,7 +10,6 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { Briefcase, GraduationCap, HeartHandshake } from "lucide-react";
 import { useLanguage, type Localized } from "../contexts/LanguageContext";
 import { kindLabels, milestones, type MilestoneKind } from "../data/journey";
 import SectionHeading from "./ui/SectionHeading";
@@ -27,10 +26,10 @@ const ui = {
   now: { en: "now", fr: "actuel", ar: "حالياً" },
 } satisfies Record<string, Localized>;
 
-const kindStyle: Record<MilestoneKind, { color: string; Icon: typeof Briefcase }> = {
-  work: { color: "var(--color-primary)", Icon: Briefcase },
-  education: { color: "var(--color-secondary)", Icon: GraduationCap },
-  community: { color: "var(--color-accent)", Icon: HeartHandshake },
+const kindStyle: Record<MilestoneKind, { color: string }> = {
+  work: { color: "var(--color-primary)" },
+  education: { color: "var(--color-secondary)" },
+  community: { color: "var(--color-accent)" },
 };
 
 const ROUTE = "M 90 70 C 230 20, 330 210, 510 150";
@@ -163,7 +162,10 @@ const Journey: React.FC = () => {
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
                   />
                 )}
-                <span className="relative">{tr(kindLabels[f])}</span>
+                <span className="relative inline-flex items-center gap-1.5">
+                  {f !== "all" && <span className="w-2 h-2 rounded-full" style={{ background: kindStyle[f].color }} />}
+                  {tr(kindLabels[f])}
+                </span>
               </button>
             );
           })}
@@ -171,19 +173,19 @@ const Journey: React.FC = () => {
 
         <div ref={listRef} className="relative">
           {/* track + scroll-linked fill */}
-          <div className="absolute top-0 bottom-0 start-[19px] lg:start-1/2 w-px bg-line lg:-translate-x-1/2" />
+          <div className="absolute top-0 bottom-0 start-[7px] lg:start-1/2 w-px bg-line lg:-translate-x-1/2" />
           <motion.div
-            className="absolute top-0 bottom-0 start-[19px] lg:start-1/2 w-[2px] origin-top lg:-translate-x-1/2"
+            className="absolute top-0 bottom-0 start-[7px] lg:start-1/2 w-[2px] origin-top lg:-translate-x-1/2"
             style={{
               scaleY: lineScale,
               background: "linear-gradient(180deg, var(--color-accent), var(--color-secondary) 45%, var(--color-primary))",
             }}
           />
 
-          <motion.ol layout className="space-y-8 lg:space-y-4">
+          <motion.ol layout className="space-y-5 sm:space-y-8 lg:space-y-4">
             <AnimatePresence mode="popLayout" initial={false}>
               {visible.map((m, i) => {
-                const { color, Icon } = kindStyle[m.kind];
+                const { color } = kindStyle[m.kind];
                 const right = i % 2 === 1;
                 return (
                   <motion.li
@@ -194,23 +196,20 @@ const Journey: React.FC = () => {
                     exit={{ opacity: 0, scale: 0.95 }}
                     viewport={{ once: true, margin: "-60px" }}
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="relative ps-14 lg:ps-0 lg:grid lg:grid-cols-2 lg:gap-16"
+                    className="relative ps-7 sm:ps-9 lg:ps-0 lg:grid lg:grid-cols-2 lg:gap-16"
                   >
                     {/* node */}
                     <div
-                      className="absolute top-5 start-0 lg:start-1/2 lg:-translate-x-1/2 rtl:lg:translate-x-1/2 w-10 h-10 rounded-full grid place-items-center border-4 border-surface z-10"
-                      style={{ background: color }}
-                    >
-                      <Icon size={16} className="text-white" />
-                    </div>
+                      className="absolute top-7 start-[1px] lg:start-1/2 lg:-translate-x-1/2 rtl:lg:translate-x-1/2 w-3.5 h-3.5 rounded-full border-[3px] border-surface z-10"
+                      style={{ background: color, boxShadow: `0 0 0 1px ${color}` }}
+                    />
 
                     <motion.div
                       whileHover={{ y: -4 }}
-                      className={`shell-panel !rounded-2xl p-5 sm:p-6 ${right ? "lg:col-start-2" : "lg:col-start-1 lg:text-end"}`}
+                      className={`shell-panel !rounded-2xl p-4 sm:p-6 ${right ? "lg:col-start-2" : "lg:col-start-1 lg:text-end"}`}
                     >
                       <div className={`flex flex-wrap items-center gap-2 mb-2 terminal-title text-xs ${right ? "" : "lg:justify-end"}`}>
                         <span style={{ color }} className="font-semibold">{m.period}</span>
-                        <span className="dev-muted">{m.place === "td" ? "🇹🇩" : "🇷🇼"}</span>
                         {m.current && (
                           <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 bg-secondary/15 text-secondary text-[10px] uppercase tracking-wider">
                             <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
