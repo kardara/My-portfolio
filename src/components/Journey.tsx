@@ -18,9 +18,9 @@ import SectionHeading from "./ui/SectionHeading";
 const ui = {
   title: { en: "The Journey", fr: "Le parcours", ar: "المسيرة" },
   subtitle: {
-    en: "From the Red Cross in N'Djamena to leading engineering in Kigali: one path, many languages.",
-    fr: "De la Croix-Rouge à N'Djamena à la direction technique à Kigali : un chemin, plusieurs langues.",
-    ar: "من الصليب الأحمر في نجامينا إلى قيادة الهندسة في كيغالي: طريق واحد ولغات كثيرة.",
+    en: "From the Red Cross in N'Djamena to Carnegie Mellon University Africa in Kigali: one path, many languages.",
+    fr: "De la Croix-Rouge à N'Djamena à Carnegie Mellon University Africa à Kigali : un chemin, plusieurs langues.",
+    ar: "من الصليب الأحمر في نجامينا إلى جامعة كارنيغي ميلون أفريقيا في كيغالي: طريق واحد ولغات كثيرة.",
   },
   until: { en: "until 2022", fr: "jusqu'en 2022", ar: "حتى 2022" },
   since: { en: "since 2023", fr: "depuis 2023", ar: "منذ 2023" },

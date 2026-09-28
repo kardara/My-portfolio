@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Hammer, Presentation, Rocket, Telescope } from "lucide-react";
+import { GraduationCap, Hammer, Presentation, Rocket, Telescope } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { nowItems, nowUpdated, type NowItem } from "../data/now";
 
@@ -9,6 +9,7 @@ const icons: Record<NowItem["icon"], typeof Hammer> = {
   teach: Presentation,
   ship: Rocket,
   learn: Telescope,
+  study: GraduationCap,
 };
 
 const ui = {

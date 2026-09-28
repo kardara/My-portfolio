@@ -14,10 +14,10 @@ const ui = {
 };
 
 const community: { role: Localized; org: string; period: string }[] = [
-  { role: { en: "Secretary General", fr: "Secrétaire général", ar: "الأمين العام" }, org: "Beri Bour Community in Rwanda", period: "2023–25" },
-  { role: { en: "General Advisor", fr: "Conseiller général", ar: "المستشار العام" }, org: "AEESTR Executive Bureau", period: "2024–25" },
-  { role: { en: "Treasurer", fr: "Trésorier", ar: "أمين الصندوق" }, org: "AC-DEV · Rwanda section", period: "2024–" },
-  { role: { en: "Lead organizer", fr: "Organisateur principal", ar: "المنظم الرئيسي" }, org: "Chadian Independence Day", period: "2025" },
+  { role: { en: "Secretary-General", fr: "Secrétaire général", ar: "الأمين العام" }, org: "Beri Bour Rwanda", period: "2023–25" },
+  { role: { en: "Secretary-General & Spokesperson", fr: "Secrétaire général & porte-parole", ar: "الأمين العام والناطق الرسمي" }, org: "AEESTR Independent Electoral Commission", period: "2025" },
+  { role: { en: "Treasurer", fr: "Trésorier", ar: "أمين الصندوق" }, org: "AC-DEV Sec-Rwanda", period: "2024–" },
+  { role: { en: "Member", fr: "Membre", ar: "عضو" }, org: "Toastmasters International", period: "" },
 ];
 
 const spoken: { name: string; level: number; label: keyof typeof ui }[] = [
@@ -27,7 +27,7 @@ const spoken: { name: string; level: number; label: keyof typeof ui }[] = [
   { name: "Español", level: 0.25, label: "beginner" },
 ];
 
-const stack = ["React", "TypeScript", "Next.js", "Node.js", "Java", "Spring Boot", "Flutter", "PostgreSQL"];
+const stack = ["Java", "Spring Boot", "PostgreSQL", "React", "Next.js", "TypeScript", "Docker", "Linux"];
 
 const strengths = [
   { icon: Code, titleKey: "about.strength1", descKey: "about.strength1Desc", color: "var(--color-primary)" },

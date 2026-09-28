@@ -16,10 +16,10 @@ import Magnetic from "./ui/Magnetic";
 import { openCommandPalette } from "../lib/events";
 
 const roles: Localized[] = [
-  { en: "Lead Software Engineer @ ChadNova", fr: "Lead Software Engineer @ ChadNova", ar: "مهندس برمجيات رئيسي @ ChadNova" },
-  { en: "Teaching Assistant @ AUCA", fr: "Assistant d'enseignement @ AUCA", ar: "مساعد تدريس @ AUCA" },
-  { en: "Full-stack & mobile developer", fr: "Développeur full-stack & mobile", ar: "مطور تطبيقات متكاملة وجوال" },
-  { en: "Future cybersecurity engineer", fr: "Futur ingénieur en cybersécurité", ar: "مهندس أمن سيبراني في المستقبل" },
+  { en: "Software Developer @ AUCA", fr: "Développeur logiciel @ AUCA", ar: "مطور برمجيات @ AUCA" },
+  { en: "MSIT student @ CMU-Africa", fr: "Étudiant MSIT @ CMU-Africa", ar: "طالب ماجستير @ CMU-Africa" },
+  { en: "Full-stack & backend engineer", fr: "Ingénieur full-stack & back-end", ar: "مهندس تطبيقات متكاملة وخوادم" },
+  { en: "Java · Spring Boot · Next.js", fr: "Java · Spring Boot · Next.js", ar: "Java · Spring Boot · Next.js" },
 ];
 
 const ui = {
@@ -133,7 +133,7 @@ const PhotoCard: React.FC = () => {
         <div className="px-3 py-2.5 terminal-title text-[11px] leading-relaxed">
           {[
             ["$ whoami", "dev-muted"],
-            ["engineer · teacher · builder", "dev-heading"],
+            ["developer · student · mentor", "dev-heading"],
             ["$ route", "dev-muted"],
             ["n'djamena 🇹🇩 → kigali 🇷🇼", "text-primary"],
             ["$ speaks", "dev-muted"],

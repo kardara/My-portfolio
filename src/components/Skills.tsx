@@ -15,12 +15,13 @@ import {
   MessageSquare,
   Globe,
   Rocket,
+  Server,
 } from "lucide-react";
-import { useLanguage } from "../contexts/LanguageContext";
+import { useLanguage, type Localized } from "../contexts/LanguageContext";
 import SectionHeading from "./ui/SectionHeading";
 
 const Skills: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, tr } = useLanguage();
   const [manualScroll, setManualScroll] = useState(false);
   const [interactingRow, setInteractingRow] = useState<number | null>(null);
   const [ref, inView] = useInView({
@@ -30,39 +31,43 @@ const Skills: React.FC = () => {
   });
 
   const skillLogoSlug: Record<string, string> = {
+    Java: "openjdk",
     JavaScript: "javascript",
     TypeScript: "typescript",
+    Python: "python",
+    "C#": "csharp",
+    SQL: "postgresql",
+    HTML: "html5",
+    CSS: "css",
     React: "react",
     "Next.js": "nextdotjs",
-    "Node.js": "nodedotjs",
-    Express: "express",
-    NestJS: "nestjs",
-    Java: "openjdk",
-    "C#": "csharp",
-    ".NET": "dotnet",
-    Blazor: "blazor",
-    Razor: "dotnet",
-    Python: "python",
-    "Spring Boot": "springboot",
-    Hibernate: "hibernate",
-    Maven: "apachemaven",
-    HTML5: "html5",
-    CSS3: "css",
     "Tailwind CSS": "tailwindcss",
-    "Responsive Design": "css",
+    Vite: "vite",
+    Axios: "axios",
+    "React Router": "reactrouter",
+    "Spring Boot": "springboot",
+    "Spring Security": "springsecurity",
+    "Spring Data JPA": "spring",
+    Hibernate: "hibernate",
+    "Java Servlets": "openjdk",
+    "Node.js": "nodedotjs",
+    "Express.js": "express",
+    "ASP.NET": "dotnet",
     PostgreSQL: "postgresql",
+    MySQL: "mysql",
     MongoDB: "mongodb",
     Firebase: "firebase",
     Supabase: "supabase",
-    "SQL Server": "microsoftsqlserver",
+    Flyway: "flyway",
     "Git/GitHub": "github",
     Docker: "docker",
+    Linux: "linux",
+    Maven: "apachemaven",
+    "GitHub Actions": "githubactions",
+    JWT: "jsonwebtokens",
     Postman: "postman",
-    "VS Code": "visualstudiocode",
-    IntelliJ: "intellijidea",
-    Netlify: "netlify",
     Vercel: "vercel",
-    Render: "render",
+    Netlify: "netlify",
   };
 
   const getInitials = (value: string) => {
@@ -74,42 +79,56 @@ const Skills: React.FC = () => {
       : `${parts[0][0]}${parts[1][0]}`.toUpperCase();
   };
 
-  const skillCategories = [
+  const skillCategories: { title: Localized; icon: typeof Code2; accentColor: string; skills: string[] }[] = [
     {
-      titleKey: "skills.languages",
+      title: { en: "Programming Languages", fr: "Langages de programmation", ar: "لغات البرمجة" },
       icon: Code2,
       accentColor: "#10b981",
+      skills: ["Java", "JavaScript", "TypeScript", "Python", "C#", "SQL", "HTML", "CSS"],
+    },
+    {
+      title: { en: "Backend Development", fr: "Développement back-end", ar: "تطوير الخوادم" },
+      icon: Server,
+      accentColor: "#a855f7",
       skills: [
-        "JavaScript","TypeScript","React","Next.js","Node.js","Express","NestJS",
-        "Java","C#",".NET","Blazor","Razor","Python","Spring Boot","Hibernate","Maven",
+        "Spring Boot", "Spring Security", "Spring Data JPA", "Hibernate", "Java Servlets",
+        "REST APIs", "Node.js", "Express.js", "ASP.NET",
       ],
     },
     {
-      titleKey: "skills.webUI",
+      title: { en: "Frontend Development", fr: "Développement front-end", ar: "تطوير الواجهات" },
       icon: Zap,
       accentColor: "#f97316",
-      skills: ["HTML5", "CSS3", "Tailwind CSS", "Responsive Design"],
+      skills: ["React", "Next.js", "Tailwind CSS", "Vite", "Axios", "React Router", "Responsive Design"],
     },
     {
-      titleKey: "skills.databases",
+      title: { en: "Databases", fr: "Bases de données", ar: "قواعد البيانات" },
       icon: Database,
       accentColor: "#0284c7",
-      skills: ["PostgreSQL", "MongoDB", "Firebase", "Supabase", "SQL Server"],
+      skills: ["PostgreSQL", "MySQL", "MongoDB", "Firebase", "Supabase", "Flyway", "jOOQ"],
     },
     {
-      titleKey: "skills.tools",
+      title: { en: "DevOps & Tools", fr: "DevOps & outils", ar: "DevOps والأدوات" },
       icon: Award,
       accentColor: "#f59e0b",
-      skills: ["Git/GitHub","Docker","Postman","VS Code","IntelliJ","Netlify","Vercel","Render"],
+      skills: ["Git/GitHub", "Docker", "Linux", "Maven", "GitHub Actions", "JWT", "Postman", "Vercel", "Netlify"],
     },
   ];
 
-  const certifications = [
-    { key: "skills.cert1" },
-    { key: "skills.cert2" },
-    { key: "skills.cert3" },
-    { key: "skills.cert4" },
-    { key: "skills.cert5" },
+  const certifications: Localized[] = [
+    {
+      en: "Advanced Java Backend & Software Architecture · The Gym × MaibornWolff",
+      fr: "Back-end Java avancé & architecture logicielle · The Gym × MaibornWolff",
+      ar: "تطوير الخوادم بـ Java المتقدم وهندسة البرمجيات · The Gym × MaibornWolff",
+    },
+    {
+      en: "Full Stack Development Training (React.js & Spring Boot)",
+      fr: "Formation développement full-stack (React.js & Spring Boot)",
+      ar: "تدريب التطوير المتكامل (React.js وSpring Boot)",
+    },
+    { en: "Cisco Networking Essentials", fr: "Cisco Networking Essentials", ar: "أساسيات الشبكات من Cisco" },
+    { en: "Leadership & Team Management", fr: "Leadership & gestion d'équipe", ar: "القيادة وإدارة الفرق" },
+    { en: "Red Cross Humanitarian Training", fr: "Formation humanitaire de la Croix-Rouge", ar: "تدريب إنساني مع الصليب الأحمر" },
   ];
 
   const softSkills = [
@@ -167,7 +186,7 @@ const Skills: React.FC = () => {
                     <IconComponent size={20} className="text-white" />
                   </div>
                   <h3 className="text-base sm:text-lg font-bold dev-heading">
-                    {t(category.titleKey)}
+                    {tr(category.title)}
                   </h3>
                   <div className="ms-auto terminal-title text-xs dev-muted">
                     {category.skills.length} {t("skills.count")}
@@ -209,7 +228,7 @@ const Skills: React.FC = () => {
                       const logoSlug = skillLogoSlug[skill];
                       return (
                         <motion.div
-                          key={`${category.titleKey}-${skillIndex}`}
+                          key={`${category.title.en}-${skillIndex}`}
                           whileHover={{ y: -3, scale: 1.04 }}
                           transition={{ duration: 0.2 }}
                           className="flex items-center gap-2.5 min-w-[155px] sm:min-w-[185px] px-4 py-2.5 rounded-xl bg-panel/80 border border-line hover:border-primary/50 transition-colors duration-200"
@@ -330,7 +349,7 @@ const Skills: React.FC = () => {
                     {String(index + 1).padStart(2, "0")}
                   </div>
                   <span className="dev-text font-medium text-sm leading-relaxed flex-1">
-                    {t(cert.key)}
+                    {tr(cert)}
                   </span>
                   <CheckCircle
                     size={15}

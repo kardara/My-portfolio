@@ -200,8 +200,8 @@ const CommandPalette: React.FC = () => {
         group: "fun",
         run: () => [
           "abdoulaye zakaria djerou (kardara)",
-          "├─ lead software engineer @ chadnova",
-          "├─ teaching assistant @ auca",
+          "├─ software developer @ auca",
+          "├─ msit student (ai/ml) @ cmu-africa",
           "├─ from n'djamena 🇹🇩 → kigali 🇷🇼",
           "└─ speaks: en · fr · ar",
         ],
