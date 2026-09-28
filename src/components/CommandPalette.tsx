@@ -5,6 +5,7 @@ import { useTheme } from "../contexts/ThemeContext";
 import { useLanguage, type Language, type Localized } from "../contexts/LanguageContext";
 import { profile } from "../data/profile";
 import { projects } from "../data/projects";
+import { openCvViewer } from "../lib/events";
 
 type Group = "navigate" | "projects" | "actions" | "settings" | "fun";
 
@@ -99,15 +100,15 @@ const CommandPalette: React.FC = () => {
       {
         id: "cv",
         cmd: "cv",
-        label: { en: "Download my CV (PDF)", fr: "Télécharger mon CV (PDF)", ar: "تحميل سيرتي الذاتية (PDF)" },
+        label: { en: "View my CV", fr: "Voir mon CV", ar: "عرض سيرتي الذاتية" },
         group: "actions",
-        keywords: "resume download",
+        keywords: "resume download pdf",
         run: () => {
-          const a = document.createElement("a");
-          a.href = profile.cv;
-          a.download = "CV-Abdoulaye-Zakaria-Djerou.pdf";
-          a.click();
-          return ["↓ CV-Abdoulaye-Zakaria-Djerou.pdf"];
+          window.setTimeout(() => {
+            close();
+            openCvViewer();
+          }, 400);
+          return ["✓ opening cv.pdf…"];
         },
       },
       {

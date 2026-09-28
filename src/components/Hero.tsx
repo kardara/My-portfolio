@@ -8,12 +8,12 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ArrowRight, ChevronDown, Command, Download, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, ChevronDown, Command, FileText, Github, Linkedin, Mail } from "lucide-react";
 import { useLanguage, type Localized } from "../contexts/LanguageContext";
 import { profile, stats } from "../data/profile";
 import Counter from "./ui/Counter";
 import Magnetic from "./ui/Magnetic";
-import { openCommandPalette } from "../lib/events";
+import { openCommandPalette, openCvViewer } from "../lib/events";
 
 const roles: Localized[] = [
   { en: "Software Developer @ AUCA", fr: "Développeur logiciel @ AUCA", ar: "مطور برمجيات @ AUCA" },
@@ -29,6 +29,7 @@ const ui = {
   terminal: { en: "Open terminal", fr: "Ouvrir le terminal", ar: "فتح الطرفية" },
   location: { en: "Kigali, Rwanda", fr: "Kigali, Rwanda", ar: "كيغالي، رواندا" },
   available: { en: "available", fr: "disponible", ar: "متاح" },
+  viewCV: { en: "View CV", fr: "Voir le CV", ar: "عرض السيرة الذاتية" },
 };
 
 const nameWord = {
@@ -165,13 +166,6 @@ const Hero: React.FC = () => {
   const words = profile.name.split(" ");
   const last = words[words.length - 1];
 
-  const downloadCV = () => {
-    const a = document.createElement("a");
-    a.href = profile.cv;
-    a.download = "CV-Abdoulaye-Zakaria-Djerou.pdf";
-    a.click();
-  };
-
   return (
     <section ref={sectionRef} id="home" className="relative min-h-[100svh] flex items-center overflow-hidden pt-28 pb-24">
       {/* Background */}
@@ -259,11 +253,11 @@ const Hero: React.FC = () => {
               </Magnetic>
               <Magnetic>
                 <button
-                  onClick={downloadCV}
+                  onClick={openCvViewer}
                   className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl border border-line bg-panel dev-heading font-semibold hover:border-primary hover:text-primary transition-colors"
                 >
-                  <Download size={18} />
-                  {t("hero.downloadCV")}
+                  <FileText size={18} />
+                  {tr(ui.viewCV)}
                 </button>
               </Magnetic>
               <button
