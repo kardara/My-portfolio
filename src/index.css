@@ -52,9 +52,15 @@
     }
   }
 
+  html,
+  body {
+    /* clip (not hidden) so off-screen entrance animations can never widen the page on phones */
+    overflow-x: hidden;
+    overflow-x: clip;
+  }
+
   body {
     position: relative;
-    overflow-x: hidden;
     font-family: "IBM Plex Sans", system-ui, sans-serif;
     line-height: 1.6;
     color: var(--dev-text);
@@ -217,14 +223,6 @@
     margin: 1.1rem auto 1.4rem;
     border-radius: 9999px;
     background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
-  }
-
-  .text-gradient-hero {
-    background: linear-gradient(100deg, var(--color-primary) 10%, var(--color-secondary) 90%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    padding-bottom: 0.08em;
   }
 
   /* Cursor-following light for <Spotlight> */

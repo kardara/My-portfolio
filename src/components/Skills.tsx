@@ -127,6 +127,7 @@ const Skills: React.FC = () => {
       ar: "تدريب التطوير المتكامل (React.js وSpring Boot)",
     },
     { en: "Cisco Networking Essentials", fr: "Cisco Networking Essentials", ar: "أساسيات الشبكات من Cisco" },
+    { en: "Graphic Design (Adobe Photoshop)", fr: "Design graphique (Adobe Photoshop)", ar: "التصميم الجرافيكي (Adobe Photoshop)" },
     { en: "Leadership & Team Management", fr: "Leadership & gestion d'équipe", ar: "القيادة وإدارة الفرق" },
     { en: "Red Cross Humanitarian Training", fr: "Formation humanitaire de la Croix-Rouge", ar: "تدريب إنساني مع الصليب الأحمر" },
   ];
