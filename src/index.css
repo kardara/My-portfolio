@@ -225,14 +225,6 @@
     background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
   }
 
-  .text-gradient-hero {
-    background: linear-gradient(100deg, var(--color-primary) 10%, var(--color-secondary) 90%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    padding-bottom: 0.08em;
-  }
-
   /* Cursor-following light for <Spotlight> */
   .spotlight::before {
     content: "";

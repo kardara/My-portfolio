@@ -219,7 +219,7 @@ const Hero: React.FC = () => {
                     key={w}
                     variants={nameWord}
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className={`inline-block ${w === last ? "text-gradient-hero" : "me-[0.25em]"}`}
+                    className={`inline-block ${w === last ? "" : "me-[0.25em]"}`}
                     aria-hidden="true"
                   >
                     {w}
