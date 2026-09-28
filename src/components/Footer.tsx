@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
   const navLinks = [
     { label: t("nav.home"), id: "home" },
     { label: t("nav.about"), id: "about" },
-    { label: t("experience.title") || "Experience", id: "experience" },
+    { label: t("nav.journey"), id: "journey" },
     { label: t("nav.projects"), id: "projects" },
     { label: t("nav.skills"), id: "skills" },
     { label: t("nav.contact"), id: "contact" },
@@ -96,7 +96,7 @@ const Footer: React.FC = () => {
                     aria-label={s.label}
                     whileHover={{ y: -3, scale: 1.1 }}
                     whileTap={{ scale: 0.92 }}
-                    className={`w-9 h-9 rounded-xl flex items-center justify-center dev-muted border border-[var(--dev-border)] bg-[var(--dev-panel)] transition-all duration-200 ${s.color} hover:border-current`}
+                    className={`w-9 h-9 rounded-xl flex items-center justify-center dev-muted border border-line bg-panel transition-all duration-200 ${s.color} hover:border-current`}
                   >
                     <s.icon size={16} />
                   </motion.a>
@@ -114,9 +114,9 @@ const Footer: React.FC = () => {
                   <button
                     key={link.id}
                     onClick={() => scrollTo(link.id)}
-                    className="text-start text-sm dev-muted hover:text-[var(--color-primary)] transition-colors duration-200 flex items-center gap-1.5 group"
+                    className="text-start text-sm dev-muted hover:text-primary transition-colors duration-200 flex items-center gap-1.5 group"
                   >
-                    <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[var(--color-primary)] text-xs">
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity text-primary text-xs">
                       ›
                     </span>
                     {link.label}
@@ -133,7 +133,7 @@ const Footer: React.FC = () => {
               <div className="space-y-3">
                 <a
                   href="mailto:azdjerou@gmail.com"
-                  className="flex items-center gap-2 text-sm dev-muted hover:text-[var(--color-primary)] transition-colors"
+                  className="flex items-center gap-2 text-sm dev-muted hover:text-primary transition-colors"
                 >
                   <Mail size={14} className="flex-shrink-0" />
                   azdjerou@gmail.com
@@ -193,7 +193,7 @@ const Footer: React.FC = () => {
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.96 }}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-[var(--dev-border)] bg-[var(--dev-panel)] dev-text hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all duration-200"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-line bg-panel dev-text hover:border-primary hover:text-primary transition-all duration-200"
             >
               <ArrowUp size={15} />
               {t("footer.backToTop")}

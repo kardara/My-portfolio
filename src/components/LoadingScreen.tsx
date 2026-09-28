@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface LoadingScreenProps {
+  /** Called as the overlay starts fading out */
+  onReveal: () => void;
   onComplete: () => void;
 }
 
@@ -14,7 +16,7 @@ const BOOT_SEQUENCE = [
   { text: "$ system online — welcome.", delay: 1000, color: "#58a6ff" },
 ];
 
-const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
+const LoadingScreen: React.FC<LoadingScreenProps> = ({ onReveal, onComplete }) => {
   const [visibleCount, setVisibleCount] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
 
@@ -29,6 +31,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
             timers.push(
               setTimeout(() => {
                 setIsExiting(true);
+                onReveal();
                 timers.push(setTimeout(onComplete, 450));
               }, 300)
             );
@@ -38,7 +41,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     });
 
     return () => timers.forEach(clearTimeout);
-  }, [onComplete]);
+  }, [onReveal, onComplete]);
 
   return (
     <AnimatePresence>

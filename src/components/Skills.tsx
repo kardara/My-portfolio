@@ -17,6 +17,7 @@ import {
   Rocket,
 } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
+import SectionHeading from "./ui/SectionHeading";
 
 const Skills: React.FC = () => {
   const { t } = useLanguage();
@@ -46,9 +47,9 @@ const Skills: React.FC = () => {
     Hibernate: "hibernate",
     Maven: "apachemaven",
     HTML5: "html5",
-    CSS3: "css3",
+    CSS3: "css",
     "Tailwind CSS": "tailwindcss",
-    "Responsive Design": "css3",
+    "Responsive Design": "css",
     PostgreSQL: "postgresql",
     MongoDB: "mongodb",
     Firebase: "firebase",
@@ -122,33 +123,19 @@ const Skills: React.FC = () => {
   ];
 
   return (
-    <section id="skills" ref={ref} className="py-20 sm:py-24 md:py-28">
+    <section id="skills" ref={ref} className="py-20 sm:py-28">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
 
-        {/* ── Section Header ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-14 sm:mb-18"
-        >
-          <div className="section-tag">skills --stack</div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold dev-heading">
-            {t("skills.title")}
-          </h2>
-          <div className="section-divider" />
-          <p className="text-base sm:text-lg dev-muted max-w-2xl mx-auto leading-relaxed">
-            {t("skills.subtitle")}
-          </p>
+        <SectionHeading command="skills --list --all" title={t("skills.title")} subtitle={t("skills.subtitle")}>
           <div className="mt-5">
             <button
               onClick={() => setManualScroll((prev) => !prev)}
-              className="terminal-title text-xs sm:text-sm px-4 py-2 rounded-lg border border-[var(--dev-border)] bg-[var(--dev-panel)] dev-text hover:border-[var(--color-primary)] transition-colors"
+              className="terminal-title text-xs sm:text-sm px-4 py-2 rounded-lg border border-line bg-panel dev-text hover:border-primary transition-colors"
             >
               {manualScroll ? t("skills.autoScroll") : t("skills.manualScroll")}
             </button>
           </div>
-        </motion.div>
+        </SectionHeading>
 
         {/* ── Animated Skill Rows ── */}
         <div className="space-y-4 sm:space-y-5 mb-12 sm:mb-14">
@@ -170,7 +157,7 @@ const Skills: React.FC = () => {
                 className="shell-panel rounded-2xl overflow-hidden card-glow"
               >
                 {/* Row header */}
-                <div className="px-5 sm:px-6 pt-4 pb-3 flex items-center gap-3 border-b border-[var(--dev-border)]">
+                <div className="px-5 sm:px-6 pt-4 pb-3 flex items-center gap-3 border-b border-line">
                   <div
                     className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{
@@ -199,8 +186,8 @@ const Skills: React.FC = () => {
                 >
                   {!manualScroll && (
                     <>
-                      <div className="absolute left-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-r from-[var(--dev-panel)] to-transparent z-10 pointer-events-none" />
-                      <div className="absolute right-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-l from-[var(--dev-panel)] to-transparent z-10 pointer-events-none" />
+                      <div className="absolute left-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-r from-panel to-transparent z-10 pointer-events-none" />
+                      <div className="absolute right-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-l from-panel to-transparent z-10 pointer-events-none" />
                     </>
                   )}
                   <div
@@ -225,7 +212,7 @@ const Skills: React.FC = () => {
                           key={`${category.titleKey}-${skillIndex}`}
                           whileHover={{ y: -3, scale: 1.04 }}
                           transition={{ duration: 0.2 }}
-                          className="flex items-center gap-2.5 min-w-[155px] sm:min-w-[185px] px-4 py-2.5 rounded-xl bg-[var(--dev-panel)]/80 border border-[var(--dev-border)] hover:border-[var(--color-primary)]/50 transition-colors duration-200"
+                          className="flex items-center gap-2.5 min-w-[155px] sm:min-w-[185px] px-4 py-2.5 rounded-xl bg-panel/80 border border-line hover:border-primary/50 transition-colors duration-200"
                         >
                           {/* Icon box */}
                           <div
@@ -271,7 +258,7 @@ const Skills: React.FC = () => {
             className="shell-panel rounded-2xl overflow-hidden card-glow"
           >
             {/* Header */}
-            <div className="px-5 sm:px-6 py-4 flex items-center gap-3 border-b border-[var(--dev-border)]"
+            <div className="px-5 sm:px-6 py-4 flex items-center gap-3 border-b border-line"
               style={{ background: "linear-gradient(90deg, rgba(168,85,247,0.08), transparent)" }}>
               <div className="w-9 h-9 rounded-xl flex items-center justify-center"
                 style={{ background: "linear-gradient(135deg, #a855f7, #7c3aed)" }}>
@@ -291,7 +278,7 @@ const Skills: React.FC = () => {
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.6 + index * 0.06 }}
                   whileHover={{ x: 5, scale: 1.01 }}
-                  className="group flex items-center gap-3 p-3 rounded-xl border border-[var(--dev-border)] hover:border-[#a855f7]/50 bg-[var(--dev-bg)]/30 transition-all duration-250 cursor-default"
+                  className="group flex items-center gap-3 p-3 rounded-xl border border-line hover:border-[#a855f7]/50 bg-surface/30 transition-all duration-250 cursor-default"
                 >
                   <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-250"
                     style={{ background: "rgba(168,85,247,0.12)" }}>
@@ -315,7 +302,7 @@ const Skills: React.FC = () => {
             className="shell-panel rounded-2xl overflow-hidden card-glow"
           >
             {/* Header */}
-            <div className="px-5 sm:px-6 py-4 flex items-center gap-3 border-b border-[var(--dev-border)]"
+            <div className="px-5 sm:px-6 py-4 flex items-center gap-3 border-b border-line"
               style={{ background: "linear-gradient(90deg, rgba(34,197,94,0.08), transparent)" }}>
               <div className="w-9 h-9 rounded-xl flex items-center justify-center"
                 style={{ background: "linear-gradient(135deg, #22c55e, #15803d)" }}>
@@ -335,7 +322,7 @@ const Skills: React.FC = () => {
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.45, delay: 0.7 + index * 0.08 }}
                   whileHover={{ x: 6, scale: 1.01 }}
-                  className="group flex items-start gap-3.5 p-4 rounded-xl border border-[var(--dev-border)] hover:border-[#22c55e]/50 bg-[var(--dev-bg)]/30 transition-all duration-250 cursor-default"
+                  className="group flex items-start gap-3.5 p-4 rounded-xl border border-line hover:border-[#22c55e]/50 bg-surface/30 transition-all duration-250 cursor-default"
                 >
                   {/* Numbered badge */}
                   <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold terminal-title"
