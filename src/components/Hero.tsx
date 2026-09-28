@@ -1,487 +1,348 @@
-import React from "react";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  ChevronDown,
-  Download,
-  Mail,
-  Linkedin,
-  Github,
-  Code2,
-  Zap,
-} from "lucide-react";
-import { useLanguage } from "../contexts/LanguageContext";
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { ArrowRight, ChevronDown, Command, Download, Github, Linkedin, Mail } from "lucide-react";
+import { useLanguage, type Localized } from "../contexts/LanguageContext";
+import { profile, stats } from "../data/profile";
+import Counter from "./ui/Counter";
+import Magnetic from "./ui/Magnetic";
+import { openCommandPalette } from "../lib/events";
 
-/* ─── Particle Canvas ──────────────────────────────────────────── */
-const ParticleCanvas: React.FC = () => {
-  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+const roles: Localized[] = [
+  { en: "Software Developer @ AUCA", fr: "Développeur logiciel @ AUCA", ar: "مطور برمجيات @ AUCA" },
+  { en: "MSIT student @ CMU-Africa", fr: "Étudiant MSIT @ CMU-Africa", ar: "طالب ماجستير @ CMU-Africa" },
+  { en: "Full-stack & backend engineer", fr: "Ingénieur full-stack & back-end", ar: "مهندس تطبيقات متكاملة وخوادم" },
+  { en: "Java · Spring Boot · Next.js", fr: "Java · Spring Boot · Next.js", ar: "Java · Spring Boot · Next.js" },
+];
 
-  React.useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+const ui = {
+  hi: { en: "Hi, I'm", fr: "Salut, je suis", ar: "مرحباً، أنا" },
+  languagesStat: { en: "Languages spoken", fr: "Langues parlées", ar: "لغات أتحدثها" },
+  explore: { en: "to explore", fr: "pour explorer", ar: "للاستكشاف" },
+  terminal: { en: "Open terminal", fr: "Ouvrir le terminal", ar: "فتح الطرفية" },
+  location: { en: "Kigali, Rwanda", fr: "Kigali, Rwanda", ar: "كيغالي، رواندا" },
+  available: { en: "available", fr: "disponible", ar: "متاح" },
+};
 
-    const resize = () => {
-      canvas.width = canvas.offsetWidth || canvas.clientWidth;
-      canvas.height = canvas.offsetHeight || canvas.clientHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
+const nameWord = {
+  hidden: { opacity: 0, y: "0.5em", rotateX: -40 },
+  show: { opacity: 1, y: "0em", rotateX: 0 },
+};
 
-    const count = window.innerWidth < 768 ? 28 : 48;
-    type Pt = { x: number; y: number; vx: number; vy: number; r: number; a: number };
-    const pts: Pt[] = Array.from({ length: count }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.28,
-      vy: (Math.random() - 0.5) * 0.28,
-      r: Math.random() * 1.6 + 0.4,
-      a: Math.random() * 0.45 + 0.08,
-    }));
+const RoleTicker: React.FC = () => {
+  const { tr } = useLanguage();
+  const [i, setI] = useState(0);
+  const reduce = useReducedMotion();
 
-    let rafId: number;
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (let i = 0; i < pts.length; i++) {
-        const p = pts[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = canvas.width;
-        else if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        else if (p.y > canvas.height) p.y = 0;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(88,166,255,${p.a})`;
-        ctx.fill();
-
-        for (let j = i + 1; j < pts.length; j++) {
-          const q = pts[j];
-          const dx = p.x - q.x;
-          const dy = p.y - q.y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 95) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(q.x, q.y);
-            ctx.strokeStyle = `rgba(88,166,255,${0.11 * (1 - d / 95)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-
-      rafId = requestAnimationFrame(draw);
-    };
-    draw();
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
+  useEffect(() => {
+    if (reduce) return;
+    const id = window.setInterval(() => setI((n) => (n + 1) % roles.length), 2800);
+    return () => window.clearInterval(id);
+  }, [reduce]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ opacity: 0.55 }}
-    />
+    <div className="terminal-title text-base sm:text-lg md:text-xl flex items-center gap-2 h-8 overflow-hidden" aria-live="polite">
+      <span className="text-secondary">&gt;</span>
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={i}
+          initial={{ y: 18, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -18, opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="dev-text whitespace-nowrap"
+        >
+          {tr(roles[i])}
+        </motion.span>
+      </AnimatePresence>
+      <span className="type-cursor" aria-hidden="true">▍</span>
+    </div>
   );
 };
 
-/* ─── Hero ─────────────────────────────────────────────────────── */
-const Hero: React.FC = () => {
-  const { language, t } = useLanguage();
-
-  const greetingPrefix = language === "en" ? "Hi, I'm" : t("hero.greeting");
-  const fullName = t("hero.name");
-  const fullHeadline = `${greetingPrefix} ${fullName}`;
-  const [typedHeadline, setTypedHeadline] = React.useState("");
-
-  React.useEffect(() => {
-    setTypedHeadline("");
-    let index = 0;
-    const typingSpeed = 78;
-
-    const timer = window.setInterval(() => {
-      index += 1;
-      setTypedHeadline(fullHeadline.slice(0, index));
-      if (index >= fullHeadline.length) window.clearInterval(timer);
-    }, typingSpeed);
-
-    return () => window.clearInterval(timer);
-  }, [fullHeadline]);
-
-  const greetingWithSpace = `${greetingPrefix} `;
-  const typedGreeting = typedHeadline.slice(
-    0,
-    Math.min(typedHeadline.length, greetingWithSpace.length)
-  );
-  const typedName =
-    typedHeadline.length > greetingWithSpace.length
-      ? typedHeadline.slice(greetingWithSpace.length)
-      : "";
-
-  /* 3-D card tilt ------------------------------------------------ */
+const PhotoCard: React.FC = () => {
+  const { tr } = useLanguage();
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
-  const springCfg = { stiffness: 140, damping: 18 };
-  const rotateX = useSpring(
-    useTransform(rawY, [-0.5, 0.5], [14, -14]),
-    springCfg
+  const spring = { stiffness: 150, damping: 20 };
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [8, -8]), spring);
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-8, 8]), spring);
+  const glare = useTransform(
+    [rawX, rawY],
+    ([x, y]) =>
+      `radial-gradient(circle at ${((x as number) + 0.5) * 100}% ${((y as number) + 0.5) * 100}%, rgba(255,255,255,0.12), transparent 55%)`,
   );
-  const rotateY = useSpring(
-    useTransform(rawX, [-0.5, 0.5], [-14, 14]),
-    springCfg
+
+  return (
+    <div className="relative w-full max-w-sm mx-auto" style={{ perspective: 1200 }} dir="ltr">
+      <motion.div
+        style={{ rotateX, rotateY }}
+        onPointerMove={(e) => {
+          if (e.pointerType !== "mouse") return;
+          const r = e.currentTarget.getBoundingClientRect();
+          rawX.set((e.clientX - r.left) / r.width - 0.5);
+          rawY.set((e.clientY - r.top) / r.height - 0.5);
+        }}
+        onPointerLeave={() => {
+          rawX.set(0);
+          rawY.set(0);
+        }}
+        className="relative rounded-3xl p-[1px] bg-gradient-to-br from-primary/60 via-line to-secondary/60 shadow-2xl"
+      >
+        <div className="relative rounded-3xl overflow-hidden bg-panel">
+          <img
+            src={profile.photo}
+            alt={profile.name}
+            width={716}
+            height={1000}
+            className="w-full aspect-[4/5] object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-surface/80 via-transparent to-transparent" />
+          <motion.div className="absolute inset-0 pointer-events-none" style={{ background: glare }} />
+          <span className="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-surface/80 backdrop-blur border border-line dev-text terminal-title text-xs">
+            📍 {tr(ui.location)}
+          </span>
+          <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface/80 backdrop-blur border border-secondary/40 text-secondary terminal-title text-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
+            {tr(ui.available)}
+          </span>
+        </div>
+      </motion.div>
+
+      {/* Floating terminal */}
+      <motion.div
+        initial={{ opacity: 0, x: -30, y: 20 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        transition={{ delay: 0.9, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute -bottom-12 -left-3 sm:-left-14 w-[14.5rem] sm:w-64 rounded-xl border border-line bg-surface/95 backdrop-blur shadow-2xl overflow-hidden"
+        aria-hidden="true"
+      >
+        <div className="flex items-center gap-1.5 px-3 py-2 border-b border-line">
+          <span className="w-2 h-2 rounded-full bg-[#ff5f56]" />
+          <span className="w-2 h-2 rounded-full bg-[#ffbd2e]" />
+          <span className="w-2 h-2 rounded-full bg-[#27c93f]" />
+          <span className="terminal-title text-[10px] dev-muted ms-1">zsh</span>
+        </div>
+        <div className="px-3 py-2.5 terminal-title text-[11px] leading-relaxed">
+          {[
+            ["$ whoami", "dev-muted"],
+            ["developer · student · mentor", "dev-heading"],
+            ["$ route", "dev-muted"],
+            ["n'djamena 🇹🇩 → kigali 🇷🇼", "text-primary"],
+            ["$ speaks", "dev-muted"],
+            ["en · fr · ar", "text-secondary"],
+          ].map(([line, cls], i) => (
+            <motion.div
+              key={line}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.1 + i * 0.18 }}
+              className={cls}
+            >
+              {line}
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </div>
   );
-  const shineX = useTransform(rawX, [-0.5, 0.5], ["20%", "80%"]);
-  const shineY = useTransform(rawY, [-0.5, 0.5], ["20%", "80%"]);
+};
 
-  const handleCardMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    rawX.set((e.clientX - rect.left) / rect.width - 0.5);
-    rawY.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-  const handleCardLeave = () => {
-    rawX.set(0);
-    rawY.set(0);
-  };
+const Hero: React.FC = () => {
+  const { t, tr } = useLanguage();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.userAgent);
+  const words = profile.name.split(" ");
+  const last = words[words.length - 1];
 
-  const handleDownloadCV = () => {
-    const link = document.createElement("a");
-    link.href = "/Zakaria_CV.pdf";
-    link.download = "CV-Abdoulaye-Zakaria-Djerou.pdf";
-    link.click();
+  const downloadCV = () => {
+    const a = document.createElement("a");
+    a.href = profile.cv;
+    a.download = "CV-Abdoulaye-Zakaria-Djerou.pdf";
+    a.click();
   };
 
   return (
-    <section
-      id="home"
-      className="min-h-[calc(100vh-72px)] flex items-start justify-center relative overflow-hidden pt-8 sm:pt-10 md:pt-12"
-    >
-      {/* ── Background ── */}
-      <div className="absolute inset-0">
-        <ParticleCanvas />
-
-        <div className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgba(139,148,158,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(139,148,158,0.18)_1px,transparent_1px)] [background-size:32px_32px]" />
-
-        <motion.div
-          className="absolute top-12 -right-24 w-96 h-96 rounded-full blur-3xl"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(88,166,255,0.3) 0%, transparent 70%)",
-          }}
-          animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-0 -left-20 w-72 h-72 rounded-full blur-3xl"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(233,84,32,0.25) 0%, transparent 70%)",
-          }}
-          animate={{ x: [0, -50, 0], y: [0, -30, 0] }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 0.5,
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(63,185,80,0.07) 0%, transparent 65%)",
-          }}
-          animate={{ scale: [1, 1.15, 1] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        />
+    <section ref={sectionRef} id="home" className="relative min-h-[100svh] flex items-center overflow-hidden pt-28 pb-24">
+      {/* Background */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute inset-0 opacity-70 [background-image:linear-gradient(var(--dev-grid-soft)_1px,transparent_1px),linear-gradient(90deg,var(--dev-grid-soft)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
+        <div className="absolute -top-40 end-[-10%] w-[36rem] h-[36rem] rounded-full blur-3xl bg-primary/15" />
+        <div className="absolute bottom-[-20%] start-[-10%] w-[30rem] h-[30rem] rounded-full blur-3xl bg-accent/10" />
       </div>
 
-      {/* ── Content ── */}
-      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-10 items-start max-w-6xl mx-auto">
-
-          {/* Left column */}
-          <motion.div
-            initial={{ opacity: 0, x: -80 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-            className={`space-y-6 sm:space-y-8 ${language === "ar" ? "text-right" : "text-left"}`}
-          >
-            {/* Badge */}
+      <motion.div style={{ y: contentY, opacity: contentOpacity }} className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="grid lg:grid-cols-[1.25fr_1fr] gap-20 lg:gap-12 items-center max-w-6xl mx-auto">
+          <div className="space-y-7">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--dev-border)] bg-[var(--dev-panel)] terminal-title"
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-secondary/40 bg-secondary/10 text-sm"
             >
-              <Zap size={16} className="text-[var(--color-secondary)]" />
-              <span className="text-sm font-semibold dev-text">
-                {t("hero.openRoles")}
+              <span className="relative flex w-2 h-2">
+                <span className="absolute inset-0 rounded-full bg-secondary ping-dot" />
+                <span className="relative w-2 h-2 rounded-full bg-secondary" />
               </span>
+              <span className="font-medium text-secondary">{t("hero.openRoles")}</span>
             </motion.div>
 
-            {/* Name */}
-            <motion.h1
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.25, duration: 0.6 }}
-              className="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight dev-heading"
-            >
-              <span>{typedGreeting}</span>
-              <span className="bg-gradient-to-r from-[#58a6ff] via-[#79c0ff] to-[#3fb950] bg-clip-text text-transparent">
-                {typedName}
-              </span>
-              <span className="type-cursor" aria-hidden="true">|</span>
-            </motion.h1>
+            <div>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.15 }}
+                className="terminal-title dev-muted text-base sm:text-lg mb-2"
+              >
+                {tr(ui.hi)}
+              </motion.p>
+              <motion.h1
+                initial="hidden"
+                animate="show"
+                transition={{ staggerChildren: 0.09, delayChildren: 0.2 }}
+                className="text-[2.6rem] leading-[1.05] sm:text-6xl lg:text-7xl font-bold tracking-tight dev-heading"
+                style={{ perspective: 600 }}
+                aria-label={profile.name}
+              >
+                {words.map((w, i) => (
+                  <motion.span
+                    key={w}
+                    variants={nameWord}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className={`inline-block ${w === last ? "text-gradient-hero" : "me-[0.25em]"}`}
+                    aria-hidden="true"
+                  >
+                    {w}
+                    {i === words.length - 1 && <span className="text-secondary">.</span>}
+                  </motion.span>
+                ))}
+              </motion.h1>
+            </div>
 
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.7 }}
-              className="terminal-title text-base sm:text-lg md:text-xl dev-muted font-semibold flex items-center gap-2"
-            >
-              <Code2
-                size={20}
-                className="text-[var(--color-primary)] sm:w-6 sm:h-6"
-              />
-              {t("hero.title")}
-            </motion.p>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
+              <RoleTicker />
+            </motion.div>
 
-            {/* Description */}
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.7 }}
+              transition={{ delay: 0.7, duration: 0.5 }}
               className="text-base sm:text-lg dev-text leading-relaxed max-w-xl"
             >
               {t("hero.description")}
             </motion.p>
 
-            {/* Stats panel */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.7 }}
-              className="shell-panel px-4 sm:px-6 py-4 sm:py-5"
+              transition={{ delay: 0.8, duration: 0.5 }}
+              className="flex flex-wrap items-center gap-3"
             >
-              <p className="terminal-title text-sm dev-muted mb-4 terminal-dots">
-                {t("hero.summaryLabel")}
-              </p>
-              <div className="grid grid-cols-3 gap-2 sm:gap-4">
-                <div>
-                  <div className="text-xl sm:text-2xl font-bold text-[var(--color-primary)]">
-                    10+
-                  </div>
-                  <p className="text-sm dev-muted">{t("hero.projectsStat")}</p>
-                </div>
-                <div>
-                  <div className="text-xl sm:text-2xl font-bold text-[var(--color-secondary)]">
-                    3
-                  </div>
-                  <p className="text-sm dev-muted">{t("hero.activeRolesStat")}</p>
-                </div>
-                <div>
-                  <div className="text-xl sm:text-2xl font-bold text-[var(--color-accent)]">
-                    5+
-                  </div>
-                  <p className="text-sm dev-muted">
-                    {t("hero.certificationsStat")}
-                  </p>
-                </div>
-              </div>
+              <Magnetic>
+                <button
+                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                  className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-accent text-white font-semibold shadow-lg shadow-accent/25 hover:shadow-accent/40 transition-shadow"
+                >
+                  {t("hero.cta")}
+                  <ArrowRight size={18} className="transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
+                </button>
+              </Magnetic>
+              <Magnetic>
+                <button
+                  onClick={downloadCV}
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl border border-line bg-panel dev-heading font-semibold hover:border-primary hover:text-primary transition-colors"
+                >
+                  <Download size={18} />
+                  {t("hero.downloadCV")}
+                </button>
+              </Magnetic>
+              <button
+                onClick={openCommandPalette}
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg dev-muted hover:text-ink text-sm transition-colors"
+              >
+                <span className="hidden sm:inline-flex items-center gap-1.5 terminal-title">
+                  <kbd className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border border-line bg-panel text-xs" dir="ltr">
+                    {isMac ? <Command size={11} /> : "Ctrl"} K
+                  </kbd>
+                  {tr(ui.explore)}
+                </span>
+                <span className="sm:hidden terminal-title">$ {tr(ui.terminal)}</span>
+              </button>
             </motion.div>
 
-            {/* CTA Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.7 }}
-              className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4"
-            >
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() =>
-                  document
-                    .getElementById("contact")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-[var(--color-accent)] text-white rounded-xl font-semibold shadow-lg hover:opacity-90 transition-all duration-300"
-              >
-                {t("hero.cta")}
-              </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleDownloadCV}
-                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 border-2 border-[var(--color-primary)] text-[var(--color-primary)] rounded-xl font-semibold hover:bg-[var(--color-primary)] hover:text-[#0d1117] transition-all duration-300 flex items-center justify-center gap-2"
-              >
-                <Download size={20} />
-                {t("hero.downloadCV")}
-              </motion.button>
-            </motion.div>
-
-            {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.7 }}
-              className="flex gap-3 sm:gap-4 pt-2 sm:pt-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.95 }}
+              className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-5 border-t border-line max-w-xl"
             >
               {[
-                {
-                  href: "mailto:azdjerou@gmail.com",
-                  icon: <Mail size={20} className="sm:w-6 sm:h-6" />,
-                  title: "Email",
-                },
-                {
-                  href: "https://www.linkedin.com/in/abdoulaye-zakaria-djerou-022613327",
-                  icon: <Linkedin size={20} className="sm:w-6 sm:h-6" />,
-                  title: "LinkedIn",
-                  external: true,
-                },
-                {
-                  href: "https://github.com/kardara",
-                  icon: <Github size={20} className="sm:w-6 sm:h-6" />,
-                  title: "GitHub",
-                  external: true,
-                },
-              ].map((link) => (
-                <motion.a
-                  key={link.title}
-                  whileHover={{ scale: 1.18, y: -5 }}
-                  whileTap={{ scale: 0.9 }}
-                  href={link.href}
-                  title={link.title}
-                  {...(link.external
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                  className="p-3 sm:p-4 bg-[var(--dev-panel)] border border-[var(--dev-border)] rounded-xl dev-muted hover:text-[#58a6ff] hover:border-[#58a6ff] transition-all duration-300"
-                  style={{
-                    boxShadow: "0 4px 14px rgba(0,0,0,0.12)",
-                  }}
-                >
-                  {link.icon}
-                </motion.a>
+                { to: stats.projects, suffix: "+", label: t("hero.projectsStat"), color: "text-primary" },
+                { to: stats.roles, label: t("hero.activeRolesStat"), color: "text-secondary" },
+                { to: stats.languages, label: tr(ui.languagesStat), color: "text-accent" },
+              ].map((s) => (
+                <div key={s.label}>
+                  <Counter to={s.to} suffix={s.suffix} className={`block text-3xl font-bold terminal-title ${s.color}`} />
+                  <span className="text-xs dev-muted">{s.label}</span>
+                </div>
               ))}
+              <div className="flex gap-2 sm:ms-auto">
+                {[
+                  { href: `mailto:${profile.email}`, Icon: Mail, label: "Email" },
+                  { href: profile.linkedin, Icon: Linkedin, label: "LinkedIn" },
+                  { href: profile.github, Icon: Github, label: "GitHub" },
+                ].map(({ href, Icon, label }) => (
+                  <motion.a
+                    key={label}
+                    href={href}
+                    aria-label={label}
+                    {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    whileHover={{ y: -3 }}
+                    whileTap={{ scale: 0.92 }}
+                    className="p-2.5 rounded-xl border border-line bg-panel dev-muted hover:text-primary hover:border-primary transition-colors"
+                  >
+                    <Icon size={18} />
+                  </motion.a>
+                ))}
+              </div>
             </motion.div>
-          </motion.div>
+          </div>
 
-          {/* Right column — 3D card */}
           <motion.div
-            initial={{ opacity: 0, x: 80 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-            className="flex justify-center mt-4 sm:mt-6 lg:mt-8"
+            initial={{ opacity: 0, scale: 0.94, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="pb-10 lg:pb-0"
           >
-            {/* Float wrapper */}
-            <motion.div
-              animate={{ y: [0, -14, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-full max-w-sm sm:max-w-md"
-              style={{ perspective: 1200 }}
-            >
-              {/* 3-D tilt card */}
-              <motion.div
-                style={{ rotateX, rotateY, transformOrigin: "center center" }}
-                onMouseMove={handleCardMove}
-                onMouseLeave={handleCardLeave}
-                className="shell-panel p-4 sm:p-6 relative"
-              >
-                {/* Dynamic shine overlay */}
-                <motion.div
-                  className="absolute inset-0 rounded-2xl pointer-events-none"
-                  style={{
-                    background: `radial-gradient(circle at ${shineX} ${shineY}, rgba(255,255,255,0.07) 0%, transparent 55%)`,
-                    zIndex: 5,
-                  }}
-                />
-
-                <p className="terminal-title text-xs dev-muted mb-4 terminal-dots">
-                  {t("hero.systemStatus")}
-                </p>
-
-                {/* Photo */}
-                <div className="relative w-full h-64 sm:h-72 md:h-80 rounded-2xl overflow-hidden border border-[var(--dev-border)]">
-                  <img
-                    src="/kardara.png"
-                    alt="Abdoulaye Zakaria Djerou"
-                    className="w-full h-full object-cover"
-                  />
-                  {/* Photo overlay gradient */}
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background:
-                        "linear-gradient(180deg, transparent 60%, rgba(88,166,255,0.1) 100%)",
-                    }}
-                  />
-                </div>
-
-                {/* Info tags */}
-                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 terminal-title text-[11px] sm:text-xs relative z-10">
-                  {[
-                    {
-                      text: t("hero.roleEngineer"),
-                      color: "var(--color-primary)",
-                    },
-                    {
-                      text: t("hero.statusAvailable"),
-                      color: "var(--color-secondary)",
-                    },
-                    {
-                      text: t("hero.locationLabel"),
-                      color: "var(--color-accent)",
-                    },
-                    { text: t("hero.focusLabel"), color: "var(--dev-text)" },
-                  ].map((tag, i) => (
-                    <motion.div
-                      key={i}
-                      whileHover={{ scale: 1.04 }}
-                      className="rounded-lg border border-[var(--dev-border)] bg-gray-100 dark:bg-[#0d1117] px-3 py-2 transition-all duration-200"
-                      style={{ color: tag.color }}
-                    >
-                      {tag.text}
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
+            <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
+              <PhotoCard />
             </motion.div>
           </motion.div>
         </div>
+      </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2 }}
-          className="hidden md:block absolute bottom-10 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity }}
-            className="flex flex-col items-center dev-muted cursor-pointer"
-            onClick={() =>
-              document
-                .getElementById("about")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            <span className="terminal-title text-xs mb-2">
-              {t("hero.scrollNext")}
-            </span>
-            <ChevronDown size={26} className="text-[var(--color-primary)]" />
-          </motion.div>
-        </motion.div>
-      </div>
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.6 }}
+        onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+        className="hidden lg:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-1 dev-muted hover:text-primary terminal-title text-xs"
+      >
+        {t("hero.scrollNext")}
+        <motion.span animate={{ y: [0, 6, 0] }} transition={{ duration: 1.8, repeat: Infinity }}>
+          <ChevronDown size={20} />
+        </motion.span>
+      </motion.button>
     </section>
   );
 };

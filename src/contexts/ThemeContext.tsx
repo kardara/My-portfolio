@@ -9,14 +9,25 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
+const getInitialTheme = (): Theme => {
+  try {
     const saved = localStorage.getItem('theme');
-    return (saved as Theme) || 'dark';
-  });
+    if (saved === 'light' || saved === 'dark') return saved;
+  } catch {
+    // storage unavailable; fall through to system preference
+  }
+  return window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+};
+
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
-    localStorage.setItem('theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      // ignore
+    }
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
 
@@ -31,6 +42,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (context === undefined) {

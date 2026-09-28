@@ -15,11 +15,13 @@ import {
   MessageSquare,
   Globe,
   Rocket,
+  Server,
 } from "lucide-react";
-import { useLanguage } from "../contexts/LanguageContext";
+import { useLanguage, type Localized } from "../contexts/LanguageContext";
+import SectionHeading from "./ui/SectionHeading";
 
 const Skills: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, tr } = useLanguage();
   const [manualScroll, setManualScroll] = useState(false);
   const [interactingRow, setInteractingRow] = useState<number | null>(null);
   const [ref, inView] = useInView({
@@ -29,39 +31,43 @@ const Skills: React.FC = () => {
   });
 
   const skillLogoSlug: Record<string, string> = {
+    Java: "openjdk",
     JavaScript: "javascript",
     TypeScript: "typescript",
+    Python: "python",
+    "C#": "csharp",
+    SQL: "postgresql",
+    HTML: "html5",
+    CSS: "css",
     React: "react",
     "Next.js": "nextdotjs",
-    "Node.js": "nodedotjs",
-    Express: "express",
-    NestJS: "nestjs",
-    Java: "openjdk",
-    "C#": "csharp",
-    ".NET": "dotnet",
-    Blazor: "blazor",
-    Razor: "dotnet",
-    Python: "python",
-    "Spring Boot": "springboot",
-    Hibernate: "hibernate",
-    Maven: "apachemaven",
-    HTML5: "html5",
-    CSS3: "css3",
     "Tailwind CSS": "tailwindcss",
-    "Responsive Design": "css3",
+    Vite: "vite",
+    Axios: "axios",
+    "React Router": "reactrouter",
+    "Spring Boot": "springboot",
+    "Spring Security": "springsecurity",
+    "Spring Data JPA": "spring",
+    Hibernate: "hibernate",
+    "Java Servlets": "openjdk",
+    "Node.js": "nodedotjs",
+    "Express.js": "express",
+    "ASP.NET": "dotnet",
     PostgreSQL: "postgresql",
+    MySQL: "mysql",
     MongoDB: "mongodb",
     Firebase: "firebase",
     Supabase: "supabase",
-    "SQL Server": "microsoftsqlserver",
+    Flyway: "flyway",
     "Git/GitHub": "github",
     Docker: "docker",
+    Linux: "linux",
+    Maven: "apachemaven",
+    "GitHub Actions": "githubactions",
+    JWT: "jsonwebtokens",
     Postman: "postman",
-    "VS Code": "visualstudiocode",
-    IntelliJ: "intellijidea",
-    Netlify: "netlify",
     Vercel: "vercel",
-    Render: "render",
+    Netlify: "netlify",
   };
 
   const getInitials = (value: string) => {
@@ -73,42 +79,56 @@ const Skills: React.FC = () => {
       : `${parts[0][0]}${parts[1][0]}`.toUpperCase();
   };
 
-  const skillCategories = [
+  const skillCategories: { title: Localized; icon: typeof Code2; accentColor: string; skills: string[] }[] = [
     {
-      titleKey: "skills.languages",
+      title: { en: "Programming Languages", fr: "Langages de programmation", ar: "لغات البرمجة" },
       icon: Code2,
       accentColor: "#10b981",
+      skills: ["Java", "JavaScript", "TypeScript", "Python", "C#", "SQL", "HTML", "CSS"],
+    },
+    {
+      title: { en: "Backend Development", fr: "Développement back-end", ar: "تطوير الخوادم" },
+      icon: Server,
+      accentColor: "#a855f7",
       skills: [
-        "JavaScript","TypeScript","React","Next.js","Node.js","Express","NestJS",
-        "Java","C#",".NET","Blazor","Razor","Python","Spring Boot","Hibernate","Maven",
+        "Spring Boot", "Spring Security", "Spring Data JPA", "Hibernate", "Java Servlets",
+        "REST APIs", "Node.js", "Express.js", "ASP.NET",
       ],
     },
     {
-      titleKey: "skills.webUI",
+      title: { en: "Frontend Development", fr: "Développement front-end", ar: "تطوير الواجهات" },
       icon: Zap,
       accentColor: "#f97316",
-      skills: ["HTML5", "CSS3", "Tailwind CSS", "Responsive Design"],
+      skills: ["React", "Next.js", "Tailwind CSS", "Vite", "Axios", "React Router", "Responsive Design"],
     },
     {
-      titleKey: "skills.databases",
+      title: { en: "Databases", fr: "Bases de données", ar: "قواعد البيانات" },
       icon: Database,
       accentColor: "#0284c7",
-      skills: ["PostgreSQL", "MongoDB", "Firebase", "Supabase", "SQL Server"],
+      skills: ["PostgreSQL", "MySQL", "MongoDB", "Firebase", "Supabase", "Flyway", "jOOQ"],
     },
     {
-      titleKey: "skills.tools",
+      title: { en: "DevOps & Tools", fr: "DevOps & outils", ar: "DevOps والأدوات" },
       icon: Award,
       accentColor: "#f59e0b",
-      skills: ["Git/GitHub","Docker","Postman","VS Code","IntelliJ","Netlify","Vercel","Render"],
+      skills: ["Git/GitHub", "Docker", "Linux", "Maven", "GitHub Actions", "JWT", "Postman", "Vercel", "Netlify"],
     },
   ];
 
-  const certifications = [
-    { key: "skills.cert1" },
-    { key: "skills.cert2" },
-    { key: "skills.cert3" },
-    { key: "skills.cert4" },
-    { key: "skills.cert5" },
+  const certifications: Localized[] = [
+    {
+      en: "Advanced Java Backend & Software Architecture · The Gym × MaibornWolff",
+      fr: "Back-end Java avancé & architecture logicielle · The Gym × MaibornWolff",
+      ar: "تطوير الخوادم بـ Java المتقدم وهندسة البرمجيات · The Gym × MaibornWolff",
+    },
+    {
+      en: "Full Stack Development Training (React.js & Spring Boot)",
+      fr: "Formation développement full-stack (React.js & Spring Boot)",
+      ar: "تدريب التطوير المتكامل (React.js وSpring Boot)",
+    },
+    { en: "Cisco Networking Essentials", fr: "Cisco Networking Essentials", ar: "أساسيات الشبكات من Cisco" },
+    { en: "Leadership & Team Management", fr: "Leadership & gestion d'équipe", ar: "القيادة وإدارة الفرق" },
+    { en: "Red Cross Humanitarian Training", fr: "Formation humanitaire de la Croix-Rouge", ar: "تدريب إنساني مع الصليب الأحمر" },
   ];
 
   const softSkills = [
@@ -122,33 +142,19 @@ const Skills: React.FC = () => {
   ];
 
   return (
-    <section id="skills" ref={ref} className="py-20 sm:py-24 md:py-28">
+    <section id="skills" ref={ref} className="py-20 sm:py-28">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
 
-        {/* ── Section Header ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-14 sm:mb-18"
-        >
-          <div className="section-tag">skills --stack</div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold dev-heading">
-            {t("skills.title")}
-          </h2>
-          <div className="section-divider" />
-          <p className="text-base sm:text-lg dev-muted max-w-2xl mx-auto leading-relaxed">
-            {t("skills.subtitle")}
-          </p>
+        <SectionHeading command="skills --list --all" title={t("skills.title")} subtitle={t("skills.subtitle")}>
           <div className="mt-5">
             <button
               onClick={() => setManualScroll((prev) => !prev)}
-              className="terminal-title text-xs sm:text-sm px-4 py-2 rounded-lg border border-[var(--dev-border)] bg-[var(--dev-panel)] dev-text hover:border-[var(--color-primary)] transition-colors"
+              className="terminal-title text-xs sm:text-sm px-4 py-2 rounded-lg border border-line bg-panel dev-text hover:border-primary transition-colors"
             >
               {manualScroll ? t("skills.autoScroll") : t("skills.manualScroll")}
             </button>
           </div>
-        </motion.div>
+        </SectionHeading>
 
         {/* ── Animated Skill Rows ── */}
         <div className="space-y-4 sm:space-y-5 mb-12 sm:mb-14">
@@ -170,7 +176,7 @@ const Skills: React.FC = () => {
                 className="shell-panel rounded-2xl overflow-hidden card-glow"
               >
                 {/* Row header */}
-                <div className="px-5 sm:px-6 pt-4 pb-3 flex items-center gap-3 border-b border-[var(--dev-border)]">
+                <div className="px-5 sm:px-6 pt-4 pb-3 flex items-center gap-3 border-b border-line">
                   <div
                     className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{
@@ -180,10 +186,10 @@ const Skills: React.FC = () => {
                     <IconComponent size={20} className="text-white" />
                   </div>
                   <h3 className="text-base sm:text-lg font-bold dev-heading">
-                    {t(category.titleKey)}
+                    {tr(category.title)}
                   </h3>
-                  <div className="ml-auto terminal-title text-xs dev-muted">
-                    {category.skills.length} skills
+                  <div className="ms-auto terminal-title text-xs dev-muted">
+                    {category.skills.length} {t("skills.count")}
                   </div>
                 </div>
 
@@ -199,8 +205,8 @@ const Skills: React.FC = () => {
                 >
                   {!manualScroll && (
                     <>
-                      <div className="absolute left-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-r from-[var(--dev-panel)] to-transparent z-10 pointer-events-none" />
-                      <div className="absolute right-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-l from-[var(--dev-panel)] to-transparent z-10 pointer-events-none" />
+                      <div className="absolute left-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-r from-panel to-transparent z-10 pointer-events-none" />
+                      <div className="absolute right-0 top-0 h-full w-10 sm:w-16 bg-gradient-to-l from-panel to-transparent z-10 pointer-events-none" />
                     </>
                   )}
                   <div
@@ -222,10 +228,10 @@ const Skills: React.FC = () => {
                       const logoSlug = skillLogoSlug[skill];
                       return (
                         <motion.div
-                          key={`${category.titleKey}-${skillIndex}`}
+                          key={`${category.title.en}-${skillIndex}`}
                           whileHover={{ y: -3, scale: 1.04 }}
                           transition={{ duration: 0.2 }}
-                          className="flex items-center gap-2.5 min-w-[155px] sm:min-w-[185px] px-4 py-2.5 rounded-xl bg-[var(--dev-panel)]/80 border border-[var(--dev-border)] hover:border-[var(--color-primary)]/50 transition-colors duration-200"
+                          className="flex items-center gap-2.5 min-w-[155px] sm:min-w-[185px] px-4 py-2.5 rounded-xl bg-panel/80 border border-line hover:border-primary/50 transition-colors duration-200"
                         >
                           {/* Icon box */}
                           <div
@@ -271,7 +277,7 @@ const Skills: React.FC = () => {
             className="shell-panel rounded-2xl overflow-hidden card-glow"
           >
             {/* Header */}
-            <div className="px-5 sm:px-6 py-4 flex items-center gap-3 border-b border-[var(--dev-border)]"
+            <div className="px-5 sm:px-6 py-4 flex items-center gap-3 border-b border-line"
               style={{ background: "linear-gradient(90deg, rgba(168,85,247,0.08), transparent)" }}>
               <div className="w-9 h-9 rounded-xl flex items-center justify-center"
                 style={{ background: "linear-gradient(135deg, #a855f7, #7c3aed)" }}>
@@ -291,7 +297,7 @@ const Skills: React.FC = () => {
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.6 + index * 0.06 }}
                   whileHover={{ x: 5, scale: 1.01 }}
-                  className="group flex items-center gap-3 p-3 rounded-xl border border-[var(--dev-border)] hover:border-[#a855f7]/50 bg-[var(--dev-bg)]/30 transition-all duration-250 cursor-default"
+                  className="group flex items-center gap-3 p-3 rounded-xl border border-line hover:border-[#a855f7]/50 bg-surface/30 transition-all duration-250 cursor-default"
                 >
                   <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-250"
                     style={{ background: "rgba(168,85,247,0.12)" }}>
@@ -315,7 +321,7 @@ const Skills: React.FC = () => {
             className="shell-panel rounded-2xl overflow-hidden card-glow"
           >
             {/* Header */}
-            <div className="px-5 sm:px-6 py-4 flex items-center gap-3 border-b border-[var(--dev-border)]"
+            <div className="px-5 sm:px-6 py-4 flex items-center gap-3 border-b border-line"
               style={{ background: "linear-gradient(90deg, rgba(34,197,94,0.08), transparent)" }}>
               <div className="w-9 h-9 rounded-xl flex items-center justify-center"
                 style={{ background: "linear-gradient(135deg, #22c55e, #15803d)" }}>
@@ -335,7 +341,7 @@ const Skills: React.FC = () => {
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.45, delay: 0.7 + index * 0.08 }}
                   whileHover={{ x: 6, scale: 1.01 }}
-                  className="group flex items-start gap-3.5 p-4 rounded-xl border border-[var(--dev-border)] hover:border-[#22c55e]/50 bg-[var(--dev-bg)]/30 transition-all duration-250 cursor-default"
+                  className="group flex items-start gap-3.5 p-4 rounded-xl border border-line hover:border-[#22c55e]/50 bg-surface/30 transition-all duration-250 cursor-default"
                 >
                   {/* Numbered badge */}
                   <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold terminal-title"
@@ -343,7 +349,7 @@ const Skills: React.FC = () => {
                     {String(index + 1).padStart(2, "0")}
                   </div>
                   <span className="dev-text font-medium text-sm leading-relaxed flex-1">
-                    {t(cert.key)}
+                    {tr(cert)}
                   </span>
                   <CheckCircle
                     size={15}

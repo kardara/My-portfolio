@@ -15,6 +15,8 @@ import {
   Zap,
 } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
+import SectionHeading from "./ui/SectionHeading";
+import { openContactModal } from "../lib/events";
 
 const Contact: React.FC = () => {
   const { t } = useLanguage();
@@ -83,53 +85,42 @@ const Contact: React.FC = () => {
     {
       icon: MessageSquare,
       label: t("header.quickContact"),
-      description: "Send a quick message",
-      onClick: () => window.dispatchEvent(new Event("open-contact-modal")),
+      description: t("contact.quickDesc"),
+      onClick: openContactModal,
       style: "ghost",
     },
     {
       icon: CalendarPlus,
       label: t("contact.scheduleGoogle"),
-      description: "Book a meeting slot",
+      description: t("contact.scheduleDesc"),
       href: googleCalendarLink,
       style: "green",
     },
     {
       icon: Mail,
       label: t("contact.sendEmailDirect"),
-      description: "Reach me directly",
+      description: t("contact.emailDesc"),
       href: "mailto:azdjerou@gmail.com?subject=Portfolio%20Inquiry",
       style: "accent",
     },
   ];
 
   return (
-    <section id="contact" className="py-20 sm:py-24 md:py-28">
+    <section id="contact" className="py-20 sm:py-28">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
 
-        {/* ── Section Header ── */}
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16 sm:mb-20"
-        >
-          <div className="section-tag">contact --open-channel</div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold dev-heading">
-            {t("contact.title")}
-          </h2>
-          <div className="section-divider" />
-          <p
-            className="text-lg font-semibold mb-3"
-            style={{ color: "var(--color-primary)" }}
-          >
-            {t("contact.subtitle")}
-          </p>
-          <p className="text-base dev-muted max-w-2xl mx-auto leading-relaxed">
-            {t("contact.description")}
-          </p>
-        </motion.div>
+        <div ref={ref}>
+          <SectionHeading
+            command="./connect.sh --open"
+            title={t("contact.title")}
+            subtitle={
+              <>
+                <span className="block text-primary font-semibold mb-2">{t("contact.subtitle")}</span>
+                {t("contact.description")}
+              </>
+            }
+          />
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10">
 
@@ -178,7 +169,7 @@ const Contact: React.FC = () => {
                   </div>
                   <ArrowRight
                     size={14}
-                    className="relative z-10 dev-muted group-hover:text-[var(--color-primary)] transition-colors ml-auto flex-shrink-0 mt-1"
+                    className="relative z-10 dev-muted group-hover:text-primary transition-colors ms-auto flex-shrink-0 mt-1 rtl:rotate-180"
                   />
                 </motion.a>
               ))}
@@ -237,11 +228,11 @@ const Contact: React.FC = () => {
               </div>
               <div className="space-y-2">
                 <p className="dev-text text-sm flex items-center gap-2">
-                  <Clock3 size={14} className="text-[var(--color-primary)] flex-shrink-0" />
+                  <Clock3 size={14} className="text-primary flex-shrink-0" />
                   {t("contact.weekdaysHours")}
                 </p>
                 <p className="dev-text text-sm flex items-center gap-2">
-                  <Zap size={14} className="text-[var(--color-secondary)] flex-shrink-0" />
+                  <Zap size={14} className="text-secondary flex-shrink-0" />
                   {t("contact.fastestResponse")}
                 </p>
               </div>
@@ -256,11 +247,11 @@ const Contact: React.FC = () => {
             className="shell-panel rounded-2xl p-6 sm:p-8 flex flex-col gap-6"
           >
             {/* Terminal header */}
-            <div className="flex items-center gap-2 pb-5 border-b border-[var(--dev-border)]">
+            <div className="flex items-center gap-2 pb-5 border-b border-line">
               <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
               <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
               <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
-              <span className="terminal-title text-xs dev-muted ml-2">
+              <span className="terminal-title text-xs dev-muted ms-2">
                 connect.sh
               </span>
             </div>
@@ -282,11 +273,11 @@ const Contact: React.FC = () => {
 
                 const styleMap: Record<string, string> = {
                   ghost:
-                    "border border-[var(--dev-border)] bg-[var(--dev-panel)] dev-text hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]",
+                    "border border-line bg-panel dev-text hover:border-primary hover:text-primary",
                   green:
-                    "bg-[var(--color-secondary)] text-[#0b1220] hover:opacity-90",
+                    "bg-secondary text-[#0b1220] hover:opacity-90",
                   accent:
-                    "bg-[var(--color-accent)] text-white hover:opacity-90",
+                    "bg-accent text-white hover:opacity-90",
                 };
 
                 const inner = (
@@ -302,7 +293,7 @@ const Contact: React.FC = () => {
                     >
                       <action.icon size={18} />
                     </div>
-                    <div className="flex-1 text-left">
+                    <div className="flex-1 text-start">
                       <div className="font-semibold">{action.label}</div>
                       <div
                         className="text-xs mt-0.5 opacity-70"
@@ -312,7 +303,7 @@ const Contact: React.FC = () => {
                     </div>
                     <ArrowRight
                       size={16}
-                      className="opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200"
+                      className="opacity-60 group-hover:opacity-100 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1 transition-all duration-200"
                     />
                   </>
                 );
@@ -344,7 +335,7 @@ const Contact: React.FC = () => {
             </div>
 
             {/* Bottom note */}
-            <p className="terminal-title text-xs dev-muted text-center border-t border-[var(--dev-border)] pt-5">
+            <p className="terminal-title text-xs dev-muted text-center border-t border-line pt-5">
               $ response_time &lt; 24h &nbsp;·&nbsp; open_to_opportunities = true
             </p>
           </motion.div>

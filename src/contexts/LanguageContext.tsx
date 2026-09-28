@@ -1,11 +1,15 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-type Language = "en" | "fr" | "ar";
+export type Language = "en" | "fr" | "ar";
+
+/** Inline translations used by the content files in src/data. */
+export type Localized = Record<Language, string>;
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
+  tr: (value: Localized) => string;
 }
 
 const translations = {
@@ -24,9 +28,9 @@ const translations = {
     "hero.greeting": "Hi, I'm",
     "hero.name": "Abdoulaye Zakaria Djerou",
     "hero.title":
-      "Software Engineering Student | Full-Stack & Mobile Developer | Future Cybersecurity Expert",
+      "Software Developer | MSIT Student at Carnegie Mellon University Africa | Full-Stack & Backend Engineering",
     "hero.description":
-      "As a passionate software engineering student at Adventist University of Central Africa (AUCA), I'm at the beginning of my journey to become an IT professional. With a deep interest in web development and design, I thrive on combining technical skills with creativity to build innovative and user-friendly digital solutions.",
+      "I build full-stack and backend systems with Java, Spring Boot, React, Next.js and PostgreSQL, like the academic management platform replacing AUCA's legacy registration. I'm a software developer at AUCA and an MSIT student at Carnegie Mellon University Africa, specializing in AI and machine learning.",
     "hero.location": "Chadian 🇹🇩 living in Rwanda 🇷🇼",
     "hero.education":
       "Studying at AUCA and currently part of the gym, the most intense software development training program in Rwanda",
@@ -48,23 +52,26 @@ const translations = {
 
     // About Section
     "about.title": "About Me",
-    "about.subtitle": "Passionate Developer & Future Tech Leader",
+    "about.subtitle":
+      "Software developer, MSIT student, mentor",
     "about.description":
-      "I am a dedicated software engineering student with a passion for creating innovative solutions that make a real impact. My journey combines technical excellence with creative problem-solving, always focusing on building technology that serves communities and solves real-world problems.",
+      "I'm a software developer and a Master of Science in Information Technology student at Carnegie Mellon University Africa, specializing in AI and machine learning. I build full-stack and backend applications: academic information systems, REST APIs, authentication and authorization, database design, and deployment on Linux servers.",
     "about.point1":
-      "Passionate about software development, cybersecurity, and networks",
+      "Backend-first full-stack developer: Java 21, Spring Boot, PostgreSQL, Next.js",
     "about.point2":
-      "Currently learning advanced mobile development,full stack software development focused in JavaScript and TypeScript",
-    "about.point3": "I build software that solves real community problems",
-    "about.point4": "Community leader, team collaborator, and lifelong learner",
+      "Studying AI & machine learning at Carnegie Mellon University Africa",
+    "about.point3":
+      "Former teaching assistant and coach: I enjoy helping others learn",
+    "about.point4":
+      "Interested in research, science, and technology that addresses challenges in Africa",
     "about.primaryStack": "Primary Tech Stack",
     "about.currentPositions": "Current Positions",
     "about.keyAchievements": "Key Achievements",
-    "about.achievement1Title": "6+ Projects Delivered",
+    "about.achievement1Title": "10+ Projects Built",
     "about.achievement1Desc": "Full-stack applications in production",
     "about.achievement2Title": "Multiple Leadership Roles",
     "about.achievement2Desc": "Community organizations & tech teams",
-    "about.achievement3Title": "3+ Certifications",
+    "about.achievement3Title": "5 Certifications",
     "about.achievement3Desc": "Networking, design, and technical skills",
 
     // Skills Section
@@ -72,7 +79,7 @@ const translations = {
     "skills.languages": "Languages & Frameworks",
     "skills.certifications": "Certifications & Training",
     "skills.subtitle":
-      "30+ technologies mastered across web, mobile, and backend development",
+      "The languages, frameworks and tools I use across backend, frontend and deployment",
     "skills.softSkills": "Soft Skills",
     "skills.technologies": "technologies",
     "skills.manualScroll": "Manual Scroll",
@@ -119,7 +126,7 @@ const translations = {
     "contact.errorLater": "An error occurred. Try again later.",
     "contact.connectTitle": "Let's Connect",
     "contact.actionsDescription":
-      "Use the Quick Contact button in the header to send a direct message, or schedule a meeting instantly on Google Calendar.",
+      "Send a quick message, book a slot on my calendar, or email me directly. I usually reply within a day.",
     "contact.scheduleGoogle": "Schedule Meeting on Google Calendar",
     "contact.sendEmailDirect": "Send Email Directly",
     "contact.availabilityTag": "availability --status",
@@ -165,18 +172,22 @@ const translations = {
     "experience.nowPresent": "Present",
 
     // About Section Strengths
-    "about.strength1": "Full-Stack Expertise",
+    "about.strength1":
+      "Full-Stack & Backend",
     "about.strength1Desc":
-      "Expert in modern JavaScript frameworks, backend technologies, and database design",
-    "about.strength2": "Team Leadership",
+      "Spring Boot services, PostgreSQL schemas, REST APIs and React/Next.js front-ends",
+    "about.strength2":
+      "Leadership & Mentoring",
     "about.strength2Desc":
-      "Lead Software Engineer with mentorship experience and Agile workflow expertise",
-    "about.strength3": "Problem Solving",
+      "Former lead engineer at ChadNova and teaching assistant at AUCA",
+    "about.strength3":
+      "Secure System Design",
     "about.strength3Desc":
-      "Strong analytical skills with focus on scalable, reliable, and secure solutions",
-    "about.strength4": "Community Focus",
+      "Authentication, role-based access control and workflows built to scale",
+    "about.strength4":
+      "Tech for Africa",
     "about.strength4Desc":
-      "Passionate about creating technology that serves and empowers communities",
+      "Building technology that serves communities, from university systems to CleanEX",
     "about.stack": "Java, React, Node.js",
     "about.roles": "4 Roles",
 
@@ -208,7 +219,7 @@ const translations = {
     "projects.medireminder": "MediReminder",
     "projects.medreminderDesc":
       "A mobile medicine reminder app designed to improve treatment adherence through clear scheduling and local notification workflows.",
-    "projects.mytask": "MyTaskMangement BestSeller",
+    "projects.mytask": "MyTaskManagement BestSeller",
     "projects.mytaskDesc":
       "A full-stack task management platform with a TypeScript frontend and Java backend, built around maintainable workflows and clean architecture.",
     "projects.aucalms": "AUCA Library Management System (IMS)",
@@ -274,10 +285,27 @@ const translations = {
     "footer.rights": "All rights reserved.",
     "footer.backToTop": "Back to Top ↑",
     "footer.profileSummary":
-      "Full-stack engineer focused on reliable, community-impact products.",
+      "Full-stack & backend developer and MSIT student at CMU-Africa.",
     "footer.quickLinksTag": "navigate --quick-links",
     "footer.directContactTag": "contact --direct",
     "footer.scheduleMeeting": "Schedule Meeting",
+
+    // Misc UI labels
+    "nav.journey": "Journey",
+    "projects.featured": "Featured",
+    "projects.other": "Other Projects",
+    "projects.githubProfile": "GitHub Profile",
+    "projects.privateRepo": "Private repository",
+    "projects.advanced": "Advanced",
+    "projects.intermediate": "Intermediate",
+    "skills.count": "skills",
+    "contact.quickDesc": "Send a quick message",
+    "contact.scheduleDesc": "Book a meeting slot",
+    "contact.emailDesc": "Reach me directly",
+    "footer.available": "Available for opportunities",
+    "header.language": "Change language",
+    "header.toggleTheme": "Toggle theme",
+    "header.menu": "Toggle menu",
   },
   fr: {
     // Navigation
@@ -293,9 +321,9 @@ const translations = {
     "hero.greeting": "Salut, je suis",
     "hero.name": "Abdoulaye Zakaria Djerou",
     "hero.title":
-      "Étudiant en Génie Logiciel | Développeur Full-Stack & Mobile | Futur Expert en Cybersécurité",
+      "Développeur logiciel | Étudiant MSIT à Carnegie Mellon University Africa | Ingénierie full-stack & back-end",
     "hero.description":
-      "En tant qu'étudiant passionné en génie logiciel à l'Université Adventiste d'Afrique Centrale (AUCA), je suis au début de mon parcours pour devenir un professionnel de l'informatique. Avec un intérêt profond pour le développement web et le design, je prospère en combinant les compétences techniques avec la créativité pour construire des solutions numériques innovantes et conviviales.",
+      "Je conçois des systèmes full-stack et back-end avec Java, Spring Boot, React, Next.js et PostgreSQL, comme la plateforme de gestion académique qui remplace l'ancien système d'inscription de l'AUCA. Je suis développeur logiciel à l'AUCA et étudiant MSIT à Carnegie Mellon University Africa, spécialisé en IA et apprentissage automatique.",
     "hero.location": "Tchadien 🇹🇩 vivant au Rwanda 🇷🇼",
     "hero.education":
       "Étudiant à AUCA et actuellement membre du gym, le programme de formation en développement logiciel le plus intense du Rwanda",
@@ -318,25 +346,26 @@ const translations = {
 
     // About Section
     "about.title": "À Propos de Moi",
-    "about.subtitle": "Développeur Passionné & Futur Leader Tech",
+    "about.subtitle":
+      "Développeur logiciel, étudiant MSIT, mentor",
     "about.description":
-      "Je suis un étudiant en génie logiciel dévoué avec une passion pour créer des solutions innovantes qui ont un impact réel. Mon parcours combine l'excellence technique avec la résolution créative de problèmes, en me concentrant toujours sur la construction de technologies qui servent les communautés et résolvent les problèmes du monde réel.",
+      "Je suis développeur logiciel et étudiant en Master of Science in Information Technology à Carnegie Mellon University Africa, spécialisé en IA et apprentissage automatique. Je conçois des applications full-stack et back-end : systèmes d'information académiques, API REST, authentification et autorisation, conception de bases de données et déploiement sur serveurs Linux.",
     "about.point1":
-      "Passionné par le développement logiciel, la cybersécurité et les réseaux",
+      "Développeur full-stack orienté back-end : Java 21, Spring Boot, PostgreSQL, Next.js",
     "about.point2":
-      "Actuellement en apprentissage du développement mobile avancé, de l'administration Linux et de Spring Boot",
+      "J'étudie l'IA et l'apprentissage automatique à Carnegie Mellon University Africa",
     "about.point3":
-      "Je construis des logiciels qui résolvent de vrais problèmes communautaires",
+      "Ancien assistant d'enseignement et coach : j'aime aider les autres à apprendre",
     "about.point4":
-      "Leader communautaire, collaborateur d'équipe et apprenant à vie",
+      "Intéressé par la recherche, la science et la technologie au service des défis de l'Afrique",
     "about.primaryStack": "Stack technique principal",
     "about.currentPositions": "Postes actuels",
     "about.keyAchievements": "Réalisations clés",
-    "about.achievement1Title": "6+ projets livrés",
+    "about.achievement1Title": "10+ projets réalisés",
     "about.achievement1Desc": "Applications full-stack en production",
     "about.achievement2Title": "Plusieurs rôles de leadership",
     "about.achievement2Desc": "Organisations communautaires et équipes tech",
-    "about.achievement3Title": "3+ certifications",
+    "about.achievement3Title": "5 certifications",
     "about.achievement3Desc": "Réseaux, design et compétences techniques",
 
     // Skills Section
@@ -344,7 +373,7 @@ const translations = {
     "skills.languages": "Langages & Frameworks",
     "skills.certifications": "Certifications & Formation",
     "skills.subtitle":
-      "30+ technologies maîtrisées en développement web, mobile et backend",
+      "Les langages, frameworks et outils que j'utilise en back-end, en front-end et en déploiement",
     "skills.softSkills": "Compétences humaines",
     "skills.technologies": "technologies",
     "skills.manualScroll": "Défilement manuel",
@@ -391,7 +420,7 @@ const translations = {
     "contact.errorLater": "Une erreur est survenue. Réessayez plus tard.",
     "contact.connectTitle": "Connectons-nous",
     "contact.actionsDescription":
-      "Utilisez le bouton Contact rapide dans l'en-tête pour envoyer un message direct, ou planifiez instantanément une réunion sur Google Calendar.",
+      "Envoyez un message rapide, réservez un créneau dans mon agenda ou écrivez-moi directement. Je réponds généralement sous 24 h.",
     "contact.scheduleGoogle": "Planifier une réunion sur Google Calendar",
     "contact.sendEmailDirect": "Envoyer un email directement",
     "contact.availabilityTag": "disponibilité --statut",
@@ -438,18 +467,22 @@ const translations = {
     "experience.nowPresent": "Actuellement",
 
     // About Section Strengths
-    "about.strength1": "Expertise Full-Stack",
+    "about.strength1":
+      "Full-stack & back-end",
     "about.strength1Desc":
-      "Expert dans les frameworks JavaScript modernes, les technologies backend et la conception de bases de données",
-    "about.strength2": "Leadership d'Équipe",
+      "Services Spring Boot, schémas PostgreSQL, API REST et front-ends React/Next.js",
+    "about.strength2":
+      "Leadership & mentorat",
     "about.strength2Desc":
-      "Ingénieur Logiciel Principal avec expérience en mentorat et expertise des flux de travail Agile",
-    "about.strength3": "Résolution de Problèmes",
+      "Ancien lead engineer chez ChadNova et assistant d'enseignement à l'AUCA",
+    "about.strength3":
+      "Conception de systèmes sécurisés",
     "about.strength3Desc":
-      "Fortes compétences analytiques avec accent sur les solutions évolutives, fiables et sécurisées",
-    "about.strength4": "Focus Communautaire",
+      "Authentification, contrôle d'accès par rôles et processus conçus pour monter en charge",
+    "about.strength4":
+      "La tech pour l'Afrique",
     "about.strength4Desc":
-      "Passionné par la création de technologies qui servent et responsabilisent les communautés",
+      "Une technologie au service des communautés, des systèmes universitaires à CleanEX",
     "about.stack": "Java, React, Node.js",
     "about.roles": "4 Rôles",
 
@@ -482,7 +515,7 @@ const translations = {
     "projects.medireminder": "MediReminder",
     "projects.medreminderDesc":
       "Une application mobile de rappel de médicaments conçue pour améliorer l'adhérence au traitement grâce à des workflows de planification et de notification clairs.",
-    "projects.mytask": "MyTaskMangement BestSeller",
+    "projects.mytask": "MyTaskManagement BestSeller",
     "projects.mytaskDesc":
       "Une plateforme complète de gestion des tâches avec un frontend TypeScript et un backend Java, construite autour de flux de travail maintenables et d'une architecture propre.",
     "projects.aucalms": "Système de Gestion de Bibliothèque AUCA (IMS)",
@@ -549,10 +582,27 @@ const translations = {
     "footer.rights": "Tous droits réservés.",
     "footer.backToTop": "Retour en haut ↑",
     "footer.profileSummary":
-      "Ingénieur full-stack axé sur des produits fiables à impact communautaire.",
+      "Développeur full-stack & back-end, étudiant MSIT à CMU-Africa.",
     "footer.quickLinksTag": "navigation --liens-rapides",
     "footer.directContactTag": "contact --direct",
     "footer.scheduleMeeting": "Planifier une réunion",
+
+    // Misc UI labels
+    "nav.journey": "Parcours",
+    "projects.featured": "En vedette",
+    "projects.other": "Autres projets",
+    "projects.githubProfile": "Profil GitHub",
+    "projects.privateRepo": "Dépôt privé",
+    "projects.advanced": "Avancé",
+    "projects.intermediate": "Intermédiaire",
+    "skills.count": "compétences",
+    "contact.quickDesc": "Envoyer un message rapide",
+    "contact.scheduleDesc": "Réserver un créneau",
+    "contact.emailDesc": "Me contacter directement",
+    "footer.available": "Disponible pour des opportunités",
+    "header.language": "Changer de langue",
+    "header.toggleTheme": "Changer de thème",
+    "header.menu": "Ouvrir le menu",
   },
   ar: {
     // Navigation
@@ -568,9 +618,9 @@ const translations = {
     "hero.greeting": "مرحباً، أنا",
     "hero.name": "عبد الله زكريا جيرو",
     "hero.title":
-      "طالب هندسة البرمجيات | مطور Full-Stack و Mobile | خبير أمن سيبراني مستقبلي",
+      "مطور برمجيات | طالب ماجستير تقنية المعلومات في جامعة كارنيغي ميلون أفريقيا | هندسة التطبيقات المتكاملة والخوادم",
     "hero.description":
-      "كطالب شغوف في هندسة البرمجيات في جامعة الأدفنتست في وسط أفريقيا (AUCA)، أنا في بداية رحلتي لأصبح محترف في تكنولوجيا المعلومات. مع اهتمام عميق بتطوير الويب والتصميم، أزدهر في دمج المهارات التقنية مع الإبداع لبناء حلول رقمية مبتكرة وسهلة الاستخدام.",
+      "أبني أنظمة متكاملة وخوادم باستخدام Java وSpring Boot وReact وNext.js وPostgreSQL، مثل منصة الإدارة الأكاديمية التي تحل محل نظام التسجيل القديم في AUCA. أعمل مطور برمجيات في AUCA وأدرس ماجستير تقنية المعلومات في جامعة كارنيغي ميلون أفريقيا بتخصص الذكاء الاصطناعي وتعلم الآلة.",
     "hero.location": "تشادي 🇹🇩 يعيش في رواندا 🇷🇼",
     "hero.education":
       "أدرس في AUCA وحالياً جزء من الجيم، برنامج التدريب الأكثر كثافة في تطوير البرمجيات في رواندا",
@@ -621,17 +671,22 @@ const translations = {
     "experience.nowPresent": "الحاضر",
 
     // About Section Strengths
-    "about.strength1": "خبرة Full-Stack",
+    "about.strength1":
+      "التطوير المتكامل والخوادم",
     "about.strength1Desc":
-      "خبير في أطر عمل JavaScript الحديثة وتقنيات Backend وتصميم قواعد البيانات",
-    "about.strength2": "قيادة الفريق",
+      "خدمات Spring Boot ومخططات PostgreSQL وواجهات REST وواجهات React/Next.js",
+    "about.strength2":
+      "القيادة والإرشاد",
     "about.strength2Desc":
-      "مهندس برمجيات رئيسي بخبرة في الإرشاد وخبرة سير العمل Agile",
-    "about.strength3": "حل المشاكل",
+      "مهندس رئيسي سابق في ChadNova ومساعد تدريس سابق في AUCA",
+    "about.strength3":
+      "تصميم أنظمة آمنة",
     "about.strength3Desc":
-      "مهارات تحليلية قوية مع التركيز على الحلول القابلة للتوسع والموثوقة والآمنة",
-    "about.strength4": "التركيز على المجتمع",
-    "about.strength4Desc": "شغوف بإنشاء تكنولوجيا تخدم وتمكن المجتمعات",
+      "المصادقة والتحكم بالوصول حسب الأدوار ومسارات عمل مصممة للتوسع",
+    "about.strength4":
+      "التقنية من أجل أفريقيا",
+    "about.strength4Desc":
+      "بناء تقنية تخدم المجتمعات، من الأنظمة الجامعية إلى CleanEX",
     "about.stack": "Java, React, Node.js",
     "about.roles": "4 أدوار",
 
@@ -663,7 +718,7 @@ const translations = {
     "projects.medireminder": "MediReminder",
     "projects.medreminderDesc":
       "تطبيق ذكي لتذكير الأدوية مصمم لتحسين الالتزام بالعلاج من خلال مسارات جدولة وإخطار واضحة.",
-    "projects.mytask": "MyTaskMangement BestSeller",
+    "projects.mytask": "MyTaskManagement BestSeller",
     "projects.mytaskDesc":
       "منصة إدارة المهام الكاملة مع واجهة أمامية TypeScript وخلفية Java، مبنية حول سير العمل القابل للصيانة والعمارة النظيفة.",
     "projects.aucalms": "نظام إدارة مكتبة AUCA (IMS)",
@@ -713,28 +768,33 @@ const translations = {
 
     // About Section
     "about.title": "نبذة عني",
-    "about.subtitle": "مطور شغوف وقائد تقني مستقبلي",
+    "about.subtitle":
+      "مطور برمجيات، طالب ماجستير، ومرشد",
     "about.description":
-      "أنا طالب هندسة برمجيات مخلص مع شغف لإنشاء حلول مبتكرة تحدث تأثيراً حقيقياً. رحلتي تجمع بين التميز التقني وحل المشاكل الإبداعي، مع التركيز دائماً على بناء تكنولوجيا تخدم المجتمعات وتحل مشاكل العالم الحقيقي.",
-    "about.point1": "شغوف بتطوير البرمجيات والأمن السيبراني والشبكات",
+      "أنا مطور برمجيات وطالب ماجستير العلوم في تقنية المعلومات بجامعة كارنيغي ميلون أفريقيا، بتخصص الذكاء الاصطناعي وتعلم الآلة. أبني تطبيقات متكاملة وخوادم: أنظمة معلومات أكاديمية، وواجهات REST، والمصادقة والتفويض، وتصميم قواعد البيانات، والنشر على خوادم Linux.",
+    "about.point1":
+      "مطور متكامل يركز على الخوادم: Java 21 وSpring Boot وPostgreSQL وNext.js",
     "about.point2":
-      "أتعلم حالياً تطوير الهاتف المحمول المتقدم وإدارة Linux و Spring Boot",
-    "about.point3": "أبني برمجيات تحل مشاكل المجتمع الحقيقية",
-    "about.point4": "قائد مجتمعي ومتعاون في الفريق ومتعلم مدى الحياة",
+      "أدرس الذكاء الاصطناعي وتعلم الآلة في جامعة كارنيغي ميلون أفريقيا",
+    "about.point3":
+      "مساعد تدريس ومدرب سابق: أستمتع بمساعدة الآخرين على التعلم",
+    "about.point4":
+      "مهتم بالبحث والعلوم والتقنية التي تعالج تحديات أفريقيا",
     "about.primaryStack": "الحزمة التقنية الأساسية",
     "about.currentPositions": "المناصب الحالية",
     "about.keyAchievements": "الإنجازات الرئيسية",
-    "about.achievement1Title": "6+ مشاريع منجزة",
+    "about.achievement1Title": "+10 مشاريع منجزة",
     "about.achievement1Desc": "تطبيقات Full-Stack في الإنتاج",
     "about.achievement2Title": "أدوار قيادية متعددة",
     "about.achievement2Desc": "منظمات مجتمعية وفرق تقنية",
-    "about.achievement3Title": "3+ شهادات",
+    "about.achievement3Title": "5 شهادات",
     "about.achievement3Desc": "الشبكات والتصميم والمهارات التقنية",
 
     // Skills Section
     "skills.title": "المهارات التقنية",
     "skills.languages": "اللغات والأطر",
-    "skills.subtitle": "أكثر من 30 تقنية في تطوير الويب والموبايل والخلفية",
+    "skills.subtitle":
+      "اللغات والأطر والأدوات التي أستخدمها في الخوادم والواجهات والنشر",
     "skills.softSkills": "المهارات الشخصية",
     "skills.technologies": "تقنية",
     "skills.manualScroll": "تمرير يدوي",
@@ -780,7 +840,7 @@ const translations = {
     "contact.errorLater": "حدث خطأ. حاول مرة أخرى لاحقاً.",
     "contact.connectTitle": "لنتواصل",
     "contact.actionsDescription":
-      "استخدم زر التواصل السريع في الترويسة لإرسال رسالة مباشرة، أو قم بجدولة اجتماع فوراً عبر Google Calendar.",
+      "أرسل رسالة سريعة، أو احجز موعداً في تقويمي، أو راسلني مباشرة. عادةً أرد خلال يوم.",
     "contact.scheduleGoogle": "جدولة اجتماع على Google Calendar",
     "contact.sendEmailDirect": "إرسال بريد إلكتروني مباشرة",
     "contact.availabilityTag": "التوفر --الحالة",
@@ -801,10 +861,27 @@ const translations = {
     "footer.rights": "جميع الحقوق محفوظة.",
     "footer.backToTop": "العودة للأعلى ↑",
     "footer.profileSummary":
-      "مهندس Full-stack يركز على منتجات موثوقة ذات أثر مجتمعي.",
+      "مطور متكامل وخوادم، وطالب ماجستير في CMU-Africa.",
     "footer.quickLinksTag": "التنقل --روابط-سريعة",
     "footer.directContactTag": "التواصل --مباشر",
     "footer.scheduleMeeting": "جدولة اجتماع",
+
+    // Misc UI labels
+    "nav.journey": "المسيرة",
+    "projects.featured": "مميز",
+    "projects.other": "مشاريع أخرى",
+    "projects.githubProfile": "حساب GitHub",
+    "projects.privateRepo": "مستودع خاص",
+    "projects.advanced": "متقدم",
+    "projects.intermediate": "متوسط",
+    "skills.count": "مهارة",
+    "contact.quickDesc": "أرسل رسالة سريعة",
+    "contact.scheduleDesc": "احجز موعداً",
+    "contact.emailDesc": "تواصل معي مباشرة",
+    "footer.available": "متاح للفرص",
+    "header.language": "تغيير اللغة",
+    "header.toggleTheme": "تبديل المظهر",
+    "header.menu": "القائمة",
   },
 };
 
@@ -815,14 +892,34 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>(() => {
+    try {
+      const saved = localStorage.getItem("language");
+      if (saved === "en" || saved === "fr" || saved === "ar") return saved;
+    } catch {
+      // storage unavailable (private mode); fall back to default
+    }
+    return "en";
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("language", language);
+    } catch {
+      // ignore
+    }
+    document.documentElement.lang = language;
+    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+  }, [language]);
 
   const t = (key: string): string => {
     return (translations[language] as Record<string, string>)[key] || key;
   };
 
+  const tr = (value: Localized): string => value[language] ?? value.en;
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, tr }}>
       {children}
     </LanguageContext.Provider>
   );
