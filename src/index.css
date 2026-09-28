@@ -52,9 +52,15 @@
     }
   }
 
+  html,
+  body {
+    /* clip (not hidden) so off-screen entrance animations can never widen the page on phones */
+    overflow-x: hidden;
+    overflow-x: clip;
+  }
+
   body {
     position: relative;
-    overflow-x: hidden;
     font-family: "IBM Plex Sans", system-ui, sans-serif;
     line-height: 1.6;
     color: var(--dev-text);

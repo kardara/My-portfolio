@@ -126,8 +126,8 @@ const Contact: React.FC = () => {
 
           {/* ── Left: Contact info ── */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 40 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.75, delay: 0.15 }}
             className="space-y-6"
           >
@@ -241,8 +241,8 @@ const Contact: React.FC = () => {
 
           {/* ── Right: Action panel ── */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 40 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.75, delay: 0.25 }}
             className="shell-panel rounded-2xl p-6 sm:p-8 flex flex-col gap-6"
           >

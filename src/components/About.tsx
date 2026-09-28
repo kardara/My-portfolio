@@ -17,6 +17,7 @@ const community: { role: Localized; org: string; period: string }[] = [
   { role: { en: "Secretary-General", fr: "Secrétaire général", ar: "الأمين العام" }, org: "Beri Bour Rwanda", period: "2023–25" },
   { role: { en: "Secretary-General & Spokesperson", fr: "Secrétaire général & porte-parole", ar: "الأمين العام والناطق الرسمي" }, org: "AEESTR Independent Electoral Commission", period: "2025" },
   { role: { en: "Treasurer", fr: "Trésorier", ar: "أمين الصندوق" }, org: "AC-DEV Sec-Rwanda", period: "2024–" },
+  { role: { en: "Lead organizer", fr: "Organisateur principal", ar: "المنظم الرئيسي" }, org: "Chadian Independence Day", period: "2025" },
   { role: { en: "Member", fr: "Membre", ar: "عضو" }, org: "Toastmasters International", period: "" },
 ];
 

@@ -58,9 +58,9 @@ export const milestones: Milestone[] = [
     title: { en: "Student community leader", fr: "Responsable associatif étudiant", ar: "قيادي في المجتمع الطلابي" },
     org: "AEESTR · Beri Bour Rwanda · AC-DEV",
     description: {
-      en: "Secretary-General of Beri Bour Rwanda, where I helped organize the annual Beri Bour Cultural Day. Treasurer of AC-DEV Sec-Rwanda. In 2025, Secretary-General and spokesperson of the AEESTR Independent Electoral Commission, then advisor to the association.",
-      fr: "Secrétaire général de Beri Bour Rwanda, où j'ai aidé à organiser la Journée culturelle Beri Bour. Trésorier d'AC-DEV Sec-Rwanda. En 2025, secrétaire général et porte-parole de la Commission électorale indépendante de l'AEESTR, puis conseiller de l'association.",
-      ar: "أمين عام بيري بور رواندا، حيث ساهمت في تنظيم اليوم الثقافي السنوي لبيري بور. أمين صندوق AC-DEV فرع رواندا. في 2025، أمين عام اللجنة الانتخابية المستقلة لجمعية AEESTR والناطق باسمها، ثم مستشار للجمعية.",
+      en: "Secretary-General of Beri Bour Rwanda, where I helped organize the annual Beri Bour Cultural Day. Treasurer of AC-DEV Sec-Rwanda. In 2025, lead organizer of Chadian Independence Day, and Secretary-General and spokesperson of the AEESTR Independent Electoral Commission, then advisor to the association.",
+      fr: "Secrétaire général de Beri Bour Rwanda, où j'ai aidé à organiser la Journée culturelle Beri Bour. Trésorier d'AC-DEV Sec-Rwanda. En 2025, organisateur principal de la fête de l'indépendance du Tchad, secrétaire général et porte-parole de la Commission électorale indépendante de l'AEESTR, puis conseiller de l'association.",
+      ar: "أمين عام بيري بور رواندا، حيث ساهمت في تنظيم اليوم الثقافي السنوي لبيري بور. أمين صندوق AC-DEV فرع رواندا. في 2025، المنظم الرئيسي لاحتفال عيد استقلال تشاد، وأمين عام اللجنة الانتخابية المستقلة لجمعية AEESTR والناطق باسمها، ثم مستشار للجمعية.",
     },
     tags: [
       { en: "Leadership", fr: "Leadership", ar: "القيادة" },
