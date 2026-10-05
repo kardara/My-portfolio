@@ -15,11 +15,4 @@ export const profile = {
   photo: `${import.meta.env.BASE_URL}kardara.webp`,
 };
 
-/** Single source of truth for the numbers shown in the hero. */
-export const stats = {
-  projects: 10,
-  roles: 3,
-  languages: 3,
-};
-
 export const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;

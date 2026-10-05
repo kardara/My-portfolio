@@ -348,7 +348,7 @@ const CommandPalette: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ type: "spring", stiffness: 420, damping: 32 }}
-            className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-line bg-surface shadow-2xl"
+            className="relative w-full max-w-xl overflow-hidden border border-line bg-surface shadow-2xl"
           >
             {/* Title bar */}
             <div className="flex items-center gap-2 px-4 py-2.5 border-b border-line bg-panel">
@@ -358,7 +358,7 @@ const CommandPalette: React.FC = () => {
               <span className="terminal-title text-xs dev-muted ms-2" dir="ltr">
                 kardara@portfolio: ~
               </span>
-              <kbd className="ms-auto terminal-title text-[10px] dev-muted border border-line rounded px-1.5 py-0.5">
+              <kbd className="ms-auto terminal-title text-[10px] dev-muted border border-line px-1.5 py-0.5">
                 esc
               </kbd>
             </div>
@@ -417,12 +417,12 @@ const CommandPalette: React.FC = () => {
                         aria-selected={isActive}
                         onMouseMove={() => setActive(i)}
                         onClick={() => run(c)}
-                        className="relative w-full flex items-center gap-3 px-3 py-2 rounded-lg text-start"
+                        className="relative w-full flex items-center gap-3 px-3 py-2 text-start"
                       >
                         {isActive && (
                           <motion.span
                             layoutId="palette-active"
-                            className="absolute inset-0 rounded-lg bg-primary/10 border border-primary/30"
+                            className="absolute inset-0 bg-primary/10 border border-primary/30"
                             transition={{ type: "spring", stiffness: 500, damping: 38 }}
                           />
                         )}
@@ -446,8 +446,8 @@ const CommandPalette: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-2 px-4 py-2 border-t border-line terminal-title text-[10px] dev-muted">
-              <kbd className="border border-line rounded px-1">↑↓</kbd>
-              <kbd className="border border-line rounded px-1">↵</kbd>
+              <kbd className="border border-line px-1">↑↓</kbd>
+              <kbd className="border border-line px-1">↵</kbd>
               <span>{tr(ui.hint)}</span>
             </div>
           </motion.div>

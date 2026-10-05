@@ -144,8 +144,7 @@ const Contact: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                  whileHover={{ y: -4, scale: 1.02 }}
-                  className="shell-panel group flex items-start gap-4 p-4 rounded-xl overflow-hidden relative transition-all duration-250"
+                  className="shell-panel group flex items-start gap-4 p-4 overflow-hidden relative transition-all duration-250"
                 >
                   {/* Glow */}
                   <div
@@ -156,7 +155,7 @@ const Contact: React.FC = () => {
                   />
                   {/* Icon */}
                   <div
-                    className={`relative z-10 w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br ${info.gradient} shadow`}
+                    className={`relative z-10 w-10 h-10 flex items-center justify-center flex-shrink-0 bg-gradient-to-br ${info.gradient} shadow`}
                   >
                     <info.icon size={18} className="text-white" />
                   </div>
@@ -190,8 +189,7 @@ const Contact: React.FC = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={inView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.4, delay: 0.6 + i * 0.08 }}
-                    whileHover={{ y: -4, scale: 1.12 }}
-                    className="w-11 h-11 shell-panel rounded-xl flex items-center justify-center dev-muted transition-all duration-250"
+                    className="w-11 h-11 shell-panel flex items-center justify-center dev-muted transition-all duration-250"
                     style={{ "--link-color": s.color } as React.CSSProperties}
                     onMouseEnter={(e) =>
                       ((e.currentTarget as HTMLElement).style.color = s.color)
@@ -209,16 +207,12 @@ const Contact: React.FC = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.75 }}
-              className="shell-panel rounded-xl p-4"
+              className="shell-panel p-4"
             >
               <div className="flex items-center gap-2 mb-3">
                 <div className="relative flex-shrink-0">
                   <div
                     className="w-2.5 h-2.5 rounded-full"
-                    style={{ background: "var(--color-secondary)" }}
-                  />
-                  <div
-                    className="absolute inset-0 rounded-full ping-dot"
                     style={{ background: "var(--color-secondary)" }}
                   />
                 </div>
@@ -244,7 +238,7 @@ const Contact: React.FC = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.75, delay: 0.25 }}
-            className="shell-panel rounded-2xl p-6 sm:p-8 flex flex-col gap-6"
+            className="shell-panel p-6 sm:p-8 flex flex-col gap-6"
           >
             {/* Terminal header */}
             <div className="flex items-center gap-2 pb-5 border-b border-line">
@@ -269,7 +263,7 @@ const Contact: React.FC = () => {
             <div className="space-y-3 flex-1">
               {actions.map((action, i) => {
                 const baseClass =
-                  "w-full flex items-center gap-4 px-5 py-4 rounded-xl font-semibold text-sm transition-all duration-250 group";
+                  "w-full flex items-center gap-4 px-5 py-4 font-semibold text-sm transition-all duration-250 group";
 
                 const styleMap: Record<string, string> = {
                   ghost:
@@ -283,7 +277,7 @@ const Contact: React.FC = () => {
                 const inner = (
                   <>
                     <div
-                      className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                      className="w-9 h-9 flex items-center justify-center flex-shrink-0"
                       style={{
                         background:
                           action.style === "ghost"
@@ -311,8 +305,6 @@ const Contact: React.FC = () => {
                 return action.onClick ? (
                   <motion.button
                     key={i}
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.98 }}
                     onClick={action.onClick}
                     className={`${baseClass} ${styleMap[action.style]}`}
                   >
@@ -321,8 +313,6 @@ const Contact: React.FC = () => {
                 ) : (
                   <motion.a
                     key={i}
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.98 }}
                     href={action.href}
                     target="_blank"
                     rel="noopener noreferrer"

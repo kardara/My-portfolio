@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import {
   Award,
   Code2,
@@ -24,12 +23,6 @@ const Skills: React.FC = () => {
   const { t, tr } = useLanguage();
   const [manualScroll, setManualScroll] = useState(false);
   const [interactingRow, setInteractingRow] = useState<number | null>(null);
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.05,
-    rootMargin: "120px 0px -60px 0px",
-  });
-
   const skillLogoSlug: Record<string, string> = {
     Java: "openjdk",
     JavaScript: "javascript",
@@ -143,14 +136,14 @@ const Skills: React.FC = () => {
   ];
 
   return (
-    <section id="skills" ref={ref} className="py-20 sm:py-28">
+    <section id="skills" className="py-20 sm:py-28">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
 
         <SectionHeading command="skills --list --all" title={t("skills.title")} subtitle={t("skills.subtitle")}>
           <div className="mt-5">
             <button
               onClick={() => setManualScroll((prev) => !prev)}
-              className="terminal-title text-xs sm:text-sm px-4 py-2 rounded-lg border border-line bg-panel dev-text hover:border-primary transition-colors"
+              className="terminal-title text-xs sm:text-sm px-4 py-2 border border-line bg-panel dev-text hover:border-primary transition-colors"
             >
               {manualScroll ? t("skills.autoScroll") : t("skills.manualScroll")}
             </button>
@@ -172,14 +165,15 @@ const Skills: React.FC = () => {
               <motion.div
                 key={categoryIndex}
                 initial={{ opacity: 0, y: 40 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: categoryIndex * 0.12 }}
-                className="shell-panel rounded-2xl overflow-hidden card-glow"
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.6, delay: categoryIndex * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                className="shell-panel overflow-hidden card-glow"
               >
                 {/* Row header */}
                 <div className="px-5 sm:px-6 pt-4 pb-3 flex items-center gap-3 border-b border-line">
                   <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                    className="w-9 h-9 flex items-center justify-center flex-shrink-0"
                     style={{
                       background: `linear-gradient(135deg, ${category.accentColor}, ${category.accentColor}55)`,
                     }}
@@ -230,13 +224,12 @@ const Skills: React.FC = () => {
                       return (
                         <motion.div
                           key={`${category.title.en}-${skillIndex}`}
-                          whileHover={{ y: -3, scale: 1.04 }}
                           transition={{ duration: 0.2 }}
-                          className="flex items-center gap-2.5 min-w-[155px] sm:min-w-[185px] px-4 py-2.5 rounded-xl bg-panel/80 border border-line hover:border-primary/50 transition-colors duration-200"
+                          className="flex items-center gap-2.5 min-w-[155px] sm:min-w-[185px] px-4 py-2.5 bg-panel/80 border border-line hover:border-primary/50 transition-colors duration-200"
                         >
                           {/* Icon box */}
                           <div
-                            className="relative h-9 w-9 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0"
+                            className="relative h-9 w-9 flex items-center justify-center overflow-hidden flex-shrink-0"
                             style={{ background: `${category.accentColor}18` }}
                           >
                             <span className="text-xs font-bold terminal-title dev-muted">
@@ -273,14 +266,15 @@ const Skills: React.FC = () => {
           {/* Soft Skills */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="shell-panel rounded-2xl overflow-hidden card-glow"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="shell-panel overflow-hidden card-glow"
           >
             {/* Header */}
             <div className="px-5 sm:px-6 py-4 flex items-center gap-3 border-b border-line"
               style={{ background: "linear-gradient(90deg, rgba(168,85,247,0.08), transparent)" }}>
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center"
+              <div className="w-9 h-9 flex items-center justify-center"
                 style={{ background: "linear-gradient(135deg, #a855f7, #7c3aed)" }}>
                 <Flame size={20} className="text-white" />
               </div>
@@ -295,12 +289,12 @@ const Skills: React.FC = () => {
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -16 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.6 + index * 0.06 }}
-                  whileHover={{ x: 5, scale: 1.01 }}
-                  className="group flex items-center gap-3 p-3 rounded-xl border border-line hover:border-[#a855f7]/50 bg-surface/30 transition-all duration-250 cursor-default"
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.4, delay: 0.15 + index * 0.06 }}
+                  className="group flex items-center gap-3 p-3 border border-line hover:border-[#a855f7]/50 bg-surface/30 transition-all duration-250 cursor-default"
                 >
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-250"
+                  <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 transition-colors duration-250"
                     style={{ background: "rgba(168,85,247,0.12)" }}>
                     <Icon size={16} style={{ color: "#a855f7" }} />
                   </div>
@@ -317,14 +311,15 @@ const Skills: React.FC = () => {
           {/* Certifications */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            className="shell-panel rounded-2xl overflow-hidden card-glow"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="shell-panel overflow-hidden card-glow"
           >
             {/* Header */}
             <div className="px-5 sm:px-6 py-4 flex items-center gap-3 border-b border-line"
               style={{ background: "linear-gradient(90deg, rgba(34,197,94,0.08), transparent)" }}>
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center"
+              <div className="w-9 h-9 flex items-center justify-center"
                 style={{ background: "linear-gradient(135deg, #22c55e, #15803d)" }}>
                 <Award size={20} className="text-white" />
               </div>
@@ -339,10 +334,10 @@ const Skills: React.FC = () => {
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -16 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.45, delay: 0.7 + index * 0.08 }}
-                  whileHover={{ x: 6, scale: 1.01 }}
-                  className="group flex items-start gap-3.5 p-4 rounded-xl border border-line hover:border-[#22c55e]/50 bg-surface/30 transition-all duration-250 cursor-default"
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.45, delay: 0.2 + index * 0.08 }}
+                  className="group flex items-start gap-3.5 p-4 border border-line hover:border-[#22c55e]/50 bg-surface/30 transition-all duration-250 cursor-default"
                 >
                   {/* Numbered badge */}
                   <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold terminal-title"

@@ -38,7 +38,7 @@ const Testimonials: React.FC = () => {
         <SectionHeading command="cat reviews.log" title={tr(ui.title)} subtitle={tr(ui.subtitle)} />
 
         <div
-          className="shell-panel !rounded-3xl p-6 sm:p-10 relative"
+          className="shell-panel p-6 sm:p-10 relative"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
@@ -73,7 +73,7 @@ const Testimonials: React.FC = () => {
               <button
                 aria-label={tr(ui.prev)}
                 onClick={() => setIndex((i) => (i - 1 + count) % count)}
-                className="p-2 rounded-full border border-line dev-text hover:border-primary hover:text-primary"
+                className="p-2 border border-line dev-text hover:border-primary hover:text-primary"
               >
                 <ChevronLeft size={16} className="rtl:rotate-180" />
               </button>
@@ -83,14 +83,14 @@ const Testimonials: React.FC = () => {
                     key={i}
                     aria-label={`${i + 1} / ${count}`}
                     onClick={() => setIndex(i)}
-                    className={`h-1.5 rounded-full transition-all ${i === index ? "w-6 bg-primary" : "w-1.5 bg-line"}`}
+                    className={`h-1.5 transition-all ${i === index ? "w-6 bg-primary" : "w-1.5 bg-line"}`}
                   />
                 ))}
               </div>
               <button
                 aria-label={tr(ui.next)}
                 onClick={() => setIndex((i) => (i + 1) % count)}
-                className="p-2 rounded-full border border-line dev-text hover:border-primary hover:text-primary"
+                className="p-2 border border-line dev-text hover:border-primary hover:text-primary"
               >
                 <ChevronRight size={16} className="rtl:rotate-180" />
               </button>

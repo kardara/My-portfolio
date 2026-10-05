@@ -94,9 +94,7 @@ const Footer: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.label}
-                    whileHover={{ y: -3, scale: 1.1 }}
-                    whileTap={{ scale: 0.92 }}
-                    className={`w-9 h-9 rounded-xl flex items-center justify-center dev-muted border border-line bg-panel transition-all duration-200 ${s.color} hover:border-current`}
+                    className={`w-9 h-9 flex items-center justify-center dev-muted border border-line bg-panel transition-all duration-200 ${s.color} hover:border-current`}
                   >
                     <s.icon size={16} />
                   </motion.a>
@@ -142,9 +140,7 @@ const Footer: React.FC = () => {
                   href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Portfolio%20Meeting%20with%20Abdoulaye%20Zakaria&details=Hi%20Abdoulaye%2C%20I%20would%20like%20to%20schedule%20a%20meeting%20from%20your%20portfolio.&location=Google%20Meet&add=azdjerou@gmail.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold transition-all duration-200"
                   style={{
                     background: "var(--color-secondary)",
                     color: "#0b1220",
@@ -158,10 +154,6 @@ const Footer: React.FC = () => {
                   <div className="relative flex-shrink-0">
                     <div
                       className="w-2 h-2 rounded-full"
-                      style={{ background: "var(--color-secondary)" }}
-                    />
-                    <div
-                      className="absolute inset-0 rounded-full ping-dot"
                       style={{ background: "var(--color-secondary)" }}
                     />
                   </div>
@@ -191,9 +183,7 @@ const Footer: React.FC = () => {
 
             <motion.button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.96 }}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-line bg-panel dev-text hover:border-primary hover:text-primary transition-all duration-200"
+              className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold border border-line bg-panel dev-text hover:border-primary hover:text-primary transition-all duration-200"
             >
               <ArrowUp size={15} />
               {t("footer.backToTop")}
