@@ -86,6 +86,27 @@ const credentials: { value: string; label: Localized }[] = [
   { value: "EN · FR · AR", label: { en: "Working languages", fr: "Langues de travail", ar: "لغات العمل" } },
 ];
 
+const StageCaption: React.FC<{ shape: ShapeName; className?: string }> = ({ shape, className = "" }) => {
+  const { tr } = useLanguage();
+  return (
+    <div className={`justify-center px-4 pointer-events-none ${className}`} dir="ltr">
+      <AnimatePresence initial={false} mode="popLayout">
+        <motion.span
+          key={shape}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.25 }}
+          className="terminal-title text-[11px] dev-heading"
+          aria-live="polite"
+        >
+          <span className="text-primary">▸</span> {tr(stageCaptions[shape])}
+        </motion.span>
+      </AnimatePresence>
+    </div>
+  );
+};
+
 const STAGE_IGNORE = "a, button, input, textarea, select, label, kbd, img, p, h1, span";
 
 const PhotoCard: React.FC = () => {
@@ -175,15 +196,6 @@ const Hero: React.FC = () => {
       }}
       className="relative min-h-[100svh] flex items-center overflow-hidden pt-28 pb-24"
     >
-      {/* Stage for the background particle cloud (see Background3D): centred, behind the text and photo */}
-      <div
-        ref={stageRef}
-        data-stage={shape}
-        data-stage-main
-        aria-hidden="true"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(88vw,560px)] aspect-square pointer-events-none"
-      />
-
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute inset-0 opacity-70 [background-image:linear-gradient(var(--dev-grid-soft)_1px,transparent_1px),linear-gradient(90deg,var(--dev-grid-soft)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
@@ -192,7 +204,7 @@ const Hero: React.FC = () => {
       </div>
 
       <motion.div style={{ y: contentY, opacity: contentOpacity }} className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid lg:grid-cols-[1.25fr_1fr] gap-20 lg:gap-12 items-center max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-[1.25fr_1fr] gap-6 sm:gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
           <div className="space-y-7">
             <div>
               <motion.p
@@ -293,6 +305,21 @@ const Hero: React.FC = () => {
             </motion.div>
           </div>
 
+          {/*
+            Stage for the particle cloud (see Background3D). On phones and tablets it sits in the flow
+            under the intro, with its caption; on desktop it is centred behind the text and photo.
+          */}
+          <div className="flex flex-col items-center gap-2 lg:contents">
+            <div
+              ref={stageRef}
+              data-stage={shape}
+              data-stage-main
+              aria-hidden="true"
+              className="w-[min(86vw,420px)] aspect-square pointer-events-none lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:w-[min(46vw,560px)]"
+            />
+            <StageCaption shape={shape} className="flex lg:hidden" />
+          </div>
+
           <motion.div
             initial={{ opacity: 0, scale: 0.94, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -304,21 +331,7 @@ const Hero: React.FC = () => {
         </div>
       </motion.div>
 
-      <div className="absolute bottom-16 lg:bottom-20 inset-x-0 flex justify-center px-4 pointer-events-none" dir="ltr">
-        <AnimatePresence initial={false} mode="popLayout">
-          <motion.span
-            key={shape}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.25 }}
-            className="terminal-title text-[11px] dev-heading"
-            aria-live="polite"
-          >
-            <span className="text-primary">▸</span> {tr(stageCaptions[shape])}
-          </motion.span>
-        </AnimatePresence>
-      </div>
+      <StageCaption shape={shape} className="hidden lg:flex absolute bottom-20 inset-x-0" />
 
       <motion.button
         initial={{ opacity: 0 }}

@@ -204,10 +204,12 @@ const Header: React.FC = () => {
 
           <motion.button
             onClick={openContactModal}
-            className="hidden md:inline-flex items-center gap-2 h-9 px-3.5 bg-accent text-white text-sm font-semibold hover:opacity-90"
+            aria-label={tr(ui.talk)}
+            className="hidden md:inline-flex items-center gap-2 h-9 px-2.5 lg:px-3.5 bg-accent text-white text-sm font-semibold whitespace-nowrap hover:opacity-90"
           >
             <MessageSquare size={15} />
-            {tr(ui.talk)}
+            {/* icon only on tablets, where the nav links need the room */}
+            <span className="hidden lg:inline">{tr(ui.talk)}</span>
           </motion.button>
 
           <button

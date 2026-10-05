@@ -70,36 +70,41 @@ const Cube: React.FC<CubeProps> = ({ size, x, y, turns, drift, progress, classNa
   );
 };
 
+/** Cube scale for the viewport width: smaller on phones and tablets so they stay in the margins. */
+const cubeScale = (w: number) => (w < 640 ? 0.55 : w < 1024 ? 0.75 : 1);
+
 /**
- * Quiet wireframe cubes behind the page that turn and drift with the scroll. They stay hidden
- * in the hero (which has the particle cloud) and fade in once you scroll past it.
+ * Quiet wireframe cubes behind the whole page, hero included, that turn and drift with the scroll.
  */
 const ScrollCubes: React.FC = () => {
   const reduce = useReducedMotion();
   const active = useActiveSection();
-  const { scrollY, scrollYProgress } = useScroll();
+  const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 50, damping: 22, mass: 0.8 });
-  const [vh, setVh] = useState(() => window.innerHeight);
+  const [scale, setScale] = useState(() => cubeScale(window.innerWidth));
   useEffect(() => {
-    const onResize = () => setVh(window.innerHeight);
+    const onResize = () => setScale(cubeScale(window.innerWidth));
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
-  const opacity = useTransform(scrollY, [vh * 0.4, vh * 0.9], [0, 1]);
   const turns = (n: number) => (reduce ? 0 : n);
+  const size = (px: number) => Math.round(px * scale);
 
   return (
     <motion.div
       aria-hidden="true"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.2, delay: 0.3 }}
       className="fixed inset-0 -z-20 pointer-events-none overflow-hidden"
-      style={{ opacity, color: sectionTint[active], transition: "color 1.2s ease", perspective: 1100 }}
+      style={{ color: sectionTint[active], transition: "color 1.2s ease", perspective: 1100 }}
     >
       <div className="absolute inset-0 opacity-[0.16] dark:opacity-[0.2]" style={{ transformStyle: "preserve-3d" }}>
-        <Cube size={150} x={84} y={14} turns={turns(0.8)} drift={-220} progress={progress} />
-        <Cube size={70} x={4} y={30} turns={turns(-1.1)} drift={-360} progress={progress} />
-        <Cube size={110} x={6} y={72} turns={turns(0.6)} drift={-160} progress={progress} className="hidden md:block" />
-        <Cube size={48} x={90} y={62} turns={turns(-1.4)} drift={-420} progress={progress} className="hidden md:block" />
-        <Cube size={90} x={80} y={86} turns={turns(1)} drift={-260} progress={progress} className="hidden lg:block" />
+        <Cube size={size(150)} x={82} y={12} turns={turns(0.8)} drift={-220} progress={progress} />
+        <Cube size={size(70)} x={4} y={30} turns={turns(-1.1)} drift={-360} progress={progress} />
+        <Cube size={size(110)} x={6} y={72} turns={turns(0.6)} drift={-160} progress={progress} />
+        <Cube size={size(48)} x={88} y={58} turns={turns(-1.4)} drift={-420} progress={progress} />
+        <Cube size={size(90)} x={78} y={86} turns={turns(1)} drift={-260} progress={progress} />
       </div>
     </motion.div>
   );
