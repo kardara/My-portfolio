@@ -274,8 +274,8 @@ const shapeParts: Record<ShapeName, () => Part[]> = { network, code, chip, globe
 const SHAPE_SPAN = 4.8;
 const CAMERA_Z = 8;
 const FOV = 50;
-/** Seconds a click-triggered morph takes to sweep through the cloud. */
-const MORPH_SECONDS = 1.8;
+/** Seconds a morph takes to sweep through the cloud; shorter than the hero's 2.8s tick so each symbol settles. */
+const MORPH_SECONDS = 1.4;
 
 export type ParticleScene = {
   /**

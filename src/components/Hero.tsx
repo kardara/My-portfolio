@@ -4,7 +4,7 @@ import { ArrowRight, ChevronDown, Command, FileText, Github, Linkedin, Mail } fr
 import { useLanguage, type Localized } from "../contexts/LanguageContext";
 import { profile } from "../data/profile";
 import { openCommandPalette, openCvViewer } from "../lib/events";
-import { shapeNames, type ShapeName } from "./ui/stageShapes";
+import { shapeNames } from "./ui/stageShapes";
 
 const roles: Localized[] = [
   { en: "Software Developer @ AUCA", fr: "Développeur logiciel @ AUCA", ar: "مطور برمجيات @ AUCA" },
@@ -18,36 +18,46 @@ const ui = {
   explore: { en: "to explore", fr: "pour explorer", ar: "للاستكشاف" },
   terminal: { en: "Open terminal", fr: "Ouvrir le terminal", ar: "فتح الطرفية" },
   location: { en: "Kigali, Rwanda", fr: "Kigali, Rwanda", ar: "كيغالي، رواندا" },
-  stageHint: { en: "click empty space to morph · drag to spin", fr: "cliquez dans le vide pour transformer · glissez pour tourner", ar: "انقر في مساحة فارغة للتحويل · اسحب للتدوير" },
   viewCV: { en: "View CV", fr: "Voir le CV", ar: "عرض السيرة الذاتية" },
 };
 
-const RoleTicker: React.FC = () => {
-  const { tr } = useLanguage();
-  const [i, setI] = useState(0);
-  const reduce = useReducedMotion();
+/** How long each role line (and its matching 3D symbol) stays up. */
+const TICK_MS = 2800;
 
+/** Shared clock for the role ticker and the 3D stage; `advance` steps both and restarts the timer. */
+const useHeroTick = () => {
+  const [tick, setTick] = useState(0);
+  const reduce = useReducedMotion();
   useEffect(() => {
     if (reduce) return;
-    const id = window.setInterval(() => setI((n) => (n + 1) % roles.length), 2800);
-    return () => window.clearInterval(id);
-  }, [reduce]);
+    const id = window.setTimeout(() => setTick((n) => n + 1), TICK_MS);
+    return () => window.clearTimeout(id);
+  }, [tick, reduce]);
+  return { tick, advance: () => setTick((n) => n + 1) };
+};
+
+const RoleTicker: React.FC<{ tick: number }> = ({ tick }) => {
+  const { tr } = useLanguage();
+  const i = tick % roles.length;
 
   return (
     <div className="terminal-title text-base sm:text-lg md:text-xl flex items-center gap-2 h-8 overflow-hidden" aria-live="polite">
       <span className="text-secondary">&gt;</span>
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={i}
-          initial={{ y: 18, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -18, opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="dev-text whitespace-nowrap"
-        >
-          {tr(roles[i])}
-        </motion.span>
-      </AnimatePresence>
+      {/* old line slides out while the new one slides in, in step with the 3D morph */}
+      <span className="relative inline-flex items-center h-8">
+        <AnimatePresence initial={false} mode="popLayout">
+          <motion.span
+            key={i}
+            initial={{ y: 18, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -18, opacity: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="dev-text whitespace-nowrap"
+          >
+            {tr(roles[i])}
+          </motion.span>
+        </AnimatePresence>
+      </span>
       <span className="type-cursor" aria-hidden="true">▍</span>
     </div>
   );
@@ -62,17 +72,6 @@ const credentials: { value: string; label: Localized }[] = [
 ];
 
 const STAGE_IGNORE = "a, button, input, textarea, select, label, kbd, img, p, h1, span";
-
-const stageCaptions: Record<ShapeName, Localized> = {
-  network: { en: "AI · neural network", fr: "IA · réseau de neurones", ar: "الذكاء الاصطناعي · شبكة عصبية" },
-  code: { en: "Software · clean code", fr: "Logiciel · code propre", ar: "البرمجيات · كود نظيف" },
-  chip: { en: "Hardware · compute", fr: "Matériel · calcul", ar: "العتاد · الحوسبة" },
-  globe: { en: "Journey · N'Djamena → Kigali", fr: "Parcours · N'Djamena → Kigali", ar: "المسيرة · نجامينا ← كيغالي" },
-  arm: { en: "Robotics · automation", fr: "Robotique · automatisation", ar: "الروبوتات · الأتمتة" },
-  gear: { en: "Engineering · systems", fr: "Ingénierie · systèmes", ar: "الهندسة · الأنظمة" },
-  shield: { en: "Security · trust", fr: "Sécurité · confiance", ar: "الأمن · الثقة" },
-  padlock: { en: "Security · privacy", fr: "Sécurité · confidentialité", ar: "الأمن · الخصوصية" },
-};
 
 const PhotoCard: React.FC = () => {
   const { tr } = useLanguage();
@@ -135,7 +134,8 @@ const Hero: React.FC = () => {
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.userAgent);
-  const [shapeIdx, setShapeIdx] = useState(0);
+  const { tick, advance } = useHeroTick();
+  const shapeIdx = tick % shapeNames.length;
   const shape = shapeNames[shapeIdx];
   const down = useRef({ x: 0, y: 0 });
 
@@ -148,7 +148,7 @@ const Hero: React.FC = () => {
       onClick={(e) => {
         // clicking empty space (not text, links or the photo) morphs the 3D; a drag also ends in a click, so skip those
         const moved = Math.hypot(e.clientX - down.current.x, e.clientY - down.current.y);
-        if (moved < 6 && !(e.target as Element).closest(STAGE_IGNORE)) setShapeIdx((n) => (n + 1) % shapeNames.length);
+        if (moved < 6 && !(e.target as Element).closest(STAGE_IGNORE)) advance();
       }}
       className="relative min-h-[100svh] flex items-center overflow-hidden pt-28 pb-24"
     >
@@ -191,7 +191,7 @@ const Hero: React.FC = () => {
             </div>
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
-              <RoleTicker />
+              <RoleTicker tick={tick} />
             </motion.div>
 
             <motion.p
@@ -249,13 +249,13 @@ const Hero: React.FC = () => {
                   <span className="text-xs dev-muted">{tr(c.label)}</span>
                 </div>
               ))}
-              <div className="flex gap-2 sm:ms-auto">
+              <div className="flex gap-2 basis-full">
                 {[
                   { href: `mailto:${profile.email}`, Icon: Mail, label: "Email" },
                   { href: profile.linkedin, Icon: Linkedin, label: "LinkedIn" },
                   { href: profile.github, Icon: Github, label: "GitHub" },
                 ].map(({ href, Icon, label }) => (
-                  <motion.a
+                  <a
                     key={label}
                     href={href}
                     aria-label={label}
@@ -263,7 +263,7 @@ const Hero: React.FC = () => {
                     className="p-2.5 border border-line bg-panel dev-muted hover:text-primary hover:border-primary transition-colors"
                   >
                     <Icon size={18} />
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </motion.div>
@@ -279,26 +279,6 @@ const Hero: React.FC = () => {
           </motion.div>
         </div>
       </motion.div>
-
-      <div className="absolute bottom-16 lg:bottom-20 inset-x-0 flex justify-center px-4 pointer-events-none" dir="ltr">
-        <div className="flex items-center gap-3 terminal-title text-[11px]">
-          <span className="dev-muted">fig.{String(shapeIdx + 1).padStart(2, "0")}/{String(shapeNames.length).padStart(2, "0")}</span>
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={shape}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.25 }}
-              className="dev-heading"
-              aria-live="polite"
-            >
-              <span className="text-primary">▸</span> {tr(stageCaptions[shape])}
-            </motion.span>
-          </AnimatePresence>
-          <span className="hidden md:inline dev-muted">· {tr(ui.stageHint)}</span>
-        </div>
-      </div>
 
       <motion.button
         initial={{ opacity: 0 }}
