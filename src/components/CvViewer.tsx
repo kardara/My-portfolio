@@ -24,7 +24,7 @@ const Page: React.FC<{ n: number; label: string }> = ({ n, label }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 + n * 0.08, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
       data-page={n}
-      className="relative w-full aspect-[210/297] rounded-md sm:rounded-lg overflow-hidden bg-white shadow-[0_18px_50px_-12px_rgba(0,0,0,0.55)] ring-1 ring-black/10"
+      className="relative w-full aspect-[210/297] overflow-hidden bg-white shadow-[0_18px_50px_-12px_rgba(0,0,0,0.55)] ring-1 ring-black/10"
     >
       {!loaded && <div className="absolute inset-0 animate-pulse bg-gradient-to-b from-slate-100 to-slate-200" />}
       <img
@@ -85,7 +85,7 @@ const CvViewer: React.FC = () => {
   }, []);
 
   const iconBtn =
-    "grid place-items-center w-9 h-9 shrink-0 rounded-lg border border-line bg-panel dev-muted hover:text-primary hover:border-primary transition-colors";
+    "grid place-items-center w-9 h-9 shrink-0 border border-line bg-panel dev-muted hover:text-primary hover:border-primary transition-colors";
 
   return createPortal(
     <AnimatePresence>
@@ -111,11 +111,11 @@ const CvViewer: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 36 }}
             transition={{ type: "spring", stiffness: 360, damping: 34 }}
-            className="relative flex flex-col w-full max-w-4xl h-[94dvh] sm:h-full rounded-t-3xl sm:rounded-3xl border border-line bg-surface shadow-2xl overflow-hidden"
+            className="relative flex flex-col w-full max-w-4xl h-[94dvh] sm:h-full border border-line bg-surface shadow-2xl overflow-hidden"
           >
             {/* Toolbar */}
             <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-3 border-b border-line">
-              <div className="grid place-items-center w-9 h-9 shrink-0 rounded-lg bg-primary/15 text-primary">
+              <div className="grid place-items-center w-9 h-9 shrink-0 bg-primary/15 text-primary">
                 <FileText size={18} />
               </div>
               <div className="min-w-0 flex-1">
@@ -128,7 +128,7 @@ const CvViewer: React.FC = () => {
               </div>
 
               <span
-                className="hidden sm:inline-flex items-center terminal-title text-xs dev-muted px-2.5 py-1 rounded-full border border-line"
+                className="hidden sm:inline-flex items-center terminal-title text-xs dev-muted px-2.5 py-1 border border-line"
                 aria-live="polite"
               >
                 {tr(ui.page)} {current} / {pages.length}
@@ -137,7 +137,7 @@ const CvViewer: React.FC = () => {
               <a
                 href={profile.cv}
                 download={FILE_NAME}
-                className="hidden sm:inline-flex items-center gap-2 h-9 px-3.5 rounded-lg bg-accent text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+                className="hidden sm:inline-flex items-center gap-2 h-9 px-3.5 bg-accent text-white text-sm font-semibold hover:opacity-90 transition-opacity"
               >
                 <Download size={16} />
                 {tr(ui.download)}
@@ -178,7 +178,7 @@ const CvViewer: React.FC = () => {
               <a
                 href={profile.cv}
                 download={FILE_NAME}
-                className="flex-1 inline-flex items-center justify-center gap-2 h-11 rounded-xl bg-accent text-white font-semibold"
+                className="flex-1 inline-flex items-center justify-center gap-2 h-11 bg-accent text-white font-semibold"
               >
                 <Download size={18} />
                 {tr(ui.download)}

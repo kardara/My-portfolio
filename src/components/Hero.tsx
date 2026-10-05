@@ -1,19 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ChevronDown, Command, FileText, Github, Linkedin, Mail } from "lucide-react";
 import { useLanguage, type Localized } from "../contexts/LanguageContext";
-import { profile, stats } from "../data/profile";
-import Counter from "./ui/Counter";
-import Magnetic from "./ui/Magnetic";
+import { profile } from "../data/profile";
 import { openCommandPalette, openCvViewer } from "../lib/events";
+import { shapeNames, type ShapeName } from "./ui/stageShapes";
 
 const roles: Localized[] = [
   { en: "Software Developer @ AUCA", fr: "Développeur logiciel @ AUCA", ar: "مطور برمجيات @ AUCA" },
@@ -24,17 +15,11 @@ const roles: Localized[] = [
 
 const ui = {
   hi: { en: "Hi, I'm", fr: "Salut, je suis", ar: "مرحباً، أنا" },
-  languagesStat: { en: "Languages spoken", fr: "Langues parlées", ar: "لغات أتحدثها" },
   explore: { en: "to explore", fr: "pour explorer", ar: "للاستكشاف" },
   terminal: { en: "Open terminal", fr: "Ouvrir le terminal", ar: "فتح الطرفية" },
   location: { en: "Kigali, Rwanda", fr: "Kigali, Rwanda", ar: "كيغالي، رواندا" },
-  available: { en: "available", fr: "disponible", ar: "متاح" },
+  stageHint: { en: "click empty space to morph · drag to spin", fr: "cliquez dans le vide pour transformer · glissez pour tourner", ar: "انقر في مساحة فارغة للتحويل · اسحب للتدوير" },
   viewCV: { en: "View CV", fr: "Voir le CV", ar: "عرض السيرة الذاتية" },
-};
-
-const nameWord = {
-  hidden: { opacity: 0, y: "0.5em", rotateX: -40 },
-  show: { opacity: 1, y: "0em", rotateX: 0 },
 };
 
 const RoleTicker: React.FC = () => {
@@ -68,36 +53,34 @@ const RoleTicker: React.FC = () => {
   );
 };
 
+/** Elements whose clicks should not morph the 3D (text you might select, links, the photo). */
+/** Who I am at a glance: what a recruiter checks first. */
+const credentials: { value: string; label: Localized }[] = [
+  { value: "CMU-Africa", label: { en: "MSIT · AI & machine learning", fr: "MSIT · IA & apprentissage automatique", ar: "ماجستير · الذكاء الاصطناعي" } },
+  { value: "AUCA", label: { en: "Software Developer", fr: "Développeur logiciel", ar: "مطور برمجيات" } },
+  { value: "EN · FR · AR", label: { en: "Working languages", fr: "Langues de travail", ar: "لغات العمل" } },
+];
+
+const STAGE_IGNORE = "a, button, input, textarea, select, label, kbd, img, p, h1, span";
+
+const stageCaptions: Record<ShapeName, Localized> = {
+  network: { en: "AI · neural network", fr: "IA · réseau de neurones", ar: "الذكاء الاصطناعي · شبكة عصبية" },
+  code: { en: "Software · clean code", fr: "Logiciel · code propre", ar: "البرمجيات · كود نظيف" },
+  chip: { en: "Hardware · compute", fr: "Matériel · calcul", ar: "العتاد · الحوسبة" },
+  globe: { en: "Journey · N'Djamena → Kigali", fr: "Parcours · N'Djamena → Kigali", ar: "المسيرة · نجامينا ← كيغالي" },
+  arm: { en: "Robotics · automation", fr: "Robotique · automatisation", ar: "الروبوتات · الأتمتة" },
+  gear: { en: "Engineering · systems", fr: "Ingénierie · systèmes", ar: "الهندسة · الأنظمة" },
+  shield: { en: "Security · trust", fr: "Sécurité · confiance", ar: "الأمن · الثقة" },
+  padlock: { en: "Security · privacy", fr: "Sécurité · confidentialité", ar: "الأمن · الخصوصية" },
+};
+
 const PhotoCard: React.FC = () => {
   const { tr } = useLanguage();
-  const rawX = useMotionValue(0);
-  const rawY = useMotionValue(0);
-  const spring = { stiffness: 150, damping: 20 };
-  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [8, -8]), spring);
-  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-8, 8]), spring);
-  const glare = useTransform(
-    [rawX, rawY],
-    ([x, y]) =>
-      `radial-gradient(circle at ${((x as number) + 0.5) * 100}% ${((y as number) + 0.5) * 100}%, rgba(255,255,255,0.12), transparent 55%)`,
-  );
 
   return (
-    <div className="relative w-full max-w-sm mx-auto" style={{ perspective: 1200 }} dir="ltr">
-      <motion.div
-        style={{ rotateX, rotateY }}
-        onPointerMove={(e) => {
-          if (e.pointerType !== "mouse") return;
-          const r = e.currentTarget.getBoundingClientRect();
-          rawX.set((e.clientX - r.left) / r.width - 0.5);
-          rawY.set((e.clientY - r.top) / r.height - 0.5);
-        }}
-        onPointerLeave={() => {
-          rawX.set(0);
-          rawY.set(0);
-        }}
-        className="relative rounded-3xl p-[1px] bg-gradient-to-br from-primary/60 via-line to-secondary/60 shadow-2xl"
-      >
-        <div className="relative rounded-3xl overflow-hidden bg-panel">
+    <div className="relative w-full max-w-sm mx-auto" dir="ltr">
+      <div className="relative p-[1px] bg-gradient-to-br from-primary/60 via-line to-secondary/60 shadow-2xl">
+        <div className="relative overflow-hidden bg-panel">
           <img
             src={profile.photo}
             alt={profile.name}
@@ -106,23 +89,18 @@ const PhotoCard: React.FC = () => {
             className="w-full aspect-[4/5] object-cover object-top"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-surface/80 via-transparent to-transparent" />
-          <motion.div className="absolute inset-0 pointer-events-none" style={{ background: glare }} />
-          <span className="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-surface/80 backdrop-blur border border-line dev-text terminal-title text-xs">
+          <span className="absolute top-4 left-4 px-2.5 py-1 bg-surface/80 backdrop-blur border border-line dev-text terminal-title text-xs">
             📍 {tr(ui.location)}
           </span>
-          <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface/80 backdrop-blur border border-secondary/40 text-secondary terminal-title text-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
-            {tr(ui.available)}
-          </span>
         </div>
-      </motion.div>
+      </div>
 
       {/* Floating terminal */}
       <motion.div
         initial={{ opacity: 0, x: -30, y: 20 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ delay: 0.9, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute -bottom-12 -left-3 sm:-left-14 w-[14.5rem] sm:w-64 rounded-xl border border-line bg-surface/95 backdrop-blur shadow-2xl overflow-hidden"
+        transition={{ delay: 0.3, duration: 0.5 }}
+        className="absolute -bottom-12 -left-3 sm:-left-14 w-[14.5rem] sm:w-64 border border-line bg-surface/95 backdrop-blur shadow-2xl overflow-hidden"
         aria-hidden="true"
       >
         <div className="flex items-center gap-1.5 px-3 py-2 border-b border-line">
@@ -139,16 +117,10 @@ const PhotoCard: React.FC = () => {
             ["n'djamena 🇹🇩 → kigali 🇷🇼", "text-primary"],
             ["$ speaks", "dev-muted"],
             ["en · fr · ar", "text-secondary"],
-          ].map(([line, cls], i) => (
-            <motion.div
-              key={line}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.1 + i * 0.18 }}
-              className={cls}
-            >
+          ].map(([line, cls]) => (
+            <div key={line} className={cls}>
               {line}
-            </motion.div>
+            </div>
           ))}
         </div>
       </motion.div>
@@ -163,11 +135,31 @@ const Hero: React.FC = () => {
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.userAgent);
-  const words = profile.name.split(" ");
-  const last = words[words.length - 1];
+  const [shapeIdx, setShapeIdx] = useState(0);
+  const shape = shapeNames[shapeIdx];
+  const down = useRef({ x: 0, y: 0 });
 
   return (
-    <section ref={sectionRef} id="home" className="relative min-h-[100svh] flex items-center overflow-hidden pt-28 pb-24">
+    <section
+      ref={sectionRef}
+      id="home"
+      data-stage-drag
+      onPointerDown={(e) => (down.current = { x: e.clientX, y: e.clientY })}
+      onClick={(e) => {
+        // clicking empty space (not text, links or the photo) morphs the 3D; a drag also ends in a click, so skip those
+        const moved = Math.hypot(e.clientX - down.current.x, e.clientY - down.current.y);
+        if (moved < 6 && !(e.target as Element).closest(STAGE_IGNORE)) setShapeIdx((n) => (n + 1) % shapeNames.length);
+      }}
+      className="relative min-h-[100svh] flex items-center overflow-hidden pt-28 pb-24"
+    >
+      {/* Stage for the background particle cloud (see Background3D): centred, behind the text and photo */}
+      <div
+        data-stage={shape}
+        data-stage-main
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(88vw,560px)] aspect-square pointer-events-none"
+      />
+
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute inset-0 opacity-70 [background-image:linear-gradient(var(--dev-grid-soft)_1px,transparent_1px),linear-gradient(90deg,var(--dev-grid-soft)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
@@ -178,59 +170,34 @@ const Hero: React.FC = () => {
       <motion.div style={{ y: contentY, opacity: contentOpacity }} className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid lg:grid-cols-[1.25fr_1fr] gap-20 lg:gap-12 items-center max-w-6xl mx-auto">
           <div className="space-y-7">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-secondary/40 bg-secondary/10 text-sm"
-            >
-              <span className="relative flex w-2 h-2">
-                <span className="absolute inset-0 rounded-full bg-secondary ping-dot" />
-                <span className="relative w-2 h-2 rounded-full bg-secondary" />
-              </span>
-              <span className="font-medium text-secondary">{t("hero.openRoles")}</span>
-            </motion.div>
-
             <div>
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.15 }}
+                transition={{ delay: 0 }}
                 className="terminal-title dev-muted text-base sm:text-lg mb-2"
               >
                 {tr(ui.hi)}
               </motion.p>
               <motion.h1
-                initial="hidden"
-                animate="show"
-                transition={{ staggerChildren: 0.09, delayChildren: 0.2 }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.05 }}
                 className="text-[2.6rem] leading-[1.05] sm:text-6xl lg:text-7xl font-bold tracking-tight dev-heading"
-                style={{ perspective: 600 }}
-                aria-label={profile.name}
               >
-                {words.map((w, i) => (
-                  <motion.span
-                    key={w}
-                    variants={nameWord}
-                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className={`inline-block ${w === last ? "" : "me-[0.25em]"}`}
-                    aria-hidden="true"
-                  >
-                    {w}
-                    {i === words.length - 1 && <span className="text-secondary">.</span>}
-                  </motion.span>
-                ))}
+                {profile.name}
+                <span className="text-secondary">.</span>
               </motion.h1>
             </div>
 
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
               <RoleTicker />
             </motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.5 }}
+              transition={{ delay: 0.12, duration: 0.5 }}
               className="text-base sm:text-lg dev-text leading-relaxed max-w-xl"
             >
               {t("hero.description")}
@@ -239,33 +206,29 @@ const Hero: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.5 }}
+              transition={{ delay: 0.18, duration: 0.5 }}
               className="flex flex-wrap items-center gap-3"
             >
-              <Magnetic>
-                <button
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                  className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-accent text-white font-semibold shadow-lg shadow-accent/25 hover:shadow-accent/40 transition-shadow"
-                >
-                  {t("hero.cta")}
-                  <ArrowRight size={18} className="transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
-                </button>
-              </Magnetic>
-              <Magnetic>
-                <button
-                  onClick={openCvViewer}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl border border-line bg-panel dev-heading font-semibold hover:border-primary hover:text-primary transition-colors"
-                >
-                  <FileText size={18} />
-                  {tr(ui.viewCV)}
-                </button>
-              </Magnetic>
+              <button
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                className="group inline-flex items-center gap-2 px-6 py-3.5 bg-accent text-white font-semibold shadow-lg shadow-accent/25 hover:shadow-accent/40 transition-shadow"
+              >
+                {t("hero.cta")}
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
+              </button>
+              <button
+                onClick={openCvViewer}
+                className="inline-flex items-center gap-2 px-6 py-3.5 border border-line bg-panel dev-heading font-semibold hover:border-primary hover:text-primary transition-colors"
+              >
+                <FileText size={18} />
+                {tr(ui.viewCV)}
+              </button>
               <button
                 onClick={openCommandPalette}
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg dev-muted hover:text-ink text-sm transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-2 dev-muted hover:text-ink text-sm transition-colors"
               >
                 <span className="hidden sm:inline-flex items-center gap-1.5 terminal-title">
-                  <kbd className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border border-line bg-panel text-xs" dir="ltr">
+                  <kbd className="inline-flex items-center gap-0.5 px-1.5 py-0.5 border border-line bg-panel text-xs" dir="ltr">
                     {isMac ? <Command size={11} /> : "Ctrl"} K
                   </kbd>
                   {tr(ui.explore)}
@@ -277,17 +240,13 @@ const Hero: React.FC = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.95 }}
+              transition={{ delay: 0.24 }}
               className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-5 border-t border-line max-w-xl"
             >
-              {[
-                { to: stats.projects, suffix: "+", label: t("hero.projectsStat"), color: "text-primary" },
-                { to: stats.roles, label: t("hero.activeRolesStat"), color: "text-secondary" },
-                { to: stats.languages, label: tr(ui.languagesStat), color: "text-accent" },
-              ].map((s) => (
-                <div key={s.label}>
-                  <Counter to={s.to} suffix={s.suffix} className={`block text-3xl font-bold terminal-title ${s.color}`} />
-                  <span className="text-xs dev-muted">{s.label}</span>
+              {credentials.map((c) => (
+                <div key={c.value}>
+                  <span className="block text-base font-semibold dev-heading">{c.value}</span>
+                  <span className="text-xs dev-muted">{tr(c.label)}</span>
                 </div>
               ))}
               <div className="flex gap-2 sm:ms-auto">
@@ -301,9 +260,7 @@ const Hero: React.FC = () => {
                     href={href}
                     aria-label={label}
                     {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    whileHover={{ y: -3 }}
-                    whileTap={{ scale: 0.92 }}
-                    className="p-2.5 rounded-xl border border-line bg-panel dev-muted hover:text-primary hover:border-primary transition-colors"
+                    className="p-2.5 border border-line bg-panel dev-muted hover:text-primary hover:border-primary transition-colors"
                   >
                     <Icon size={18} />
                   </motion.a>
@@ -315,20 +272,38 @@ const Hero: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.94, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="pb-10 lg:pb-0"
           >
-            <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
-              <PhotoCard />
-            </motion.div>
+            <PhotoCard />
           </motion.div>
         </div>
       </motion.div>
 
+      <div className="absolute bottom-16 lg:bottom-20 inset-x-0 flex justify-center px-4 pointer-events-none" dir="ltr">
+        <div className="flex items-center gap-3 terminal-title text-[11px]">
+          <span className="dev-muted">fig.{String(shapeIdx + 1).padStart(2, "0")}/{String(shapeNames.length).padStart(2, "0")}</span>
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={shape}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.25 }}
+              className="dev-heading"
+              aria-live="polite"
+            >
+              <span className="text-primary">▸</span> {tr(stageCaptions[shape])}
+            </motion.span>
+          </AnimatePresence>
+          <span className="hidden md:inline dev-muted">· {tr(ui.stageHint)}</span>
+        </div>
+      </div>
+
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
+        transition={{ delay: 0.6 }}
         onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
         className="hidden lg:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-1 dev-muted hover:text-primary terminal-title text-xs"
       >

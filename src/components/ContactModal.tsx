@@ -62,7 +62,7 @@ const ContactModal: React.FC = () => {
     }
   };
 
-  const field = "w-full px-4 py-3 bg-surface border border-line rounded-xl dev-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition";
+  const field = "w-full px-4 py-3 bg-surface border border-line dev-text focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition";
 
   return createPortal(
     <AnimatePresence>
@@ -82,12 +82,12 @@ const ContactModal: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 30 }}
             transition={{ type: "spring", stiffness: 380, damping: 34 }}
-            className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl border border-line bg-surface p-5 sm:p-8 shadow-2xl"
+            className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto border border-line bg-surface p-5 sm:p-8 shadow-2xl"
           >
             <button
               aria-label="Close"
               onClick={() => setOpen(false)}
-              className="absolute top-4 end-4 p-2 rounded-lg border border-line dev-muted hover:text-primary hover:border-primary"
+              className="absolute top-4 end-4 p-2 border border-line dev-muted hover:text-primary hover:border-primary"
             >
               <X size={16} />
             </button>
@@ -126,8 +126,7 @@ const ContactModal: React.FC = () => {
                 <motion.button
                   type="submit"
                   disabled={status !== "idle"}
-                  whileTap={{ scale: 0.98 }}
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-accent text-white font-semibold disabled:opacity-80"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-accent text-white font-semibold disabled:opacity-80"
                 >
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.span
@@ -146,7 +145,7 @@ const ContactModal: React.FC = () => {
                   href={profile.calendar}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-line bg-panel dev-heading font-semibold hover:border-secondary hover:text-secondary transition-colors"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 border border-line bg-panel dev-heading font-semibold hover:border-secondary hover:text-secondary transition-colors"
                 >
                   <CalendarPlus size={18} />
                   {t("header.scheduleMeeting")}

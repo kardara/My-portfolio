@@ -53,7 +53,7 @@ const About: React.FC = () => {
 
         <div className="grid lg:grid-cols-5 gap-5 sm:gap-6">
           {/* Bio */}
-          <motion.div {...rise} transition={{ duration: 0.6 }} className="lg:col-span-3 lg:row-span-2 shell-panel !rounded-2xl p-6 sm:p-8 flex flex-col">
+          <motion.div {...rise} transition={{ duration: 0.6 }} className="lg:col-span-3 lg:row-span-2 shell-panel p-6 sm:p-8 flex flex-col">
             <div className="flex items-center gap-2 pb-4 mb-5 border-b border-line">
               <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
@@ -86,7 +86,7 @@ const About: React.FC = () => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.3 + i * 0.04 }}
-                    className="px-3 py-1 rounded-lg text-xs font-medium border border-line bg-surface/60 dev-text"
+                    className="px-3 py-1 text-xs font-medium border border-line bg-surface/60 dev-text"
                   >
                     {s}
                   </motion.span>
@@ -96,7 +96,7 @@ const About: React.FC = () => {
           </motion.div>
 
           {/* Languages */}
-          <motion.div {...rise} transition={{ duration: 0.6, delay: 0.1 }} className="lg:col-span-2 shell-panel !rounded-2xl p-6">
+          <motion.div {...rise} transition={{ duration: 0.6, delay: 0.1 }} className="lg:col-span-2 shell-panel p-6">
             <div className="flex items-center gap-2 mb-5">
               <Languages size={18} className="text-primary" />
               <h3 className="font-bold dev-heading">{tr(ui.languages)}</h3>
@@ -108,13 +108,13 @@ const About: React.FC = () => {
                     <span className="dev-heading font-medium">{l.name}</span>
                     <span className="terminal-title text-xs dev-muted">{tr(ui[l.label])}</span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-line/60 overflow-hidden">
+                  <div className="h-1.5 bg-line/60 overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${l.level * 100}%` }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.9, delay: 0.2 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                      className="h-full rounded-full bg-gradient-to-r from-primary to-secondary rtl:bg-gradient-to-l"
+                      className="h-full bg-gradient-to-r from-primary to-secondary rtl:bg-gradient-to-l"
                     />
                   </div>
                 </div>
@@ -123,7 +123,7 @@ const About: React.FC = () => {
           </motion.div>
 
           {/* Community */}
-          <motion.div {...rise} transition={{ duration: 0.6, delay: 0.2 }} className="lg:col-span-2 shell-panel !rounded-2xl p-6">
+          <motion.div {...rise} transition={{ duration: 0.6, delay: 0.2 }} className="lg:col-span-2 shell-panel p-6">
             <div className="flex items-center gap-2 mb-5">
               <HeartHandshake size={18} className="text-accent" />
               <h3 className="font-bold dev-heading">{tr(ui.beyond)}</h3>
@@ -146,9 +146,9 @@ const About: React.FC = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-5 sm:mt-6">
           {strengths.map((s, i) => (
             <motion.div key={s.titleKey} {...rise} transition={{ duration: 0.5, delay: i * 0.08 }}>
-              <Spotlight color={s.color} className="h-full rounded-2xl border border-line bg-panel p-5 transition-colors hover:border-[color:var(--spot)]">
+              <Spotlight color={s.color} className="h-full border border-line bg-panel p-5 transition-colors hover:border-[color:var(--spot)]">
                 <div
-                  className="relative w-10 h-10 rounded-xl grid place-items-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"
+                  className="relative w-10 h-10 grid place-items-center mb-4"
                   style={{ background: `color-mix(in srgb, ${s.color} 15%, transparent)`, color: s.color }}
                 >
                   <s.icon size={20} />

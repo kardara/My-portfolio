@@ -115,13 +115,12 @@ const GitHubActivity: React.FC = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6 }}
-      className="mt-16 shell-panel !rounded-2xl p-5 sm:p-7"
+      className="mt-16 shell-panel p-5 sm:p-7"
     >
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <Github size={20} className="dev-heading" />
         <h3 className="text-lg font-bold dev-heading">{tr(ui.title)}</h3>
         <span className="relative flex w-2 h-2">
-          <span className="absolute inset-0 rounded-full bg-secondary ping-dot" />
           <span className="relative w-2 h-2 rounded-full bg-secondary" />
         </span>
         <a
@@ -154,7 +153,7 @@ const GitHubActivity: React.FC = () => {
 
             <div>
               <p className="terminal-title text-[11px] uppercase tracking-wider dev-muted mb-3">{tr(ui.languages)}</p>
-              <div className="flex h-2.5 rounded-full overflow-hidden bg-surface mb-3">
+              <div className="flex h-2.5 overflow-hidden bg-surface mb-3">
                 {data?.languages.map((l, i) => (
                   <motion.div
                     key={l.name}
@@ -190,8 +189,7 @@ const GitHubActivity: React.FC = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.06 }}
-                    whileHover={{ y: -3 }}
-                    className="block rounded-xl border border-line bg-surface/50 p-3.5 hover:border-primary/50 transition-colors"
+                    className="block border border-line bg-surface/50 p-3.5 hover:border-primary/50 transition-colors"
                   >
                     <div className="flex items-center gap-2 mb-1.5">
                       <GitBranch size={13} className="text-primary shrink-0" />
@@ -213,7 +211,7 @@ const GitHubActivity: React.FC = () => {
                     </div>
                   </motion.a>
                 ) : (
-                  <div key={i} className="h-[68px] rounded-xl border border-line bg-surface/40 animate-pulse" />
+                  <div key={i} className="h-[68px] border border-line bg-surface/40 animate-pulse" />
                 ),
               )}
             </div>
@@ -221,7 +219,7 @@ const GitHubActivity: React.FC = () => {
 
           <div className="lg:col-span-2">
             <p className="terminal-title text-[11px] uppercase tracking-wider dev-muted mb-3">{tr(ui.contributions)}</p>
-            <div className="overflow-x-auto rounded-xl border border-line bg-white/95 dark:bg-white/[0.92] p-3" dir="ltr">
+            <div className="overflow-x-auto border border-line bg-white/95 dark:bg-white/[0.92] p-3" dir="ltr">
               <img
                 src={`https://ghchart.rshah.org/3fb950/${profile.handle}`}
                 alt={tr(ui.contributions)}

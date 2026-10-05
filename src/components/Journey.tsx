@@ -64,7 +64,7 @@ const RouteMap: React.FC = () => {
   const distance = useTransform(progress, (v) => `${Math.round(v * 2280).toLocaleString()} km`);
 
   return (
-    <div className="shell-panel !rounded-2xl p-4 sm:p-6 mb-14" dir="ltr">
+    <div className="shell-panel p-4 sm:p-6 mb-14" dir="ltr">
       <svg ref={ref} viewBox="0 0 600 230" className="w-full h-auto" role="img" aria-label="N'Djamena, Chad to Kigali, Rwanda, about 2,280 km">
         <defs>
           <pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse">
@@ -129,6 +129,7 @@ const Journey: React.FC = () => {
   const listRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: listRef, offset: ["start 75%", "end 60%"] });
   const lineScale = useSpring(scrollYProgress, { stiffness: 120, damping: 28 });
+  const headTop = useTransform(lineScale, (v) => `${v * 100}%`);
 
   const visible = milestones.filter((m) => filter === "all" || m.kind === filter);
   const filters: Filter[] = ["all", "work", "education", "community"];
@@ -149,7 +150,7 @@ const Journey: React.FC = () => {
                 key={f}
                 onClick={() => setFilter(f)}
                 aria-pressed={active}
-                className={`relative px-4 py-1.5 rounded-full text-sm border transition-colors ${
+                className={`relative px-4 py-1.5 text-sm border transition-colors ${
                   active ? "border-transparent" : "border-line dev-muted hover:text-ink"
                 }`}
                 style={active ? { color } : undefined}
@@ -157,7 +158,7 @@ const Journey: React.FC = () => {
                 {active && (
                   <motion.span
                     layoutId="journey-filter"
-                    className="absolute inset-0 rounded-full border"
+                    className="absolute inset-0 border"
                     style={{ borderColor: color, background: `color-mix(in srgb, ${color} 12%, transparent)` }}
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
                   />
@@ -181,6 +182,12 @@ const Journey: React.FC = () => {
               background: "linear-gradient(180deg, var(--color-accent), var(--color-secondary) 45%, var(--color-primary))",
             }}
           />
+          {/* glowing head riding the tip of the fill */}
+          <motion.div
+            className="absolute start-[4px] lg:start-1/2 w-2 h-2 -mt-1 rounded-full bg-primary lg:-translate-x-1/2 rtl:lg:translate-x-1/2 z-20 pointer-events-none"
+            style={{ top: headTop, boxShadow: "0 0 0 4px color-mix(in srgb, var(--color-primary) 25%, transparent), 0 0 18px 4px var(--color-primary)" }}
+            aria-hidden="true"
+          />
 
           <motion.ol layout className="space-y-5 sm:space-y-8 lg:space-y-4">
             <AnimatePresence mode="popLayout" initial={false}>
@@ -199,19 +206,24 @@ const Journey: React.FC = () => {
                     className="relative ps-7 sm:ps-9 lg:ps-0 lg:grid lg:grid-cols-2 lg:gap-16"
                   >
                     {/* node */}
-                    <div
-                      className="absolute top-7 start-[1px] lg:start-1/2 lg:-translate-x-1/2 rtl:lg:translate-x-1/2 w-3.5 h-3.5 rounded-full border-[3px] border-surface z-10"
-                      style={{ background: color, boxShadow: `0 0 0 1px ${color}` }}
-                    />
+                    <div className="absolute top-7 start-[1px] lg:start-1/2 lg:-translate-x-1/2 rtl:lg:translate-x-1/2 w-3.5 h-3.5 z-10">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        whileInView={{ scale: 1 }}
+                        viewport={{ once: true, margin: "-35% 0px -35% 0px" }}
+                        transition={{ type: "spring", stiffness: 420, damping: 18 }}
+                        className="w-full h-full rounded-full border-[3px] border-surface"
+                        style={{ background: color, boxShadow: `0 0 0 1px ${color}` }}
+                      />
+                    </div>
 
                     <motion.div
-                      whileHover={{ y: -4 }}
-                      className={`shell-panel !rounded-2xl p-4 sm:p-6 ${right ? "lg:col-start-2" : "lg:col-start-1 lg:text-end"}`}
+                      className={`shell-panel p-4 sm:p-6 ${right ? "lg:col-start-2" : "lg:col-start-1 lg:text-end"}`}
                     >
                       <div className={`flex flex-wrap items-center gap-2 mb-2 terminal-title text-xs ${right ? "" : "lg:justify-end"}`}>
                         <span style={{ color }} className="font-semibold">{m.period}</span>
                         {m.current && (
-                          <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 bg-secondary/15 text-secondary text-[10px] uppercase tracking-wider">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-secondary/15 text-secondary text-[10px] uppercase tracking-wider">
                             <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
                             {tr(ui.now)}
                           </span>
@@ -225,7 +237,7 @@ const Journey: React.FC = () => {
                           {m.tags.map((t) => (
                             <span
                               key={t.en}
-                              className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold border"
+                              className="px-2.5 py-0.5 text-[11px] font-semibold border"
                               style={{ color, borderColor: `color-mix(in srgb, ${color} 35%, transparent)`, background: `color-mix(in srgb, ${color} 8%, transparent)` }}
                             >
                               {tr(t)}

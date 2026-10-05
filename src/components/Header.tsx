@@ -91,7 +91,7 @@ const Header: React.FC = () => {
       className="fixed top-0 inset-x-0 z-50 px-3 sm:px-4 pt-3"
     >
       <nav
-        className={`mx-auto max-w-6xl flex items-center gap-2 rounded-2xl px-3 sm:px-4 py-2 transition-all duration-300 ${
+        className={`mx-auto max-w-6xl flex items-center gap-2 px-3 sm:px-4 py-2 transition-all duration-300 ${
           scrolled || menuOpen
             ? "bg-surface/80 backdrop-blur-xl border border-line shadow-lg shadow-black/5"
             : "bg-transparent border border-transparent"
@@ -113,14 +113,14 @@ const Header: React.FC = () => {
                 onClick={() => go(item.id)}
                 onMouseEnter={() => setHovered(item.id)}
                 aria-current={active === item.id ? "true" : undefined}
-                className={`relative px-3.5 py-1.5 text-sm rounded-lg transition-colors ${
+                className={`relative px-3.5 py-1.5 text-sm transition-colors ${
                   active === item.id ? "text-primary font-semibold" : "dev-text hover:text-heading"
                 }`}
               >
                 {pill === item.id && (
                   <motion.span
                     layoutId="nav-pill"
-                    className="absolute inset-0 rounded-lg bg-primary/10 border border-primary/20"
+                    className="absolute inset-0 bg-primary/10 border border-primary/20"
                     transition={{ type: "spring", stiffness: 450, damping: 35 }}
                   />
                 )}
@@ -135,7 +135,7 @@ const Header: React.FC = () => {
             onClick={openCommandPalette}
             aria-label={tr(ui.search)}
             title={tr(ui.search)}
-            className="hidden sm:inline-flex items-center gap-2 h-9 px-2.5 rounded-lg border border-line bg-panel dev-muted hover:text-ink hover:border-primary/50 transition-colors"
+            className="hidden sm:inline-flex items-center gap-2 h-9 px-2.5 border border-line bg-panel dev-muted hover:text-ink hover:border-primary/50 transition-colors"
           >
             <Search size={15} />
             <kbd className="terminal-title text-[10px] lg:inline hidden" dir="ltr">⌘K</kbd>
@@ -147,7 +147,7 @@ const Header: React.FC = () => {
               aria-label={t("header.language")}
               aria-haspopup="menu"
               aria-expanded={langOpen}
-              className="inline-flex items-center gap-1 h-9 px-2.5 rounded-lg border border-line bg-panel dev-text hover:text-primary transition-colors"
+              className="inline-flex items-center gap-1 h-9 px-2.5 border border-line bg-panel dev-text hover:text-primary transition-colors"
             >
               <Globe size={16} />
               <span className="text-xs font-semibold terminal-title">{language.toUpperCase()}</span>
@@ -160,7 +160,7 @@ const Header: React.FC = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -6, scale: 0.97 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute top-full end-0 mt-2 w-40 p-1 bg-surface border border-line rounded-xl shadow-xl"
+                  className="absolute top-full end-0 mt-2 w-40 p-1 bg-surface border border-line shadow-xl"
                 >
                   {languages.map((l) => (
                     <button
@@ -171,7 +171,7 @@ const Header: React.FC = () => {
                         setLanguage(l.code);
                         setLangOpen(false);
                       }}
-                      className={`flex w-full items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-primary/10 ${
+                      className={`flex w-full items-center justify-between px-3 py-2 text-sm hover:bg-primary/10 ${
                         language === l.code ? "text-primary font-semibold" : "dev-text"
                       }`}
                     >
@@ -187,7 +187,7 @@ const Header: React.FC = () => {
           <button
             onClick={toggleTheme}
             aria-label={t("header.toggleTheme")}
-            className="relative grid place-items-center w-9 h-9 rounded-lg border border-line bg-panel dev-text hover:text-primary overflow-hidden"
+            className="relative grid place-items-center w-9 h-9 border border-line bg-panel dev-text hover:text-primary overflow-hidden"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
@@ -203,9 +203,8 @@ const Header: React.FC = () => {
           </button>
 
           <motion.button
-            whileTap={{ scale: 0.96 }}
             onClick={openContactModal}
-            className="hidden md:inline-flex items-center gap-2 h-9 px-3.5 rounded-lg bg-accent text-white text-sm font-semibold hover:opacity-90"
+            className="hidden md:inline-flex items-center gap-2 h-9 px-3.5 bg-accent text-white text-sm font-semibold hover:opacity-90"
           >
             <MessageSquare size={15} />
             {tr(ui.talk)}
@@ -215,7 +214,7 @@ const Header: React.FC = () => {
             onClick={() => setMenuOpen((o) => !o)}
             aria-label={t("header.menu")}
             aria-expanded={menuOpen}
-            className="md:hidden grid place-items-center w-9 h-9 rounded-lg border border-line bg-panel dev-text"
+            className="md:hidden grid place-items-center w-9 h-9 border border-line bg-panel dev-text"
           >
             {menuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -230,14 +229,14 @@ const Header: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden mx-auto max-w-6xl mt-2 rounded-2xl border border-line bg-surface/95 backdrop-blur-xl p-3 shadow-xl"
+            className="md:hidden mx-auto max-w-6xl mt-2 border border-line bg-surface/95 backdrop-blur-xl p-3 shadow-xl"
           >
             <motion.ul initial="hidden" animate="show" transition={{ staggerChildren: 0.04 }} className="space-y-1">
               {navItems.map((item, i) => (
                 <motion.li key={item.id} variants={{ hidden: { opacity: 0, x: -12 }, show: { opacity: 1, x: 0 } }}>
                   <button
                     onClick={() => go(item.id)}
-                    className={`flex w-full items-center gap-3 px-3 py-3 rounded-xl text-start ${
+                    className={`flex w-full items-center gap-3 px-3 py-3 text-start ${
                       active === item.id ? "bg-primary/10 text-primary font-semibold" : "dev-text"
                     }`}
                   >
@@ -253,7 +252,7 @@ const Header: React.FC = () => {
                   setMenuOpen(false);
                   openCommandPalette();
                 }}
-                className="inline-flex items-center justify-center gap-2 py-3 rounded-xl border border-line bg-panel dev-text text-sm terminal-title"
+                className="inline-flex items-center justify-center gap-2 py-3 border border-line bg-panel dev-text text-sm terminal-title"
               >
                 <Search size={15} /> $ terminal
               </button>
@@ -262,7 +261,7 @@ const Header: React.FC = () => {
                   setMenuOpen(false);
                   openContactModal();
                 }}
-                className="inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-accent text-white text-sm font-semibold"
+                className="inline-flex items-center justify-center gap-2 py-3 bg-accent text-white text-sm font-semibold"
               >
                 <MessageSquare size={15} /> {tr(ui.talk)}
               </button>

@@ -61,7 +61,7 @@ const logoSlug: Record<string, string> = {
 
 const TechChip: React.FC<{ name: string; small?: boolean }> = ({ name, small }) => (
   <span
-    className={`inline-flex items-center gap-1.5 rounded-md border border-line bg-surface/60 dev-text ${
+    className={`inline-flex items-center gap-1.5 border border-line bg-surface/60 dev-text ${
       small ? "px-2 py-0.5 text-[11px]" : "px-2.5 py-1 text-xs"
     }`}
   >
@@ -104,17 +104,24 @@ const ProjectCover: React.FC<{ project: Project; className?: string }> = ({ proj
     </div>
   );
 
-const ProjectCard: React.FC<{ project: Project; onOpen: () => void }> = ({ project, onOpen }) => {
+const ProjectCard: React.FC<{ project: Project; index: number; onOpen: () => void }> = ({ project, index, onOpen }) => {
   const { tr } = useLanguage();
   return (
     <motion.article
       layout
       layoutId={`card-${project.id}`}
-      initial={{ opacity: 0, scale: 0.96 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.96 }}
+      initial={{ opacity: 0, y: 32, scale: 0.97, filter: "blur(6px)" }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        transition: { duration: 0.55, delay: Math.min(index, 6) * 0.07, ease: [0.22, 1, 0.36, 1] },
+      }}
+      viewport={{ once: true, margin: "-60px" }}
+      exit={{ opacity: 0, scale: 0.94, filter: "blur(6px)", transition: { duration: 0.2 } }}
       transition={{ type: "spring", stiffness: 260, damping: 30 }}
-      className={`group shell-panel !rounded-2xl flex flex-col cursor-pointer ${
+      className={`group shell-panel flex flex-col cursor-pointer ${
         project.featured ? "lg:col-span-2" : ""
       }`}
       onClick={onOpen}
@@ -133,14 +140,13 @@ const ProjectCard: React.FC<{ project: Project; onOpen: () => void }> = ({ proje
         />
         <div className="absolute inset-0 bg-gradient-to-t from-surface/70 via-transparent to-transparent" />
         {project.featured && (
-          <span className="absolute top-3 start-3 inline-flex items-center gap-1 rounded-full bg-surface/80 backdrop-blur px-2.5 py-1 text-[11px] font-semibold text-secondary border border-secondary/40">
+          <span className="absolute top-3 start-3 inline-flex items-center gap-1 bg-surface/80 backdrop-blur px-2.5 py-1 text-[11px] font-semibold text-secondary border border-secondary/40">
             <Star size={11} fill="currentColor" /> {tr(ui.featured)}
           </span>
         )}
         {project.demo && (
-          <span className="absolute top-3 end-3 inline-flex items-center gap-1.5 rounded-full bg-surface/80 backdrop-blur px-2.5 py-1 text-[11px] terminal-title dev-text border border-line">
+          <span className="absolute top-3 end-3 inline-flex items-center gap-1.5 bg-surface/80 backdrop-blur px-2.5 py-1 text-[11px] terminal-title dev-text border border-line">
             <span className="relative flex w-1.5 h-1.5">
-              <span className="absolute inset-0 rounded-full bg-secondary ping-dot" />
               <span className="relative w-1.5 h-1.5 rounded-full bg-secondary" />
             </span>
             live
@@ -175,7 +181,7 @@ const ProjectCard: React.FC<{ project: Project; onOpen: () => void }> = ({ proje
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${project.title} · ${tr(ui.code)}`}
-                className="p-2 rounded-lg dev-muted hover:text-primary hover:bg-primary/10 transition-colors"
+                className="p-2 dev-muted hover:text-primary hover:bg-primary/10 transition-colors"
               >
                 <Github size={16} />
               </a>
@@ -186,7 +192,7 @@ const ProjectCard: React.FC<{ project: Project; onOpen: () => void }> = ({ proje
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${project.title} · ${tr(ui.live)}`}
-                className="p-2 rounded-lg dev-muted hover:text-secondary hover:bg-secondary/10 transition-colors"
+                className="p-2 dev-muted hover:text-secondary hover:bg-secondary/10 transition-colors"
               >
                 <ExternalLink size={16} />
               </a>
@@ -249,7 +255,7 @@ const CaseStudy: React.FC<{
         aria-modal="true"
         aria-labelledby={`cs-title-${project.id}`}
         transition={{ type: "spring", stiffness: 260, damping: 30 }}
-        className="relative w-full sm:max-w-3xl max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl border border-line bg-surface shadow-2xl"
+        className="relative w-full sm:max-w-3xl max-h-[92vh] overflow-y-auto border border-line bg-surface shadow-2xl"
       >
         <motion.div layoutId={`cover-${project.id}`} className="relative h-56 sm:h-80 overflow-hidden">
           <ProjectCover project={project} />
@@ -266,7 +272,7 @@ const CaseStudy: React.FC<{
               key={b.label.en}
               onClick={b.fn}
               aria-label={tr(b.label)}
-              className="p-2 rounded-full bg-surface/80 backdrop-blur border border-line dev-text hover:text-primary hover:border-primary transition-colors"
+              className="p-2 bg-surface/80 backdrop-blur border border-line dev-text hover:text-primary hover:border-primary transition-colors"
             >
               {b.icon}
             </button>
@@ -293,7 +299,7 @@ const CaseStudy: React.FC<{
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-secondary text-[#0b1220] font-semibold text-sm hover:opacity-90"
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-secondary text-[#0b1220] font-semibold text-sm hover:opacity-90"
               >
                 <ExternalLink size={16} /> {tr(ui.live)}
               </a>
@@ -303,13 +309,13 @@ const CaseStudy: React.FC<{
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-line bg-panel dev-text font-semibold text-sm hover:border-primary hover:text-primary"
+                className="inline-flex items-center gap-2 px-4 py-2.5 border border-line bg-panel dev-text font-semibold text-sm hover:border-primary hover:text-primary"
               >
                 <Github size={16} /> {tr(ui.code)}
               </a>
             )}
             {project.isPrivate && (
-              <span className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-dashed border-line dev-muted text-sm terminal-title">
+              <span className="inline-flex items-center gap-2 px-4 py-2.5 border border-dashed border-line dev-muted text-sm terminal-title">
                 <Lock size={15} /> {tr(ui.private)}
               </span>
             )}
@@ -322,7 +328,7 @@ const CaseStudy: React.FC<{
                   key={s.label.en}
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0, transition: { delay: 0.25 + i * 0.07 } }}
-                  className={`rounded-xl border border-line bg-panel p-4 ${
+                  className={` border border-line bg-panel p-4 ${
                     sections.length === 2 && i === 1 ? "sm:col-span-2" : ""
                   }`}
                 >
@@ -408,7 +414,7 @@ const Projects: React.FC = () => {
         <div className="flex justify-center mb-10">
           <div
             role="tablist"
-            className="inline-flex flex-wrap justify-center gap-1 p-1 rounded-2xl border border-line bg-panel"
+            className="inline-flex flex-wrap justify-center gap-1 p-1 border border-line bg-panel"
           >
             {filters.map((f) => {
               const count = f === "all" ? projects.length : projects.filter((p) => p.category === f).length;
@@ -419,14 +425,14 @@ const Projects: React.FC = () => {
                   role="tab"
                   aria-selected={active}
                   onClick={() => setFilter(f)}
-                  className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors ${
                     active ? "text-[#0b1220]" : "dev-muted hover:text-ink"
                   }`}
                 >
                   {active && (
                     <motion.span
                       layoutId="project-filter"
-                      className="absolute inset-0 rounded-xl bg-primary"
+                      className="absolute inset-0 bg-primary"
                       transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     />
                   )}
@@ -442,8 +448,8 @@ const Projects: React.FC = () => {
         <LayoutGroup>
           <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 grid-flow-dense">
             <AnimatePresence mode="popLayout">
-              {visible.map((p) => (
-                <ProjectCard key={p.id} project={p} onOpen={() => setOpenId(p.id)} />
+              {visible.map((p, i) => (
+                <ProjectCard key={p.id} project={p} index={i} onOpen={() => setOpenId(p.id)} />
               ))}
             </AnimatePresence>
           </motion.div>
