@@ -4,7 +4,7 @@ import { ArrowRight, ChevronDown, Command, FileText, Github, Linkedin, Mail } fr
 import { useLanguage, type Localized } from "../contexts/LanguageContext";
 import { profile } from "../data/profile";
 import { openCommandPalette, openCvViewer } from "../lib/events";
-import { shapeNames } from "./ui/stageShapes";
+import { shapeNames, type ShapeName } from "./ui/stageShapes";
 
 const roles: Localized[] = [
   { en: "Software Developer @ AUCA", fr: "Développeur logiciel @ AUCA", ar: "مطور برمجيات @ AUCA" },
@@ -24,15 +24,18 @@ const ui = {
 /** How long each role line (and its matching 3D symbol) stays up. */
 const TICK_MS = 2800;
 
-/** Shared clock for the role ticker and the 3D stage; `advance` steps both and restarts the timer. */
-const useHeroTick = () => {
+/**
+ * Shared clock for the role ticker and the 3D stage; `advance` steps both and restarts the timer.
+ * While `paused` (mouse over the 3D) nothing changes; on resume the full interval runs again.
+ */
+const useHeroTick = (paused: boolean) => {
   const [tick, setTick] = useState(0);
   const reduce = useReducedMotion();
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || paused) return;
     const id = window.setTimeout(() => setTick((n) => n + 1), TICK_MS);
     return () => window.clearTimeout(id);
-  }, [tick, reduce]);
+  }, [tick, reduce, paused]);
   return { tick, advance: () => setTick((n) => n + 1) };
 };
 
@@ -64,6 +67,18 @@ const RoleTicker: React.FC<{ tick: number }> = ({ tick }) => {
 };
 
 /** Elements whose clicks should not morph the 3D (text you might select, links, the photo). */
+/** Name shown under the hero for each 3D symbol. */
+const stageCaptions: Record<ShapeName, Localized> = {
+  network: { en: "AI · neural network", fr: "IA · réseau de neurones", ar: "الذكاء الاصطناعي · شبكة عصبية" },
+  code: { en: "Software · clean code", fr: "Logiciel · code propre", ar: "البرمجيات · كود نظيف" },
+  chip: { en: "Hardware · compute", fr: "Matériel · calcul", ar: "العتاد · الحوسبة" },
+  globe: { en: "Journey · N'Djamena → Kigali", fr: "Parcours · N'Djamena → Kigali", ar: "المسيرة · نجامينا ← كيغالي" },
+  arm: { en: "Robotics · automation", fr: "Robotique · automatisation", ar: "الروبوتات · الأتمتة" },
+  gear: { en: "Engineering · systems", fr: "Ingénierie · systèmes", ar: "الهندسة · الأنظمة" },
+  shield: { en: "Security · trust", fr: "Sécurité · confiance", ar: "الأمن · الثقة" },
+  padlock: { en: "Security · privacy", fr: "Sécurité · confidentialité", ar: "الأمن · الخصوصية" },
+};
+
 /** Who I am at a glance: what a recruiter checks first. */
 const credentials: { value: string; label: Localized }[] = [
   { value: "CMU-Africa", label: { en: "MSIT · AI & machine learning", fr: "MSIT · IA & apprentissage automatique", ar: "ماجستير · الذكاء الاصطناعي" } },
@@ -134,9 +149,10 @@ const Hero: React.FC = () => {
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.userAgent);
-  const { tick, advance } = useHeroTick();
-  const shapeIdx = tick % shapeNames.length;
-  const shape = shapeNames[shapeIdx];
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [overStage, setOverStage] = useState(false);
+  const { tick, advance } = useHeroTick(overStage);
+  const shape = shapeNames[tick % shapeNames.length];
   const down = useRef({ x: 0, y: 0 });
 
   return (
@@ -145,6 +161,13 @@ const Hero: React.FC = () => {
       id="home"
       data-stage-drag
       onPointerDown={(e) => (down.current = { x: e.clientX, y: e.clientY })}
+      onPointerMove={(e) => {
+        // hold the current symbol while the mouse is over it, so people can play with it
+        if (e.pointerType !== "mouse" || !stageRef.current) return;
+        const r = stageRef.current.getBoundingClientRect();
+        setOverStage(Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2)) < r.width * 0.45);
+      }}
+      onPointerLeave={() => setOverStage(false)}
       onClick={(e) => {
         // clicking empty space (not text, links or the photo) morphs the 3D; a drag also ends in a click, so skip those
         const moved = Math.hypot(e.clientX - down.current.x, e.clientY - down.current.y);
@@ -154,6 +177,7 @@ const Hero: React.FC = () => {
     >
       {/* Stage for the background particle cloud (see Background3D): centred, behind the text and photo */}
       <div
+        ref={stageRef}
         data-stage={shape}
         data-stage-main
         aria-hidden="true"
@@ -279,6 +303,22 @@ const Hero: React.FC = () => {
           </motion.div>
         </div>
       </motion.div>
+
+      <div className="absolute bottom-16 lg:bottom-20 inset-x-0 flex justify-center px-4 pointer-events-none" dir="ltr">
+        <AnimatePresence initial={false} mode="popLayout">
+          <motion.span
+            key={shape}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.25 }}
+            className="terminal-title text-[11px] dev-heading"
+            aria-live="polite"
+          >
+            <span className="text-primary">▸</span> {tr(stageCaptions[shape])}
+          </motion.span>
+        </AnimatePresence>
+      </div>
 
       <motion.button
         initial={{ opacity: 0 }}
